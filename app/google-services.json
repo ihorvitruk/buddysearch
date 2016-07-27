@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "42851104733",
+    "firebase_url": "https://buddysearch-bbb46.firebaseio.com",
+    "project_id": "buddysearch-bbb46",
+    "storage_bucket": "buddysearch-bbb46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42851104733:android:371f263146ef4168",
+        "android_client_info": {
+          "package_name": "com.buddysearch.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42851104733-fhvbukcp3eaomb8hte3h1de5g0uremjk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buddysearch.android",
+            "certificate_hash": "9558BCDD8A073A4E6F0F972CE8ADE1E1EC61E238"
+          }
+        },
+        {
+          "client_id": "42851104733-6kuehb453496mdqij7pe59fud596kbgb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buddysearch.android",
+            "certificate_hash": "2A07BE3BBF0BF1F3695627F785CF2C89344A5372"
+          }
+        },
+        {
+          "client_id": "42851104733-pbjutfocpna474vthdrf452128knskar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcP5Og2jbh5AIpIqbKlMxZa4g48trqyWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42851104733-pbjutfocpna474vthdrf452128knskar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
