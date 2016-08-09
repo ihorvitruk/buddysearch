@@ -1,0 +1,46 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "24.0.1"
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 24
+    androidCompileSdkVersion = 24
+
+    //Libraries
+    daggerVersion = '2.6'
+    rxJavaVersion = '1.1.8'
+    rxAndroidVersion = '1.2.1'
+    lombokVersion = '1.16.10'
+
+    //Testing
+    jUnitVersion = '4.12'
+    mockitoVersion = '1.9.5'
+
+    //Development
+    leakCanaryVersion = '1.4-beta2'
+
+    domainDependencies = [
+            rxJava: "io.reactivex:rxjava:${rxJavaVersion}",
+            lombok: "org.projectlombok:lombok:${lombokVersion}"
+    ]
+
+    domainTestDependencies = [
+            junit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+
+    dataDependencies = [
+            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger        : "com.google.dagger:dagger:${daggerVersion}",
+    ]
+
+    developmentDependencies = [
+            leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+    ]
+
+}

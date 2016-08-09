@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+
+    compile domainDependencies.rxJava
+    compile domainDependencies.lombok
+
+    testCompile domainTestDependencies.junit
+    testCompile domainTestDependencies.mockito
+}

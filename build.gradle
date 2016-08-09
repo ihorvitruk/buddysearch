@@ -1,4 +1,5 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
     repositories {
@@ -6,16 +7,16 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
 allprojects {
-    repositories {
-        jcenter()
+    ext {
+        androidApplicationId = 'com.buddysearch.android.presentation'
+        androidVersionCode = 1
+        androidVersionName = "1.0"
+        testApplicationId = 'com.buddysearch.android.presentation.test'
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

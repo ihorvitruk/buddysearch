@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.buddysearch.android"
+        applicationId
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
