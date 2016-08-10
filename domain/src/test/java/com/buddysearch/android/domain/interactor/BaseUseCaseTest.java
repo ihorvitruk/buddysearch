@@ -5,18 +5,20 @@ import com.buddysearch.android.domain.executor.ThreadExecutor;
 import com.buddysearch.android.domain.repository.Repository;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import rx.functions.Action0;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-public abstract class BaseUseCaseTest<USECASE extends UseCase, REPOSITORY extends Repository> {
+@RunWith(MockitoJUnitRunner.class)
+public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY extends Repository> {
 
-    protected USECASE useCase;
+    protected USE_CASE useCase;
 
-    @Mock
     protected REPOSITORY mockRepository;
 
     @Mock
@@ -27,12 +29,15 @@ public abstract class BaseUseCaseTest<USECASE extends UseCase, REPOSITORY extend
 
     @Before
     public void setUp() {
+        mockRepository = createRepository();
         useCase = createUseCase();
     }
 
-    protected abstract USECASE createUseCase();
+    protected abstract USE_CASE createUseCase();
 
-    protected abstract void testBuildUseCaseObservable();
+    protected abstract REPOSITORY createRepository();
+
+    public abstract void testBuildUseCaseObservable();
 
     protected void testBuildUseCaseObservable(Action0 action) {
         useCase.buildUseCaseObservable();

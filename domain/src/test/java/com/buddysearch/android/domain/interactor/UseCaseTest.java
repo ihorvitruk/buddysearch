@@ -6,6 +6,8 @@ import com.buddysearch.android.domain.repository.Repository;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
@@ -14,17 +16,19 @@ import rx.schedulers.TestScheduler;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCaseTest.TestRepository> {
 
-    private TestSubscriber testSubscriber;
+    private TestSubscriber<Integer> testSubscriber;
 
     @Override
     public void setUp() {
         super.setUp();
-        testSubscriber = new TestSubscriber();
-
+        testSubscriber = new TestSubscriber<>();
     }
 
     @Override
@@ -32,9 +36,16 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         return new TestUserCase(mockRepository, mockThreadExecutor, mockPostExecutionThread);
     }
 
+    @Override
+    protected TestRepository createRepository() {
+        TestRepository testRepository = mock(TestRepository.class);
+        when(testRepository.getData()).thenReturn(Observable.empty());
+        return testRepository;
+    }
+
     @Test
     @Override
-    protected void testBuildUseCaseObservable() {
+    public void testBuildUseCaseObservable() {
         testBuildUseCaseObservable(() -> verify(mockRepository).getData());
     }
 
@@ -52,27 +63,31 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
     @Test
     @SuppressWarnings("unchecked")
     public void unsubscribe_AfterExecute_AsUnsubscribe() {
+        assertThat(useCase.isUnsubscribed(), Is.is(false));
+        useCase.unsubscribe();
+        assertThat(useCase.isUnsubscribed(), Is.is(true));
+
         useCase.execute(testSubscriber);
         useCase.unsubscribe();
 
-        assertThat(testSubscriber.isUnsubscribed(), Is.is(true));
+        assertThat(useCase.isUnsubscribed(), Is.is(true));
     }
 
-    static class TestUserCase extends UseCase {
+    class TestUserCase extends UseCase<Integer, TestRepository> {
 
-        TestUserCase(Repository repository,
+        TestUserCase(TestRepository repository,
                      ThreadExecutor threadExecutor,
                      PostExecutionThread postExecutionThread) {
             super(repository, threadExecutor, postExecutionThread);
         }
 
         @Override
-        protected Observable buildUseCaseObservable() {
-            return Observable.empty();
+        protected Observable<Integer> buildUseCaseObservable() {
+            return repository.getData();
         }
     }
 
     interface TestRepository extends Repository {
-        Observable getData();
+        Observable<Integer> getData();
     }
 }

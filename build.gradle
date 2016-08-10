@@ -20,3 +20,7 @@ allprojects {
         testApplicationId = 'com.buddysearch.android.presentation.test'
     }
 }
+
+task runDomainUnitTests(dependsOn: [':domain:test']) {
+    description 'Run unit tests for the domain layer.'
+}

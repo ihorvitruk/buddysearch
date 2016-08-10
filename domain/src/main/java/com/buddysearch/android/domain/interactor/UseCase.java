@@ -35,8 +35,12 @@ public abstract class UseCase<DATA, REPOSITORY extends Repository> {
                 .subscribe(useCaseSubscriber);
     }
 
+    public boolean isUnsubscribed() {
+        return subscription.isUnsubscribed();
+    }
+
     public void unsubscribe() {
-        if (!subscription.isUnsubscribed()) {
+        if (!isUnsubscribed()) {
             subscription.unsubscribe();
         }
     }
