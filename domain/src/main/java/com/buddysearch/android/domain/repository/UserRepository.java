@@ -1,6 +1,6 @@
 package com.buddysearch.android.domain.repository;
 
-import com.buddysearch.android.domain.entity.User;
+import com.buddysearch.android.domain.dto.User;
 
 import java.util.List;
 

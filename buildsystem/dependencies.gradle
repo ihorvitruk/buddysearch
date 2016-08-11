@@ -16,6 +16,8 @@ ext {
     rxJavaVersion = '1.1.8'
     rxAndroidVersion = '1.2.1'
     lombokVersion = '1.16.10'
+    javaxAnnotationVersion = '1.0'
+    firebaseVersion = '9.2.1'
 
     //Testing
     jUnitVersion = '4.12'
@@ -25,8 +27,9 @@ ext {
     leakCanaryVersion = '1.4-beta2'
 
     domainDependencies = [
-            rxJava: "io.reactivex:rxjava:${rxJavaVersion}",
-            lombok: "org.projectlombok:lombok:${lombokVersion}"
+            rxJava         : "io.reactivex:rxjava:${rxJavaVersion}",
+            lombok         : "org.projectlombok:lombok:${lombokVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}"
     ]
 
     domainTestDependencies = [
@@ -35,12 +38,14 @@ ext {
     ]
 
     dataDependencies = [
-            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger        : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger         : "com.google.dagger:dagger:${daggerVersion}",
+            lombok         : "org.projectlombok:lombok:${lombokVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            firebaseDatabase       : "com.google.firebase:firebase-database:${firebaseVersion}"
     ]
 
     developmentDependencies = [
             leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
     ]
-
 }

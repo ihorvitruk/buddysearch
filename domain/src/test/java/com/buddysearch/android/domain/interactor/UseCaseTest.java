@@ -62,7 +62,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
 
     @Test
     @SuppressWarnings("unchecked")
-    public void unsubscribe_AfterExecute_AsUnsubscribe() {
+    public void unsubscribe_AfterExecute_AsUnsubscribed() {
         assertThat(useCase.isUnsubscribed(), Is.is(false));
         useCase.unsubscribe();
         assertThat(useCase.isUnsubscribed(), Is.is(true));

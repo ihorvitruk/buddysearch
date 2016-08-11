@@ -1,4 +1,4 @@
-package com.buddysearch.android.domain.entity;
+package com.buddysearch.android.domain.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.buddysearch.android.domain.interactor;
 
-import com.buddysearch.android.domain.entity.User;
+import com.buddysearch.android.domain.dto.User;
 import com.buddysearch.android.domain.executor.PostExecutionThread;
 import com.buddysearch.android.domain.executor.ThreadExecutor;
 import com.buddysearch.android.domain.repository.UserRepository;
