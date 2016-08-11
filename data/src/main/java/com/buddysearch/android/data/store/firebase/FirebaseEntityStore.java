@@ -23,7 +23,7 @@ public abstract class FirebaseEntityStore {
     public FirebaseEntityStore() {
         database = FirebaseDatabase.getInstance().getReference();
     }
-    
+
     protected <T> Observable<List<T>> getList(Query query, Class<T> itemClass) {
         return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
     }
@@ -54,7 +54,7 @@ public abstract class FirebaseEntityStore {
         List<T> result = new ArrayList<>();
         for (DataSnapshot item : items) {
             if (item.getClass().equals(itemClass)) {
-                result.add((extract(item));
+                result.add((extract(item)));
             }
         }
         return result;
