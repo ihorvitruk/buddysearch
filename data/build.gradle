@@ -32,7 +32,7 @@ android {
 
 dependencies {
     compile project(':domain')
-    compile dataDependencies.lombok
-    compile dataDependencies.javaxAnnotation
-    compile dataDependencies.firebaseDatabase
+    compile globalDependencies.lombok
+    provided globalDependencies.javaxAnnotation
+    compile globalDependencies.firebaseDatabase
 }

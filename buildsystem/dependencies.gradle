@@ -10,6 +10,8 @@ ext {
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
+    playServicesVersion = "9.2.1"
+    appcompatVersion = "24.1.1"
 
     //Libraries
     daggerVersion = '2.6'
@@ -18,34 +20,28 @@ ext {
     lombokVersion = '1.16.10'
     javaxAnnotationVersion = '1.0'
     firebaseVersion = '9.2.1'
+    leakCanaryVersion = '1.4-beta2'
 
-    //Testing
+    //Testing libraries
     jUnitVersion = '4.12'
     mockitoVersion = '1.9.5'
 
-    //Development
-    leakCanaryVersion = '1.4-beta2'
-
-    domainDependencies = [
-            rxJava         : "io.reactivex:rxjava:${rxJavaVersion}",
-            lombok         : "org.projectlombok:lombok:${lombokVersion}",
-            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}"
+    globalDependencies = [
+            appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
+            daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger          : "com.google.dagger:dagger:${daggerVersion}",
+            rxJava          : "io.reactivex:rxjava:${rxJavaVersion}",
+            lombok          : "org.projectlombok:lombok:${lombokVersion}",
+            javaxAnnotation : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            firebaseDatabase: "com.google.firebase:firebase-database:${firebaseVersion}",
+            firebaseAuth    : "com.google.firebase:firebase-auth:${firebaseVersion}",
+            leakCanary      : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            leakCanaryNoOps : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+            playServicesAuth: "com.google.android.gms:play-services-auth:${playServicesVersion}"
     ]
 
-    domainTestDependencies = [
+    globalTestDependencies = [
             junit  : "junit:junit:${jUnitVersion}",
             mockito: "org.mockito:mockito-core:${mockitoVersion}",
-    ]
-
-    dataDependencies = [
-            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger         : "com.google.dagger:dagger:${daggerVersion}",
-            lombok         : "org.projectlombok:lombok:${lombokVersion}",
-            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            firebaseDatabase       : "com.google.firebase:firebase-database:${firebaseVersion}"
-    ]
-
-    developmentDependencies = [
-            leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
     ]
 }

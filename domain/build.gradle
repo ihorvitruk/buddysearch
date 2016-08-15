@@ -1,11 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
-dependencies {
-    compile domainDependencies.rxJava
-    compile domainDependencies.lombok
-    compile domainDependencies.javaxAnnotation
+configurations {
+    provided
+}
 
-    testCompile domainTestDependencies.junit
-    testCompile domainTestDependencies.mockito
+dependencies {
+    compile globalDependencies.rxJava
+    compile globalDependencies.lombok
+    provided globalDependencies.javaxAnnotation
+
+    testCompile globalTestDependencies.junit
+    testCompile globalTestDependencies.mockito
 }

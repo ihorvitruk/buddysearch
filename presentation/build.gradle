@@ -1,21 +1,32 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
     dataBinding {
         enabled = true
     }
 
     defaultConfig {
-        applicationId
-        minSdkVersion 19
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
     }
 
     buildTypes {
@@ -32,18 +43,16 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.google.android.gms:play-services-auth:9.2.1'
-    compile 'com.google.firebase:firebase-auth:9.2.1'
-}
+    compile project(':domain')
+    compile project(':data')
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-    }
+    compile globalDependencies.appcompat
+    apt globalDependencies.daggerCompiler
+    compile globalDependencies.dagger
+    provided globalDependencies.javaxAnnotation
+    debugCompile globalDependencies.leakCanary
+    releaseCompile globalDependencies.leakCanaryNoOps
+    testCompile globalDependencies.leakCanaryNoOps
+    compile globalDependencies.playServicesAuth
+    compile globalDependencies.firebaseAuth
 }
-
-apply plugin: 'com.google.gms.google-services'
