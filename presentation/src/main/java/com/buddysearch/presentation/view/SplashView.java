@@ -1,4 +1,4 @@
 package com.buddysearch.presentation.view;
 
-public class MainView {
+public class SplashView extends BaseView {
 }
