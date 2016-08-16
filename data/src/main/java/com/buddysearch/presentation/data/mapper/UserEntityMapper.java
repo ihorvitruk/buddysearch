@@ -6,16 +6,12 @@ import com.buddysearch.presentation.data.entity.UserEntity;
 import com.buddysearch.presentation.domain.dto.Gender;
 import com.buddysearch.presentation.domain.dto.User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import static com.buddysearch.presentation.domain.dto.Gender.FEMALE;
 import static com.buddysearch.presentation.domain.dto.Gender.MALE;
 
 public class UserEntityMapper extends BaseEntityMapper<User, UserEntity> {
     @Override
-    public User transform(UserEntity userEntity) {
+    public User map(UserEntity userEntity) {
         User user = null;
         if (userEntity != null) {
             user = new User();
@@ -28,20 +24,6 @@ public class UserEntityMapper extends BaseEntityMapper<User, UserEntity> {
             user.setLongitude(userEntity.getLongitude());
         }
         return user;
-    }
-
-    @Override
-    public List<User> transform(Collection<UserEntity> userEntities) {
-        List<User> users = null;
-        if (userEntities != null) {
-            users = new ArrayList<>();
-            User user;
-            for (UserEntity userEntity : userEntities) {
-                user = transform(userEntity);
-                users.add(user);
-            }
-        }
-        return users;
     }
 
     private Gender parse(String gender) {

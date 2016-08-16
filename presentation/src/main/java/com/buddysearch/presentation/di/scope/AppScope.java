@@ -5,5 +5,5 @@ import javax.inject.Singleton;
 
 @Scope
 @Singleton
-public @interface ApplicationScope {
+public @interface AppScope {
 }

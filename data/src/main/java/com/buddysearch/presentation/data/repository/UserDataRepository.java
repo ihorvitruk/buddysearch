@@ -17,11 +17,11 @@ public class UserDataRepository extends BaseDataRepository<UserEntityStore, User
 
     @Override
     public Observable<List<User>> getUsers() {
-        return dataStore.getUsers().map(userEntities -> entityMapper.transform(userEntities));
+        return dataStore.getUsers().map(userEntities -> entityMapper.map(userEntities));
     }
 
     @Override
     public Observable<User> getUser(String userId) {
-        return dataStore.getUser(userId).map(userEntity -> entityMapper.transform(userEntity));
+        return dataStore.getUser(userId).map(userEntity -> entityMapper.map(userEntity));
     }
 }

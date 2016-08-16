@@ -12,6 +12,7 @@ ext {
     androidCompileSdkVersion = 24
     playServicesVersion = "9.2.1"
     appcompatVersion = "24.1.1"
+    designVersion = "24.1.1"
 
     //Libraries
     daggerVersion = '2.6'
@@ -28,6 +29,7 @@ ext {
 
     globalDependencies = [
             appcompat       : "com.android.support:appcompat-v7:${appcompatVersion}",
+            design          : "com.android.support:design:${designVersion}",
             daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger          : "com.google.dagger:dagger:${daggerVersion}",
             rxJava          : "io.reactivex:rxjava:${rxJavaVersion}",

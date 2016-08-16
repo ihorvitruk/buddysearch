@@ -9,14 +9,12 @@ import com.buddysearch.presentation.view.BaseView;
 
 public abstract class BaseActivity<VIEW extends BaseView, PRESENTER extends BasePresenter> extends AppCompatActivity{
 
-    protected VIEW view;
-
     protected PRESENTER presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = initView();
+        BaseView view = initView();
     }
 
     @Override

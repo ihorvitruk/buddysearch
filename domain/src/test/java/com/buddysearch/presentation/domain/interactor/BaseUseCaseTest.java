@@ -39,8 +39,8 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
 
     public abstract void testBuildUseCaseObservable();
 
-    protected void testBuildUseCaseObservable(Action0 action) {
-        useCase.buildUseCaseObservable();
+    protected void testBuildUseCaseObservable(Object requestData, Action0 action) {
+        useCase.buildObservable(requestData);
         action.call();
         verifyNoMoreInteractions(mockRepository);
         verifyZeroInteractions(mockPostExecutionThread);

@@ -9,14 +9,14 @@ import java.util.List;
 
 import rx.Observable;
 
-public class GetUsers extends UseCase<List<User>, UserRepository> {
+public class GetUsers extends UseCase<Void, List<User>, UserRepository> {
 
     public GetUsers(UserRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(userRepository, threadExecutor, postExecutionThread);
     }
 
     @Override
-    protected Observable<List<User>> buildUseCaseObservable() {
+    protected Observable<List<User>> buildObservable(Void empty) {
         return repository.getUsers();
     }
 }

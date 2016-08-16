@@ -10,7 +10,7 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-public abstract class UseCase<DATA, REPOSITORY extends Repository> {
+public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
 
     final REPOSITORY repository;
 
@@ -26,10 +26,10 @@ public abstract class UseCase<DATA, REPOSITORY extends Repository> {
         this.postExecutionThread = postExecutionThread;
     }
 
-    protected abstract Observable<DATA> buildUseCaseObservable();
+    protected abstract Observable<RESPONSE_DATA> buildObservable(REQUEST_DATA requestData);
 
-    public void execute(Subscriber<DATA> useCaseSubscriber) {
-        this.subscription = this.buildUseCaseObservable()
+    public void execute(REQUEST_DATA requestData, Subscriber<RESPONSE_DATA> useCaseSubscriber) {
+        this.subscription = this.buildObservable(requestData)
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.getScheduler())
                 .subscribe(useCaseSubscriber);

@@ -3,23 +3,23 @@ package com.buddysearch.presentation.di.module;
 import android.content.Context;
 
 import com.buddysearch.presentation.App;
-import com.buddysearch.presentation.di.scope.ApplicationScope;
+import com.buddysearch.presentation.di.scope.AppScope;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ApplicationModule {
+public class AppModule {
 
     private App app;
 
-    public ApplicationModule(App app) {
+    public AppModule(App app) {
         this.app = app;
     }
 
     @Provides
-    @ApplicationScope
-    Context provideApplicationContext() {
+    @AppScope
+    Context provideAppContext() {
         return app;
     }
 }

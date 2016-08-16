@@ -46,7 +46,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(() -> verify(mockRepository).getData());
+        testBuildUseCaseObservable(null, () -> verify(mockRepository).getData());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         TestScheduler testScheduler = new TestScheduler();
         given(mockPostExecutionThread.getScheduler()).willReturn(testScheduler);
 
-        useCase.execute(testSubscriber);
+        useCase.execute(null, testSubscriber);
 
         assertThat(testSubscriber.getOnNextEvents().size(), is(0));
     }
@@ -67,13 +67,13 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         useCase.unsubscribe();
         assertThat(useCase.isUnsubscribed(), Is.is(true));
 
-        useCase.execute(testSubscriber);
+        useCase.execute(null, testSubscriber);
         useCase.unsubscribe();
 
         assertThat(useCase.isUnsubscribed(), Is.is(true));
     }
 
-    class TestUserCase extends UseCase<Integer, TestRepository> {
+    class TestUserCase extends UseCase<Void, Integer, TestRepository> {
 
         TestUserCase(TestRepository repository,
                      ThreadExecutor threadExecutor,
@@ -82,7 +82,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         }
 
         @Override
-        protected Observable<Integer> buildUseCaseObservable() {
+        protected Observable<Integer> buildObservable(Void empty) {
             return repository.getData();
         }
     }

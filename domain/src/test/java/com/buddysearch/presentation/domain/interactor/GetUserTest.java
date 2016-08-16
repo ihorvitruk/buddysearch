@@ -16,7 +16,7 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
 
     @Override
     protected GetUser createUseCase() {
-        return new GetUser(FAKE_USER_ID, mockRepository, mockThreadExecutor, mockPostExecutionThread);
+        return new GetUser(mockRepository, mockThreadExecutor, mockPostExecutionThread);
     }
 
     @Override
@@ -27,6 +27,6 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(() -> verify(mockRepository).getUser(FAKE_USER_ID));
+        testBuildUseCaseObservable(FAKE_USER_ID, () -> verify(mockRepository).getUser(FAKE_USER_ID));
     }
 }

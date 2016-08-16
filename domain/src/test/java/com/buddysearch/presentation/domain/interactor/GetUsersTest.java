@@ -25,6 +25,6 @@ public class GetUsersTest extends BaseUseCaseTest<GetUsers, UserRepository> {
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(() -> verify(mockRepository).getUsers());
+        testBuildUseCaseObservable(null, () -> verify(mockRepository).getUsers());
     }
 }

@@ -47,6 +47,7 @@ dependencies {
     compile project(':data')
 
     compile globalDependencies.appcompat
+    compile globalDependencies.design
     apt globalDependencies.daggerCompiler
     compile globalDependencies.dagger
     provided globalDependencies.javaxAnnotation
