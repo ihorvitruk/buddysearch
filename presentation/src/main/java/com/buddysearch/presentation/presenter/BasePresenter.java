@@ -1,10 +1,25 @@
 package com.buddysearch.presentation.presenter;
 
-public abstract class BasePresenter {
+import android.support.annotation.NonNull;
 
-    public abstract void resume();
+import com.buddysearch.presentation.view.View;
 
-    public abstract void pause();
+public abstract class BasePresenter<VIEW extends View> {
 
-    public abstract void destroy();
+    protected VIEW view;
+
+    public void attachView(@NonNull VIEW view) {
+        this.view = view;
+        onViewAttached();
+    }
+
+    public void detachView() {
+        onViewDetached();
+    }
+
+    protected abstract void onViewAttached();
+
+    protected abstract void onViewDetached();
+
+    public abstract void refreshData();
 }

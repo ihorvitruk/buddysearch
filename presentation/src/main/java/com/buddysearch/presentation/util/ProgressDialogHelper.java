@@ -10,17 +10,15 @@ public class ProgressDialogHelper {
     @Getter
     private ProgressDialog dialog;
 
-    private int NULL_RES = -1;
-
     public void showProgress(Context context) {
-        showProgress(context, NULL_RES);
+        showProgress(context, null);
     }
 
-    public void showProgress(Context context, int messageStringId) {
-        showProgress(context, messageStringId, NULL_RES);
+    public void showProgress(Context context, String message) {
+        showProgress(context, message, null);
     }
 
-    public void showProgress(Context context, int messageStringId, int titleStringId) {
+    public void showProgress(Context context, String message, String title) {
         if (context == null) {
             return;
         }
@@ -28,8 +26,8 @@ public class ProgressDialogHelper {
         hideProgress();
 
         dialog = new ProgressDialog(context);
-        if (messageStringId != NULL_RES) dialog.setMessage(context.getString(messageStringId));
-        if (titleStringId != NULL_RES) dialog.setTitle(context.getString(titleStringId));
+        if (message != null) dialog.setMessage(message);
+        if (title != null) dialog.setTitle(title);
         dialog.setIndeterminate(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

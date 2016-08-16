@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.view;
+package com.buddysearch.presentation.view.impl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.buddysearch.presentation.util.ProgressDialogHelper;
 
-public abstract class BaseView {
+public abstract class ViewImpl implements com.buddysearch.presentation.view.View {
 
     private Activity activity;
 
@@ -16,12 +16,12 @@ public abstract class BaseView {
 
     private ProgressDialogHelper progressDialogHelper;
 
-    public BaseView(Activity activity) {
+    public ViewImpl(Activity activity) {
         this.activity = activity;
         init();
     }
 
-    public BaseView(Fragment fragment) {
+    public ViewImpl(Fragment fragment) {
         this.fragment = fragment;
         init();
     }
@@ -30,28 +30,27 @@ public abstract class BaseView {
         progressDialogHelper = new ProgressDialogHelper();
     }
 
-    public void showMessage(int resId) {
-        Snackbar.make(getSnackBarBackground(), resId, Snackbar.LENGTH_SHORT).show();
-    }
-
+    @Override
     public void showMessage(String message) {
-        if (message != null) {
-            Snackbar.make(getSnackBarBackground(), message, Snackbar.LENGTH_SHORT).show();
-        }
+        Snackbar.make(getSnackBarBackground(), message, Snackbar.LENGTH_SHORT).show();
     }
 
+    @Override
     public void showProgress() {
         progressDialogHelper.showProgress(getContext());
     }
 
-    public void showProgress(int messageStringId) {
-        progressDialogHelper.showProgress(getContext(), messageStringId);
+    @Override
+    public void showProgress(String message) {
+        progressDialogHelper.showProgress(getContext(), message);
     }
 
-    public void showProgress(int messageStringId, int titleStringId) {
-        progressDialogHelper.showProgress(getContext(), messageStringId, titleStringId);
+    @Override
+    public void showProgress(String message, String title) {
+        progressDialogHelper.showProgress(getContext(), message, title);
     }
 
+    @Override
     public void hideProgress() {
         progressDialogHelper.hideProgress();
     }

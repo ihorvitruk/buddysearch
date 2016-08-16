@@ -1,4 +1,9 @@
 package com.buddysearch.presentation.view;
 
-public class SplashView extends BaseView {
+import com.buddysearch.presentation.model.UserModel;
+
+import java.util.List;
+
+public interface SplashView extends View {
+    void renderUsers(List<UserModel> users);
 }
