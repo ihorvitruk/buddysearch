@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class BaseEntityMapper<DTO, ENTITY> {
+public abstract class BaseEntityMapper<ENTITY, DTO> {
 
     public abstract DTO map(ENTITY entity);
 

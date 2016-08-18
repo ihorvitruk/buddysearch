@@ -7,12 +7,11 @@ import com.buddysearch.presentation.domain.dto.Gender;
 import com.buddysearch.presentation.domain.dto.User;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import static com.buddysearch.presentation.domain.dto.Gender.FEMALE;
 import static com.buddysearch.presentation.domain.dto.Gender.MALE;
 
-public class UserEntityMapper extends BaseEntityMapper<User, UserEntity> {
+public class UserEntityMapper extends BaseEntityMapper<UserEntity, User> {
 
     @Inject
     public UserEntityMapper() {
