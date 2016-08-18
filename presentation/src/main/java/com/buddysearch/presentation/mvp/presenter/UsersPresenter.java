@@ -46,7 +46,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private void getUsers() {
         view.showProgress();
-        getUsers.execute(null, new DefaultSubscriber<List<User>>() {
+        getUsers.execute(new DefaultSubscriber<List<User>>() {
             @Override
             public void onNext(List<User> users) {
                 super.onNext(users);

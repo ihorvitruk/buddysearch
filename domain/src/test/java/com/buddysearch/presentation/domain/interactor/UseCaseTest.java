@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCaseTest.TestRepository> {
+public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCaseTest.TestRepository> {
 
     private TestSubscriber<Integer> testSubscriber;
 
@@ -32,8 +32,8 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
     }
 
     @Override
-    protected TestUserCase createUseCase() {
-        return new TestUserCase(mockRepository, mockThreadExecutor, mockPostExecutionThread);
+    protected TestUseCase createUseCase() {
+        return new TestUseCase(mockRepository, mockThreadExecutor, mockPostExecutionThread);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         TestScheduler testScheduler = new TestScheduler();
         given(mockPostExecutionThread.getScheduler()).willReturn(testScheduler);
 
-        useCase.execute(null, testSubscriber);
+        useCase.execute(testSubscriber);
 
         assertThat(testSubscriber.getOnNextEvents().size(), is(0));
     }
@@ -67,22 +67,22 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUserCase, UseCa
         useCase.unsubscribe();
         assertThat(useCase.isUnsubscribed(), Is.is(true));
 
-        useCase.execute(null, testSubscriber);
+        useCase.execute(testSubscriber);
         useCase.unsubscribe();
 
         assertThat(useCase.isUnsubscribed(), Is.is(true));
     }
 
-    class TestUserCase extends UseCase<Void, Integer, TestRepository> {
+    class TestUseCase extends UseCase1<Integer, TestRepository> {
 
-        TestUserCase(TestRepository repository,
-                     ThreadExecutor threadExecutor,
-                     PostExecutionThread postExecutionThread) {
+        TestUseCase(TestRepository repository,
+                    ThreadExecutor threadExecutor,
+                    PostExecutionThread postExecutionThread) {
             super(repository, threadExecutor, postExecutionThread);
         }
 
         @Override
-        protected Observable<Integer> buildObservable(Void empty) {
+        protected Observable<Integer> buildObservable() {
             return repository.getData();
         }
     }

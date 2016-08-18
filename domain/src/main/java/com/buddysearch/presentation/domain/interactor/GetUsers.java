@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 
-public class GetUsers extends UseCase<Void, List<User>, UserRepository> {
+public class GetUsers extends UseCase1<List<User>, UserRepository> {
 
     @Inject
     public GetUsers(UserRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
@@ -19,7 +19,7 @@ public class GetUsers extends UseCase<Void, List<User>, UserRepository> {
     }
 
     @Override
-    protected Observable<List<User>> buildObservable(Void empty) {
+    protected Observable<List<User>> buildObservable() {
         return repository.getUsers();
     }
 }
