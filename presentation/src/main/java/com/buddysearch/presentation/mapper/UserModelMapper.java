@@ -1,7 +1,7 @@
 package com.buddysearch.presentation.mapper;
 
 import com.buddysearch.presentation.domain.dto.User;
-import com.buddysearch.presentation.model.UserModel;
+import com.buddysearch.presentation.mvp.model.UserModel;
 
 import javax.inject.Inject;
 

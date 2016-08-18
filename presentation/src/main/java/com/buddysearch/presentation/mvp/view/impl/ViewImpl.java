@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.view.impl;
+package com.buddysearch.presentation.mvp.view.impl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.buddysearch.presentation.util.ProgressDialogHelper;
 
-public abstract class ViewImpl implements com.buddysearch.presentation.view.View {
+public abstract class ViewImpl implements com.buddysearch.presentation.mvp.view.View {
 
     private Activity activity;
 
@@ -36,6 +36,11 @@ public abstract class ViewImpl implements com.buddysearch.presentation.view.View
     }
 
     @Override
+    public void showMessage(int messageResId) {
+        showMessage(getContext().getString(messageResId));
+    }
+
+    @Override
     public void showProgress() {
         progressDialogHelper.showProgress(getContext());
     }
@@ -46,8 +51,18 @@ public abstract class ViewImpl implements com.buddysearch.presentation.view.View
     }
 
     @Override
+    public void showProgress(int messageResId) {
+        showProgress(getContext().getString(messageResId));
+    }
+
+    @Override
     public void showProgress(String message, String title) {
         progressDialogHelper.showProgress(getContext(), message, title);
+    }
+
+    @Override
+    public void showProgress(int messageResId, int titleResId) {
+        showProgress(getContext().getString(messageResId), getContext().getString(titleResId));
     }
 
     @Override

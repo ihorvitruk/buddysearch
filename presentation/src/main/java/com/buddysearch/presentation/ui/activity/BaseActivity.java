@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.buddysearch.presentation.presenter.BasePresenter;
-import com.buddysearch.presentation.view.View;
-import com.buddysearch.presentation.view.impl.ViewImpl;
+import com.buddysearch.presentation.mvp.presenter.BasePresenter;
+import com.buddysearch.presentation.mvp.view.View;
 
 public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePresenter<VIEW>> extends AppCompatActivity {
 
@@ -18,7 +17,13 @@ public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePres
         VIEW view = initView();
         presenter.attachView(view);
     }
-    
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.pause();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

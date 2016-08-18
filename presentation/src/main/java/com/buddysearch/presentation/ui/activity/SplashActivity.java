@@ -1,28 +1,28 @@
 package com.buddysearch.presentation.ui.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.content.Intent;
 
-import com.buddysearch.presentation.model.UserModel;
-import com.buddysearch.presentation.presenter.SplashPresenter;
-import com.buddysearch.presentation.view.SplashView;
-import com.buddysearch.presentation.view.impl.SplashViewImpl;
-
-import java.util.List;
+import com.buddysearch.presentation.mvp.presenter.SplashPresenter;
+import com.buddysearch.presentation.mvp.view.SplashView;
+import com.buddysearch.presentation.mvp.view.impl.SplashViewImpl;
+import com.buddysearch.presentation.other.LoginActivity;
 
 public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected SplashView initView() {
         return new SplashViewImpl(this) {
-            @Override
-            public void renderUsers(List<UserModel> users) {
 
+            @Override
+            public void navigateToLogin() {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            @Override
+            public void navigateToUsers() {
+                startActivity(new Intent(SplashActivity.this, UsersActivity.class));
+                finish();
             }
         };
     }

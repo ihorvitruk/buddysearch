@@ -1,23 +1,29 @@
-package com.buddysearch.presentation.presenter;
+package com.buddysearch.presentation.mvp.presenter;
 
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.domain.dto.User;
 import com.buddysearch.presentation.domain.interactor.DefaultSubscriber;
 import com.buddysearch.presentation.domain.interactor.GetUsers;
-import com.buddysearch.presentation.view.SplashView;
+import com.buddysearch.presentation.manager.NetworkManager;
+import com.buddysearch.presentation.mapper.UserModelMapper;
+import com.buddysearch.presentation.mvp.view.UsersView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class SplashPresenter extends BasePresenter<SplashView> {
+public class UsersPresenter extends BasePresenter<UsersView> {
 
     private GetUsers getUsers;
 
+    private UserModelMapper userModelMapper;
+
     @Inject
-    public SplashPresenter(GetUsers getUsers) {
+    public UsersPresenter(NetworkManager networkManager, GetUsers getUsers, UserModelMapper userModelMapper) {
+        super(networkManager);
         this.getUsers = getUsers;
+        this.userModelMapper = userModelMapper;
     }
 
     @Override
@@ -36,19 +42,20 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     private void getUsers() {
+        view.showProgress();
         getUsers.execute(null, new DefaultSubscriber<List<User>>() {
             @Override
             public void onNext(List<User> users) {
                 super.onNext(users);
-                view.renderUsers(null);
+                view.renderUsers(userModelMapper.map(users));
                 view.hideProgress();
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                view.hideProgress();
                 view.showMessage(e.getMessage());
+                view.hideProgress();
             }
         });
     }

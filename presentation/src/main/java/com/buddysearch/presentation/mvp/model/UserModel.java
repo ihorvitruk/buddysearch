@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.model;
+package com.buddysearch.presentation.mvp.model;
 
 import com.buddysearch.presentation.domain.dto.Gender;
 
