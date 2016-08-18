@@ -2,7 +2,9 @@ package com.buddysearch.presentation.view.impl;
 
 import android.app.Activity;
 
-public abstract class SplashViewImpl extends ViewImpl {
+import com.buddysearch.presentation.view.SplashView;
+
+public abstract class SplashViewImpl extends ViewImpl implements SplashView {
     public SplashViewImpl(Activity activity) {
         super(activity);
     }
