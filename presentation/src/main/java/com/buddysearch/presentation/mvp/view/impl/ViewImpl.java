@@ -1,22 +1,24 @@
 package com.buddysearch.presentation.mvp.view.impl;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.buddysearch.presentation.ui.activity.BaseActivity;
+import com.buddysearch.presentation.ui.activity.SplashActivity;
 import com.buddysearch.presentation.util.ProgressDialogHelper;
 
 public abstract class ViewImpl implements com.buddysearch.presentation.mvp.view.View {
 
-    private Activity activity;
+    private BaseActivity activity;
 
     private Fragment fragment;
 
     private ProgressDialogHelper progressDialogHelper;
 
-    public ViewImpl(Activity activity) {
+    public ViewImpl(BaseActivity activity) {
         this.activity = activity;
         init();
     }
@@ -68,6 +70,14 @@ public abstract class ViewImpl implements com.buddysearch.presentation.mvp.view.
     @Override
     public void hideProgress() {
         progressDialogHelper.hideProgress();
+    }
+
+    @Override
+    public void navigateToSplash() {
+        Context context = getContext();
+        Intent intent = new Intent(context, SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
     private Context getContext() {

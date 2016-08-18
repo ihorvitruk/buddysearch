@@ -4,6 +4,7 @@ import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.domain.dto.User;
 import com.buddysearch.presentation.domain.interactor.DefaultSubscriber;
 import com.buddysearch.presentation.domain.interactor.GetUsers;
+import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
@@ -20,14 +21,16 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     private UserModelMapper userModelMapper;
 
     @Inject
-    public UsersPresenter(NetworkManager networkManager, GetUsers getUsers, UserModelMapper userModelMapper) {
-        super(networkManager);
+    public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
+                          GetUsers getUsers, UserModelMapper userModelMapper) {
+        super(networkManager, authManager);
         this.getUsers = getUsers;
         this.userModelMapper = userModelMapper;
     }
 
     @Override
     protected void onViewAttached() {
+        view.renderCurrentUser(authManager.getCurrentUser());
         refreshData();
     }
 

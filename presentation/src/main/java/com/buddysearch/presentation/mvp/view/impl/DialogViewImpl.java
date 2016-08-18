@@ -1,11 +1,10 @@
 package com.buddysearch.presentation.mvp.view.impl;
 
-import android.app.Activity;
-
 import com.buddysearch.presentation.mvp.view.DialogView;
+import com.buddysearch.presentation.ui.activity.BaseActivity;
 
-public class DialogViewImpl extends ViewImpl implements DialogView {
-    public DialogViewImpl(Activity activity) {
+public abstract class DialogViewImpl extends ViewImpl implements DialogView {
+    public DialogViewImpl(BaseActivity activity) {
         super(activity);
     }
 }

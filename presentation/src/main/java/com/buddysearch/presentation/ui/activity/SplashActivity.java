@@ -5,9 +5,13 @@ import android.content.Intent;
 import com.buddysearch.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.presentation.mvp.view.SplashView;
 import com.buddysearch.presentation.mvp.view.impl.SplashViewImpl;
-import com.buddysearch.presentation.other.LoginActivity;
+
+import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
+
+    @Inject
+    SplashPresenter splashPresenter;
 
     @Override
     protected SplashView initView() {
@@ -25,5 +29,10 @@ public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
                 finish();
             }
         };
+    }
+
+    @Override
+    protected SplashPresenter initPresenter() {
+        return splashPresenter;
     }
 }

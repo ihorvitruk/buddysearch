@@ -1,11 +1,10 @@
 package com.buddysearch.presentation.mvp.view.impl;
 
-import android.app.Activity;
-
 import com.buddysearch.presentation.mvp.view.LoginView;
+import com.buddysearch.presentation.ui.activity.BaseActivity;
 
-public class LoginViewImpl extends ViewImpl implements LoginView {
-    public LoginViewImpl(Activity activity) {
+public abstract class LoginViewImpl extends ViewImpl implements LoginView {
+    public LoginViewImpl(BaseActivity activity) {
         super(activity);
     }
 }

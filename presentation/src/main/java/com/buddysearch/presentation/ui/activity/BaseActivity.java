@@ -11,11 +11,19 @@ public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePres
 
     protected PRESENTER presenter;
 
+    protected VIEW view;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VIEW view = initView();
+        view = initView();
         presenter.attachView(view);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.resume();
     }
 
     @Override
@@ -31,4 +39,6 @@ public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePres
     }
 
     protected abstract VIEW initView();
+
+    protected abstract PRESENTER initPresenter();
 }

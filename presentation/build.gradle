@@ -17,9 +17,6 @@ android {
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
-    dataBinding {
-        enabled = true
-    }
     defaultConfig {
 
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")

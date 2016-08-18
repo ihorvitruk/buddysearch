@@ -17,4 +17,6 @@ public interface View {
     void showProgress(int messageResId, int titleResId);
 
     void hideProgress();
+
+    void navigateToSplash();
 }
