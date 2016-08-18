@@ -9,6 +9,7 @@ dependencies {
     compile globalDependencies.rxJava
     compile globalDependencies.lombok
     provided globalDependencies.javaxAnnotation
+    compile globalDependencies.javaxInject
 
     testCompile globalTestDependencies.junit
     testCompile globalTestDependencies.mockito

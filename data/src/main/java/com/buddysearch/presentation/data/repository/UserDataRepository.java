@@ -7,10 +7,14 @@ import com.buddysearch.presentation.domain.repository.UserRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import rx.Observable;
 
 public class UserDataRepository extends BaseDataRepository<UserEntityStore, UserEntityMapper> implements UserRepository {
 
+    @Inject
     public UserDataRepository(UserEntityStore dataStore, UserEntityMapper entityMapper) {
         super(dataStore, entityMapper);
     }

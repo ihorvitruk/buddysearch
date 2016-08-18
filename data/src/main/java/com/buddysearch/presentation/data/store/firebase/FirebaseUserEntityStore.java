@@ -6,11 +6,18 @@ import com.google.firebase.database.Query;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import rx.Observable;
 
 public class FirebaseUserEntityStore extends FirebaseEntityStore implements UserEntityStore {
 
     private final String CHILD_USERS = "users";
+
+    @Inject
+    public FirebaseUserEntityStore() {
+    }
 
     @Override
     public Observable<List<UserEntity>> getUsers() {

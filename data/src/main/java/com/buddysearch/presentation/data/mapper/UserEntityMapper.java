@@ -6,10 +6,18 @@ import com.buddysearch.presentation.data.entity.UserEntity;
 import com.buddysearch.presentation.domain.dto.Gender;
 import com.buddysearch.presentation.domain.dto.User;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static com.buddysearch.presentation.domain.dto.Gender.FEMALE;
 import static com.buddysearch.presentation.domain.dto.Gender.MALE;
 
 public class UserEntityMapper extends BaseEntityMapper<User, UserEntity> {
+
+    @Inject
+    public UserEntityMapper() {
+    }
+
     @Override
     public User map(UserEntity userEntity) {
         User user = null;

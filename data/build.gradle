@@ -34,5 +34,6 @@ dependencies {
     compile project(':domain')
     compile globalDependencies.lombok
     provided globalDependencies.javaxAnnotation
+    compile globalDependencies.javaxInject
     compile globalDependencies.firebaseDatabase
 }

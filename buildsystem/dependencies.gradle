@@ -20,6 +20,7 @@ ext {
     rxAndroidVersion = '1.2.1'
     lombokVersion = '1.16.10'
     javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
     firebaseVersion = '9.2.1'
     leakCanaryVersion = '1.4-beta2'
 
@@ -35,6 +36,7 @@ ext {
             rxJava          : "io.reactivex:rxjava:${rxJavaVersion}",
             lombok          : "org.projectlombok:lombok:${lombokVersion}",
             javaxAnnotation : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject     : "javax.inject:javax.inject:${javaxInjectVersion}",
             firebaseDatabase: "com.google.firebase:firebase-database:${firebaseVersion}",
             firebaseAuth    : "com.google.firebase:firebase-auth:${firebaseVersion}",
             leakCanary      : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",

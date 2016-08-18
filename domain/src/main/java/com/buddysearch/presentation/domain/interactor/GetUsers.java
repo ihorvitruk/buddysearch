@@ -7,10 +7,13 @@ import com.buddysearch.presentation.domain.repository.UserRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 
 public class GetUsers extends UseCase<Void, List<User>, UserRepository> {
 
+    @Inject
     public GetUsers(UserRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(userRepository, threadExecutor, postExecutionThread);
     }
