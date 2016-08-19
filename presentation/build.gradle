@@ -56,3 +56,5 @@ dependencies {
     compile globalDependencies.playServicesAuth
     compile globalDependencies.firebaseAuth
 }
+
+apply plugin: 'com.google.gms.google-services'

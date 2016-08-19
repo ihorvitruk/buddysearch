@@ -23,6 +23,7 @@ public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePres
         super.onCreate(savedInstanceState);
         initActivityComponent();
         view = initView();
+        presenter = initPresenter();
         presenter.attachView(view);
     }
 

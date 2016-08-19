@@ -10,7 +10,7 @@ ext {
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
-    playServicesVersion = "9.2.1"
+    playServicesVersion = "9.4.0"
     appcompatVersion = "24.1.1"
     designVersion = "24.1.1"
 
@@ -21,7 +21,7 @@ ext {
     lombokVersion = '1.16.10'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
-    firebaseVersion = '9.2.1'
+    firebaseVersion = '9.4.0'
     leakCanaryVersion = '1.4-beta2'
 
     //Testing libraries

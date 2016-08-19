@@ -5,6 +5,9 @@ import android.content.Context;
 import com.buddysearch.presentation.App;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.manager.impl.NetworkManagerImpl;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -49,5 +52,18 @@ public class AppModule {
     @Singleton
     Scheduler providesPostExecutionScheduler() {
         return AndroidSchedulers.mainThread();
+    }
+
+
+    @Provides
+    @Singleton
+    GoogleApiClient providesGoogleApiClient() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        return new GoogleApiClient.Builder(app)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 }
