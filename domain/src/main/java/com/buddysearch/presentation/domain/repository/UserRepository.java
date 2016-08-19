@@ -1,6 +1,6 @@
 package com.buddysearch.presentation.domain.repository;
 
-import com.buddysearch.presentation.domain.dto.User;
+import com.buddysearch.presentation.domain.dto.UserDto;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import rx.Observable;
 
 public interface UserRepository extends Repository {
 
-    Observable<List<User>> getUsers();
+    Observable<List<UserDto>> getUsers();
 
-    Observable<User> getUser(final String userId);
+    Observable<UserDto> getUser(final String userId);
 }

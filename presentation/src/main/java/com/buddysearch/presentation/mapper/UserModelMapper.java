@@ -1,18 +1,18 @@
 package com.buddysearch.presentation.mapper;
 
-import com.buddysearch.presentation.domain.dto.User;
+import com.buddysearch.presentation.domain.dto.UserDto;
 import com.buddysearch.presentation.mvp.model.UserModel;
 
 import javax.inject.Inject;
 
-public class UserModelMapper extends BaseModelMapper<User, UserModel> {
+public class UserModelMapper extends BaseModelMapper<UserDto, UserModel> {
 
     @Inject
     public UserModelMapper() {
     }
 
     @Override
-    public UserModel map(User user) {
+    public UserModel map(UserDto user) {
         UserModel userModel = new UserModel();
         userModel.setId(user.getId());
         userModel.setFirstName(user.getFirstName());

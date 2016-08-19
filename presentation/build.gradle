@@ -43,6 +43,8 @@ dependencies {
     compile project(':domain')
     compile project(':data')
 
+    compile globalDependencies.rxAndroid
+
     compile globalDependencies.appcompat
     compile globalDependencies.design
     apt globalDependencies.daggerCompiler

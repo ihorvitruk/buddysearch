@@ -1,7 +1,5 @@
 package com.buddysearch.presentation.domain.interactor;
 
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
 import com.buddysearch.presentation.domain.repository.Repository;
 
 import org.hamcrest.core.Is;
@@ -9,7 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.inject.Named;
+
 import rx.Observable;
+import rx.Scheduler;
 import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 
@@ -33,7 +34,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     @Override
     protected TestUseCase createUseCase() {
-        return new TestUseCase(mockRepository, mockThreadExecutor, mockPostExecutionThread);
+        return new TestUseCase(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
     @SuppressWarnings("unchecked")
     public void buildUseCaseObservable_AsCorrectResult() {
         TestScheduler testScheduler = new TestScheduler();
-        given(mockPostExecutionThread.getScheduler()).willReturn(testScheduler);
+        given(mockPostExecutionScheduler).willReturn(testScheduler);
 
         useCase.execute(testSubscriber);
 
@@ -75,10 +76,8 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     class TestUseCase extends UseCase1<Integer, TestRepository> {
 
-        TestUseCase(TestRepository repository,
-                    ThreadExecutor threadExecutor,
-                    PostExecutionThread postExecutionThread) {
-            super(repository, threadExecutor, postExecutionThread);
+        public TestUseCase(TestRepository repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
+            super(repository, threadScheduler, postExecutionScheduler);
         }
 
         @Override

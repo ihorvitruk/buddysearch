@@ -33,6 +33,7 @@ public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
 
     @Override
     protected SplashPresenter initPresenter() {
+        getActivityComponent().inject(this);
         return splashPresenter;
     }
 }

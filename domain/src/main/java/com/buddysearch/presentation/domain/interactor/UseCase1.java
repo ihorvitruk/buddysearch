@@ -1,16 +1,18 @@
 package com.buddysearch.presentation.domain.interactor;
 
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
 import com.buddysearch.presentation.domain.repository.Repository;
 
+import javax.inject.Named;
+
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
 
 public abstract class UseCase1<RESPONSE_DATA, REPOSITORY extends Repository> extends
         UseCase<Void, RESPONSE_DATA, REPOSITORY> {
-    public UseCase1(REPOSITORY repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        super(repository, threadExecutor, postExecutionThread);
+
+    public UseCase1(REPOSITORY repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
+        super(repository, threadScheduler, postExecutionScheduler);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.buddysearch.presentation.manager;
 
-import com.buddysearch.presentation.data.entity.UserEntity;
-import com.buddysearch.presentation.domain.dto.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public interface AuthManager {

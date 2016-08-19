@@ -2,13 +2,12 @@ package com.buddysearch.presentation.data.repository;
 
 import com.buddysearch.presentation.data.mapper.UserEntityMapper;
 import com.buddysearch.presentation.data.store.UserEntityStore;
-import com.buddysearch.presentation.domain.dto.User;
+import com.buddysearch.presentation.domain.dto.UserDto;
 import com.buddysearch.presentation.domain.repository.UserRepository;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import rx.Observable;
 
@@ -20,12 +19,12 @@ public class UserDataRepository extends BaseDataRepository<UserEntityStore, User
     }
 
     @Override
-    public Observable<List<User>> getUsers() {
+    public Observable<List<UserDto>> getUsers() {
         return dataStore.getUsers().map(userEntities -> entityMapper.map(userEntities));
     }
 
     @Override
-    public Observable<User> getUser(String userId) {
+    public Observable<UserDto> getUser(String userId) {
         return dataStore.getUser(userId).map(userEntity -> entityMapper.map(userEntity));
     }
 }

@@ -1,47 +1,46 @@
 package com.buddysearch.presentation.domain.interactor;
 
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
 import com.buddysearch.presentation.domain.repository.Repository;
 
+import javax.inject.Named;
+
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
+import rx.subscriptions.CompositeSubscription;
 
 public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
 
     final REPOSITORY repository;
 
-    private final ThreadExecutor threadExecutor;
+    private final Scheduler threadScheduler;
 
-    private final PostExecutionThread postExecutionThread;
+    private final Scheduler postExecutionScheduler;
 
-    private Subscription subscription = Subscriptions.empty();
+    private CompositeSubscription subscription = new CompositeSubscription();
 
-    public UseCase(REPOSITORY repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public UseCase(REPOSITORY repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
         this.repository = repository;
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
+        this.threadScheduler = threadScheduler;
+        this.postExecutionScheduler = postExecutionScheduler;
     }
 
     protected abstract Observable<RESPONSE_DATA> buildObservable(REQUEST_DATA requestData);
 
     public void execute(REQUEST_DATA requestData, Subscriber<RESPONSE_DATA> useCaseSubscriber) {
-        this.subscription = this.buildObservable(requestData)
-                .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(postExecutionThread.getScheduler())
-                .subscribe(useCaseSubscriber);
+        this.subscription.add(this.buildObservable(requestData)
+                .subscribeOn(threadScheduler)
+                .observeOn(postExecutionScheduler)
+                .subscribe(useCaseSubscriber));
     }
 
     public boolean isUnsubscribed() {
-        return subscription.isUnsubscribed();
+        return !subscription.hasSubscriptions();
     }
 
     public void unsubscribe() {
         if (!isUnsubscribed()) {
-            subscription.unsubscribe();
+            subscription.clear();
         }
     }
 }

@@ -2,6 +2,8 @@ package com.buddysearch.presentation.di.module;
 
 import android.util.Log;
 
+import com.buddysearch.presentation.manager.AuthManager;
+import com.buddysearch.presentation.manager.impl.AuthManagerImpl;
 import com.buddysearch.presentation.ui.activity.BaseActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,5 +31,10 @@ public final class ActivityModule {
                 .enableAutoManage(activity, connectionResult -> Log.e("GoogleApiClient", "Google Play Services error."))
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+    }
+
+    @Provides
+    AuthManager providesAuthManager(GoogleApiClient googleApiClient) {
+        return new AuthManagerImpl(googleApiClient);
     }
 }

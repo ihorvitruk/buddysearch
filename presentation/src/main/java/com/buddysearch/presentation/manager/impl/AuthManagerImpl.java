@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.buddysearch.presentation.data.entity.UserEntity;
 import com.buddysearch.presentation.data.store.firebase.FirebaseUserEntityStore;
-import com.buddysearch.presentation.domain.dto.User;
 import com.buddysearch.presentation.manager.AuthManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -13,11 +12,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import junit.framework.Test;
 
 public class AuthManagerImpl implements AuthManager {
 

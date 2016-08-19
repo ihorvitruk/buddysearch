@@ -70,6 +70,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> {
 
     @Override
     protected LoginPresenter initPresenter() {
+        getActivityComponent().inject(this);
         return loginPresenter;
     }
 

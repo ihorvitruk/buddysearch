@@ -1,24 +1,23 @@
 package com.buddysearch.presentation.domain.interactor;
 
-import com.buddysearch.presentation.domain.dto.User;
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
+import com.buddysearch.presentation.domain.dto.UserDto;
 import com.buddysearch.presentation.domain.repository.UserRepository;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
+import javax.inject.Named;
 
 import rx.Observable;
+import rx.Scheduler;
 
-public class GetUser extends UseCase<String, User, UserRepository> {
+public class GetUser extends UseCase<String, UserDto, UserRepository> {
 
     @Inject
-    public GetUser(UserRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        super(userRepository, threadExecutor, postExecutionThread);
+    public GetUser(UserRepository repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
+        super(repository, threadScheduler, postExecutionScheduler);
     }
 
     @Override
-    protected Observable<User> buildObservable(String userId) {
+    protected Observable<UserDto> buildObservable(String userId) {
         return repository.getUser(userId);
     }
 }

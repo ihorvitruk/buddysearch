@@ -5,7 +5,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.buddysearch.presentation.R;
-import com.buddysearch.presentation.domain.dto.User;
 import com.buddysearch.presentation.mvp.model.UserModel;
 import com.buddysearch.presentation.mvp.presenter.UsersPresenter;
 import com.buddysearch.presentation.mvp.view.UsersView;
@@ -42,7 +41,7 @@ public class UsersActivity extends BaseActivity<UsersView, UsersPresenter> {
     protected UsersView initView() {
         return new UsersViewImpl(this) {
             @Override
-            public void renderCurrentUser(User user) {
+            public void renderCurrentUser(UserModel user) {
                 TextView textView = (TextView) findViewById(R.id.tv_username);
                 textView.setText(user.getFirstName() + " " + user.getLastName());
             }
@@ -56,8 +55,7 @@ public class UsersActivity extends BaseActivity<UsersView, UsersPresenter> {
 
     @Override
     protected UsersPresenter initPresenter() {
+        getActivityComponent().inject(this);
         return usersPresenter;
     }
-
-
 }

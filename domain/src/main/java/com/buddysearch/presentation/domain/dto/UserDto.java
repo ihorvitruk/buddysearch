@@ -3,7 +3,7 @@ package com.buddysearch.presentation.domain.dto;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserDto {
 
     private String id;
 

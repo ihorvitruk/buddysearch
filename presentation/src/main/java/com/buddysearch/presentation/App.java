@@ -3,6 +3,7 @@ package com.buddysearch.presentation;
 import android.app.Application;
 
 import com.buddysearch.presentation.di.component.AppComponent;
+import com.buddysearch.presentation.di.component.DaggerAppComponent;
 import com.buddysearch.presentation.di.module.AppModule;
 import com.squareup.leakcanary.LeakCanary;
 

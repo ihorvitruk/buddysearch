@@ -4,24 +4,24 @@ import android.text.TextUtils;
 
 import com.buddysearch.presentation.data.entity.UserEntity;
 import com.buddysearch.presentation.domain.dto.Gender;
-import com.buddysearch.presentation.domain.dto.User;
+import com.buddysearch.presentation.domain.dto.UserDto;
 
 import javax.inject.Inject;
 
 import static com.buddysearch.presentation.domain.dto.Gender.FEMALE;
 import static com.buddysearch.presentation.domain.dto.Gender.MALE;
 
-public class UserEntityMapper extends BaseEntityMapper<UserEntity, User> {
+public class UserEntityMapper extends BaseEntityMapper<UserEntity, UserDto> {
 
     @Inject
     public UserEntityMapper() {
     }
 
     @Override
-    public User map(UserEntity userEntity) {
-        User user = null;
+    public UserDto map(UserEntity userEntity) {
+        UserDto user = null;
         if (userEntity != null) {
-            user = new User();
+            user = new UserDto();
             user.setId(userEntity.getId());
             user.setAge(userEntity.getAge());
             user.setFirstName(userEntity.getFirstName());

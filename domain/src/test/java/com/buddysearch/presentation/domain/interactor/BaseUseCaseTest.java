@@ -1,7 +1,5 @@
 package com.buddysearch.presentation.domain.interactor;
 
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
 import com.buddysearch.presentation.domain.repository.Repository;
 
 import org.junit.Before;
@@ -9,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import rx.Scheduler;
 import rx.functions.Action0;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -22,10 +21,10 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
     protected REPOSITORY mockRepository;
 
     @Mock
-    protected ThreadExecutor mockThreadExecutor;
+    protected Scheduler mockThreadScheduler;
 
     @Mock
-    protected PostExecutionThread mockPostExecutionThread;
+    protected Scheduler mockPostExecutionScheduler;
 
     @Before
     public void setUp() {
@@ -43,7 +42,7 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
         useCase.buildObservable(requestData);
         action.call();
         verifyNoMoreInteractions(mockRepository);
-        verifyZeroInteractions(mockPostExecutionThread);
-        verifyZeroInteractions(mockThreadExecutor);
+        verifyZeroInteractions(mockPostExecutionScheduler);
+        verifyZeroInteractions(mockThreadScheduler);
     }
 }
