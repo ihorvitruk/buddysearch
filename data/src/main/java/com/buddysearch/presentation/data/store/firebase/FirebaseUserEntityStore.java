@@ -13,7 +13,7 @@ import rx.Observable;
 
 public class FirebaseUserEntityStore extends FirebaseEntityStore implements UserEntityStore {
 
-    private final String CHILD_USERS = "users";
+    public static final String CHILD_USERS = "users";
 
     @Inject
     public FirebaseUserEntityStore() {
