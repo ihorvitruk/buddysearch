@@ -9,6 +9,7 @@ public abstract class BaseViewHolder<BINDING extends ViewDataBinding, MODEL> ext
 
     public BaseViewHolder(BINDING binding) {
         super(binding.getRoot());
+        this.binding = binding;
     }
 
     public abstract void bind(MODEL model);

@@ -21,6 +21,6 @@ public class UserModelMapper extends BaseModelMapper<UserDto, UserModel> {
         userModel.setAge(user.getAge());
         userModel.setLatitude(user.getLatitude());
         userModel.setLongitude(user.getLongitude());
-        return null;
+        return userModel;
     }
 }

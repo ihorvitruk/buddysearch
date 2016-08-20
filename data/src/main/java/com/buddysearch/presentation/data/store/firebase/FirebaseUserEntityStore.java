@@ -28,6 +28,6 @@ public class FirebaseUserEntityStore extends FirebaseEntityStore implements User
     @Override
     public Observable<UserEntity> getUser(String userId) {
         Query query = database.child(CHILD_USERS).child(userId);
-        return get(query);
+        return get(query, UserEntity.class);
     }
 }

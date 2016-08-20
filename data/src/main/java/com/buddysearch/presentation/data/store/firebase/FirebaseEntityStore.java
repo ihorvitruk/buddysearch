@@ -28,8 +28,8 @@ public abstract class FirebaseEntityStore {
         return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
     }
 
-    protected <T> Observable<T> get(Query query) {
-        return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot)));
+    protected <T> Observable<T> get(Query query, Class<T> itemClass) {
+        return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot, itemClass)));
     }
 
     private <T> Observable<T> doQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction) {
@@ -53,15 +53,13 @@ public abstract class FirebaseEntityStore {
         Iterable<DataSnapshot> items = dataSnapshot.getChildren();
         List<T> result = new ArrayList<>();
         for (DataSnapshot item : items) {
-            if (item.getClass().equals(itemClass)) {
-                result.add((extract(item)));
-            }
+            result.add((extract(item, itemClass)));
         }
         return result;
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T extract(DataSnapshot dataSnapshot) {
-        return (T) dataSnapshot.getValue();
+    private <T> T extract(DataSnapshot dataSnapshot, Class<T> clazz) {
+        return dataSnapshot.getValue(clazz);
     }
 }
