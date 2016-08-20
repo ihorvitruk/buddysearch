@@ -9,6 +9,7 @@ import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
+import com.buddysearch.presentation.ui.adapter.UsersAdapter;
 
 import java.util.List;
 

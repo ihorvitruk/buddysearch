@@ -1,6 +1,7 @@
 package com.buddysearch.presentation.ui.activity;
 
 import android.content.Intent;
+import android.databinding.ViewDataBinding;
 
 import com.buddysearch.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.presentation.mvp.view.SplashView;
@@ -8,7 +9,7 @@ import com.buddysearch.presentation.mvp.view.impl.SplashViewImpl;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
+public class SplashActivity extends BaseActivity<SplashView, SplashPresenter, ViewDataBinding> {
 
     @Inject
     SplashPresenter splashPresenter;
@@ -35,5 +36,10 @@ public class SplashActivity extends BaseActivity<SplashView, SplashPresenter> {
     protected SplashPresenter initPresenter() {
         getActivityComponent().inject(this);
         return splashPresenter;
+    }
+
+    @Override
+    protected ViewDataBinding initBinding() {
+        return null;
     }
 }

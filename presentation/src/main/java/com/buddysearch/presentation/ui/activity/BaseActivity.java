@@ -1,5 +1,6 @@
 package com.buddysearch.presentation.ui.activity;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,17 +11,22 @@ import com.buddysearch.presentation.di.module.ActivityModule;
 import com.buddysearch.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.mvp.view.View;
 
-public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePresenter<VIEW>> extends AppCompatActivity {
+public abstract class BaseActivity<VIEW extends View,
+        PRESENTER extends BasePresenter<VIEW>,
+        BINDING extends ViewDataBinding> extends AppCompatActivity {
 
     protected PRESENTER presenter;
 
     protected VIEW view;
+
+    protected BINDING binding;
 
     private ActivityComponent activityComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = initBinding();
         initActivityComponent();
         view = initView();
         presenter = initPresenter();
@@ -52,6 +58,8 @@ public abstract class BaseActivity<VIEW extends View, PRESENTER extends BasePres
     protected abstract VIEW initView();
 
     protected abstract PRESENTER initPresenter();
+
+    protected abstract BINDING initBinding();
 
     private void initActivityComponent() {
         activityComponent = ((App) getApplication()).getAppComponent().plus(new ActivityModule(this));

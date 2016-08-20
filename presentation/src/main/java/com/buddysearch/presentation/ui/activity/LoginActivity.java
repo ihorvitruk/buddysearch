@@ -1,11 +1,13 @@
 package com.buddysearch.presentation.ui.activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.buddysearch.presentation.R;
+import com.buddysearch.presentation.databinding.ActivityLoginBinding;
 import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.mvp.presenter.LoginPresenter;
 import com.buddysearch.presentation.mvp.view.LoginView;
@@ -17,7 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> {
+public class LoginActivity extends BaseActivity<LoginView, LoginPresenter, ActivityLoginBinding> {
 
     private static final int RC_SIGN_IN = 9001;
 
@@ -30,7 +32,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         googleApiClient.connect();
 
     }
@@ -80,6 +81,11 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> {
     protected LoginPresenter initPresenter() {
         getActivityComponent().inject(this);
         return loginPresenter;
+    }
+
+    @Override
+    protected ActivityLoginBinding initBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_login);
     }
 
     public void onClickSignInGoogle(View v) {

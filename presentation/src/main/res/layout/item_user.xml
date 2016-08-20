@@ -2,26 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/activity_users"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
+        <TextView
+            android:id="@+id/tv_last_name"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_users"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-
 </layout>
