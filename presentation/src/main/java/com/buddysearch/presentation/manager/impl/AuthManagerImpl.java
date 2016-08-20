@@ -1,5 +1,7 @@
 package com.buddysearch.presentation.manager.impl;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.buddysearch.presentation.data.entity.UserEntity;
@@ -46,14 +48,25 @@ public class AuthManagerImpl implements AuthManager {
     @Override
     public void signOut(SignOutCallback signOutCallback) {
         auth.signOut();
-        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
-                status -> {
-                    if (status.isSuccess()) {
-                        signOutCallback.onSignOutSuccess();
-                    } else {
-                        signOutCallback.onSignOutError();
-                    }
-                });
+        googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+            @Override
+            public void onConnected(@Nullable Bundle bundle) {
+                Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
+                        status -> {
+                            if (status.isSuccess()) {
+                                signOutCallback.onSignOutSuccess();
+                            } else {
+                                signOutCallback.onSignOutError();
+                            }
+                            googleApiClient.disconnect();
+                        });
+            }
+
+            @Override
+            public void onConnectionSuspended(int i) {
+            }
+        });
+        googleApiClient.connect();
     }
 
     @Override

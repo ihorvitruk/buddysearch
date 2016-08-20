@@ -50,16 +50,19 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter, Activ
             view.hideProgress();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
+                view.showProgress();
                 GoogleSignInAccount account = result.getSignInAccount();
                 presenter.getAuthManager().signInGoogle(account, new AuthManager.SignInCallback() {
                     @Override
                     public void onSignInSuccess() {
                         view.navigateToUsers();
+                        view.hideProgress();
                     }
 
                     @Override
                     public void onSignInError() {
                         view.showMessage("Authentication failed.");
+                        view.hideProgress();
                     }
                 });
             }
@@ -90,7 +93,15 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter, Activ
 
     public void onClickSignInGoogle(View v) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        googleApiClientSignOut();
         startActivityForResult(signInIntent, RC_SIGN_IN);
         view.showProgress();
+    }
+
+    private void googleApiClientSignOut() {
+        try {
+            Auth.GoogleSignInApi.signOut(googleApiClient);
+        } catch (Exception e) {
+        }
     }
 }

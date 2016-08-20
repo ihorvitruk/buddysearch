@@ -67,6 +67,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "42851104733-428ofgkq3tc69edkkmec9o9u4ssn6kbd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buddysearch.android.presentation",
+            "certificate_hash": "9558BCDD8A073A4E6F0F972CE8ADE1E1EC61E238"
+          }
+        },
+        {
           "client_id": "42851104733-oi9kr283gtvd7f3k7utko0c0b0odrfld.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

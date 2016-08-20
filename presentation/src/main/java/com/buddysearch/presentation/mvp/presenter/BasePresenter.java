@@ -25,7 +25,6 @@ public abstract class BasePresenter<VIEW extends View> {
     }
 
     public void detachView() {
-        this.view = null;
         onViewDetached();
     }
 

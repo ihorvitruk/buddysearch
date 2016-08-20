@@ -3,6 +3,7 @@ package com.buddysearch.presentation.di.module;
 import android.content.Context;
 
 import com.buddysearch.presentation.App;
+import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.manager.impl.NetworkManagerImpl;
 import com.google.android.gms.auth.api.Auth;
@@ -59,6 +60,7 @@ public class AppModule {
     @Singleton
     GoogleApiClient providesGoogleApiClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(app.getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
