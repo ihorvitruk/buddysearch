@@ -1,8 +1,8 @@
 package com.buddysearch.presentation.mvp.presenter;
 
 import com.buddysearch.presentation.cache.Cache;
-import com.buddysearch.presentation.manager.AuthManager;
-import com.buddysearch.presentation.manager.NetworkManager;
+import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.presentation.mvp.view.LoginView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 

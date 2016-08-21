@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.manager;
+package com.buddysearch.android.data.manager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 

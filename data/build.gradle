@@ -37,4 +37,8 @@ dependencies {
     provided globalDependencies.javaxAnnotation
     compile globalDependencies.javaxInject
     compile globalDependencies.firebaseDatabase
+    compile globalDependencies.firebaseAuth
+    compile globalDependencies.playServicesAuth
 }
+
+apply plugin: 'com.google.gms.google-services'

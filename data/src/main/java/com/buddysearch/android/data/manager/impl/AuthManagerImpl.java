@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.manager.impl;
+package com.buddysearch.android.data.manager.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
-import com.buddysearch.presentation.manager.AuthManager;
+import com.buddysearch.android.data.manager.AuthManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;

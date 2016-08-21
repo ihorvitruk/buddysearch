@@ -57,8 +57,4 @@ dependencies {
     debugCompile globalDependencies.leakCanary
     releaseCompile globalDependencies.leakCanaryNoOps
     testCompile globalDependencies.leakCanaryNoOps
-    compile globalDependencies.playServicesAuth
-    compile globalDependencies.firebaseAuth
 }
-
-apply plugin: 'com.google.gms.google-services'

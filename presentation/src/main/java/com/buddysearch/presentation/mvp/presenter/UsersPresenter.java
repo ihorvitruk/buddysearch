@@ -7,8 +7,8 @@ import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.DefaultSubscriber;
 import com.buddysearch.android.domain.interactor.GetUser;
 import com.buddysearch.android.domain.interactor.GetUsers;
-import com.buddysearch.presentation.manager.AuthManager;
-import com.buddysearch.presentation.manager.NetworkManager;
+import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
 
