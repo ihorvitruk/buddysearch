@@ -1,6 +1,6 @@
-package com.buddysearch.presentation.domain.repository;
+package com.buddysearch.android.domain.repository;
 
-import com.buddysearch.presentation.domain.dto.UserDto;
+import com.buddysearch.android.domain.dto.UserDto;
 
 import java.util.List;
 

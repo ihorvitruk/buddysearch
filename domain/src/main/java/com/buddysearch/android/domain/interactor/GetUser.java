@@ -1,7 +1,7 @@
-package com.buddysearch.presentation.domain.interactor;
+package com.buddysearch.android.domain.interactor;
 
-import com.buddysearch.presentation.domain.dto.UserDto;
-import com.buddysearch.presentation.domain.repository.UserRepository;
+import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.domain.repository.UserRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;

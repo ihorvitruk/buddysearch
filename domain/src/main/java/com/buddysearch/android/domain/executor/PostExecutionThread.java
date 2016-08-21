@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.domain.executor;
+package com.buddysearch.android.domain.executor;
 
 import rx.Scheduler;
 

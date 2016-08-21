@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.domain.interactor;
+package com.buddysearch.android.domain.interactor;
 
 import rx.Subscriber;
 

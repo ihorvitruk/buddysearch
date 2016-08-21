@@ -1,6 +1,6 @@
-package com.buddysearch.presentation.domain.interactor;
+package com.buddysearch.android.domain.interactor;
 
-import com.buddysearch.presentation.domain.repository.Repository;
+import com.buddysearch.android.domain.repository.Repository;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;

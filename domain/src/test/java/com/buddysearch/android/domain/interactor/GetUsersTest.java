@@ -1,6 +1,6 @@
-package com.buddysearch.presentation.domain.interactor;
+package com.buddysearch.android.domain.interactor;
 
-import com.buddysearch.presentation.domain.repository.UserRepository;
+import com.buddysearch.android.domain.repository.UserRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.buddysearch.presentation.mapper;
 
-import com.buddysearch.presentation.domain.dto.UserDto;
+import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.presentation.mvp.model.UserModel;
 
 import javax.inject.Inject;

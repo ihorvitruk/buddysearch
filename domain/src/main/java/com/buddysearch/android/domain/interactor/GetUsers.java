@@ -1,9 +1,7 @@
-package com.buddysearch.presentation.domain.interactor;
+package com.buddysearch.android.domain.interactor;
 
-import com.buddysearch.presentation.domain.dto.UserDto;
-import com.buddysearch.presentation.domain.executor.PostExecutionThread;
-import com.buddysearch.presentation.domain.executor.ThreadExecutor;
-import com.buddysearch.presentation.domain.repository.UserRepository;
+import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.domain.repository.UserRepository;
 
 import java.util.List;
 

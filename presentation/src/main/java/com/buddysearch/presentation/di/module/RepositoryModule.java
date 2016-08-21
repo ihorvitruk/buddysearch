@@ -3,7 +3,7 @@ package com.buddysearch.presentation.di.module;
 import com.buddysearch.presentation.data.mapper.UserEntityMapper;
 import com.buddysearch.presentation.data.repository.UserDataRepository;
 import com.buddysearch.presentation.data.store.UserEntityStore;
-import com.buddysearch.presentation.domain.repository.UserRepository;
+import com.buddysearch.android.domain.repository.UserRepository;
 
 import javax.inject.Singleton;
 

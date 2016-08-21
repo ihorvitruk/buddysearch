@@ -1,6 +1,6 @@
 package com.buddysearch.presentation.mvp.model;
 
-import com.buddysearch.presentation.domain.dto.Gender;
+import com.buddysearch.android.domain.dto.Gender;
 
 import lombok.Data;
 

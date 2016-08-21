@@ -3,13 +3,13 @@ package com.buddysearch.presentation.data.mapper;
 import android.text.TextUtils;
 
 import com.buddysearch.presentation.data.entity.UserEntity;
-import com.buddysearch.presentation.domain.dto.Gender;
-import com.buddysearch.presentation.domain.dto.UserDto;
+import com.buddysearch.android.domain.dto.Gender;
+import com.buddysearch.android.domain.dto.UserDto;
 
 import javax.inject.Inject;
 
-import static com.buddysearch.presentation.domain.dto.Gender.FEMALE;
-import static com.buddysearch.presentation.domain.dto.Gender.MALE;
+import static com.buddysearch.android.domain.dto.Gender.FEMALE;
+import static com.buddysearch.android.domain.dto.Gender.MALE;
 
 public class UserEntityMapper extends BaseEntityMapper<UserEntity, UserDto> {
 
