@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.data.entity;
+package com.buddysearch.android.data.entity;
 
 import lombok.Data;
 

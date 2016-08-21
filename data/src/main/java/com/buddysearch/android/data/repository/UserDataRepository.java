@@ -1,7 +1,7 @@
-package com.buddysearch.presentation.data.repository;
+package com.buddysearch.android.data.repository;
 
-import com.buddysearch.presentation.data.mapper.UserEntityMapper;
-import com.buddysearch.presentation.data.store.UserEntityStore;
+import com.buddysearch.android.data.mapper.UserEntityMapper;
+import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.repository.UserRepository;
 

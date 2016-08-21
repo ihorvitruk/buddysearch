@@ -1,7 +1,7 @@
-package com.buddysearch.presentation.data.repository;
+package com.buddysearch.android.data.repository;
 
-import com.buddysearch.presentation.data.mapper.BaseEntityMapper;
-import com.buddysearch.presentation.data.store.EntityStore;
+import com.buddysearch.android.data.mapper.BaseEntityMapper;
+import com.buddysearch.android.data.store.EntityStore;
 
 public abstract class BaseDataRepository<ENTITY_STORE extends EntityStore, ENTITY_MAPPER extends BaseEntityMapper> {
 

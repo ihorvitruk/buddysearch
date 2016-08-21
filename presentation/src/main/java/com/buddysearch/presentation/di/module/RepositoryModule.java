@@ -1,8 +1,8 @@
 package com.buddysearch.presentation.di.module;
 
-import com.buddysearch.presentation.data.mapper.UserEntityMapper;
-import com.buddysearch.presentation.data.repository.UserDataRepository;
-import com.buddysearch.presentation.data.store.UserEntityStore;
+import com.buddysearch.android.data.mapper.UserEntityMapper;
+import com.buddysearch.android.data.repository.UserDataRepository;
+import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.domain.repository.UserRepository;
 
 import javax.inject.Singleton;

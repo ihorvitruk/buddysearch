@@ -1,13 +1,12 @@
-package com.buddysearch.presentation.data.store.firebase;
+package com.buddysearch.android.data.store.firebase;
 
-import com.buddysearch.presentation.data.entity.UserEntity;
-import com.buddysearch.presentation.data.store.UserEntityStore;
+import com.buddysearch.android.data.entity.UserEntity;
+import com.buddysearch.android.data.store.UserEntityStore;
 import com.google.firebase.database.Query;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import rx.Observable;
 

@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.data.mapper;
+package com.buddysearch.android.data.mapper;
 
 import java.util.ArrayList;
 import java.util.Collection;

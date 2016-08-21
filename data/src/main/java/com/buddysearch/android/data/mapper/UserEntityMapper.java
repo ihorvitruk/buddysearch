@@ -1,8 +1,8 @@
-package com.buddysearch.presentation.data.mapper;
+package com.buddysearch.android.data.mapper;
 
 import android.text.TextUtils;
 
-import com.buddysearch.presentation.data.entity.UserEntity;
+import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.domain.dto.Gender;
 import com.buddysearch.android.domain.dto.UserDto;
 

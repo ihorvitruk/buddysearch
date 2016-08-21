@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.data.store.firebase;
+package com.buddysearch.android.data.store.firebase;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;

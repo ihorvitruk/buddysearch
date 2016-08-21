@@ -1,7 +1,7 @@
 package com.buddysearch.presentation.di.module;
 
-import com.buddysearch.presentation.data.store.UserEntityStore;
-import com.buddysearch.presentation.data.store.firebase.FirebaseUserEntityStore;
+import com.buddysearch.android.data.store.UserEntityStore;
+import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
 
 import javax.inject.Singleton;
 

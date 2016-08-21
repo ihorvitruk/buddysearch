@@ -1,6 +1,6 @@
-package com.buddysearch.presentation.data.store;
+package com.buddysearch.android.data.store;
 
-import com.buddysearch.presentation.data.entity.UserEntity;
+import com.buddysearch.android.data.entity.UserEntity;
 
 import java.util.List;
 
