@@ -53,11 +53,7 @@ public class UsersPresenter extends BasePresenter<UsersView, UserCache> {
 
     @Override
     public void refreshData() {
-        if (networkManager.isNetworkAvailable()) {
-            getCurrentUser();
-        } else {
-            view.showMessage(R.string.no_internet_connection);
-        }
+        getCurrentUser();
     }
 
     private void getUsers() {

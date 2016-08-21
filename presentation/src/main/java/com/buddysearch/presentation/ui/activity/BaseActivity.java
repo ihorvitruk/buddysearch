@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.buddysearch.presentation.App;
 import com.buddysearch.presentation.di.component.ActivityComponent;
 import com.buddysearch.presentation.di.module.ActivityModule;
+import com.buddysearch.presentation.di.module.CacheModule;
+import com.buddysearch.presentation.di.module.EntityStoreModule;
+import com.buddysearch.presentation.di.module.RepositoryModule;
 import com.buddysearch.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.mvp.view.View;
 
@@ -66,6 +69,10 @@ public abstract class BaseActivity<VIEW extends View,
     protected abstract BINDING initBinding();
 
     private void initActivityComponent() {
-        activityComponent = ((App) getApplication()).getAppComponent().plus(new ActivityModule(this));
+        activityComponent = ((App) getApplication()).getAppComponent()
+                .plus(new ActivityModule(this),
+                        new RepositoryModule(),
+                        new EntityStoreModule(),
+                        new CacheModule());
     }
 }
