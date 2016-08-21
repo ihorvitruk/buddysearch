@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.databinding.ActivityLoginBinding;
-import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.mvp.presenter.LoginPresenter;
 import com.buddysearch.presentation.mvp.view.LoginView;
 import com.buddysearch.presentation.mvp.view.impl.LoginViewImpl;
@@ -52,19 +51,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter, Activ
             if (result.isSuccess()) {
                 view.showProgress();
                 GoogleSignInAccount account = result.getSignInAccount();
-                presenter.getAuthManager().signInGoogle(account, new AuthManager.SignInCallback() {
-                    @Override
-                    public void onSignInSuccess() {
-                        view.navigateToUsers();
-                        view.hideProgress();
-                    }
-
-                    @Override
-                    public void onSignInError() {
-                        view.showMessage("Authentication failed.");
-                        view.hideProgress();
-                    }
-                });
+                presenter.signInWithGoogle(account);
             }
         }
     }

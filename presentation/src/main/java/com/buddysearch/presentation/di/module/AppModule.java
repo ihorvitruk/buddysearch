@@ -34,13 +34,6 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
-    NetworkManager providesNetworkManager() {
-        return new NetworkManagerImpl(app);
-    }
-
-
-    @Provides
     @Named("Thread")
     @Singleton
     Scheduler providesThreadScheduler() {

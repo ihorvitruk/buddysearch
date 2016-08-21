@@ -13,6 +13,7 @@ import com.buddysearch.presentation.mvp.model.UserModel;
 import com.buddysearch.presentation.mvp.presenter.UsersPresenter;
 import com.buddysearch.presentation.mvp.view.UsersView;
 import com.buddysearch.presentation.mvp.view.impl.UsersViewImpl;
+import com.buddysearch.presentation.mvp.view.impl.ViewImpl;
 import com.buddysearch.presentation.ui.adapter.UsersAdapter;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class UsersActivity extends BaseActivity<UsersView, UsersPresenter, Activ
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUsersRecyclerView();
+        initSwipeToRefresh();
     }
 
     @Override
@@ -80,5 +82,9 @@ public class UsersActivity extends BaseActivity<UsersView, UsersPresenter, Activ
         usersAdapter = new UsersAdapter();
         binding.rvUsers.setAdapter(usersAdapter);
         binding.rvUsers.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void initSwipeToRefresh() {
+        ((ViewImpl)view).initSwipeToRefresh(binding.swipeToRefresh, presenter);
     }
 }

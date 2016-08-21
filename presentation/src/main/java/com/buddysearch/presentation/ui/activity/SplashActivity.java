@@ -1,18 +1,29 @@
 package com.buddysearch.presentation.ui.activity;
 
 import android.content.Intent;
-import android.databinding.ViewDataBinding;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
+import com.buddysearch.presentation.R;
+import com.buddysearch.presentation.databinding.ActivitySplashBinding;
 import com.buddysearch.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.presentation.mvp.view.SplashView;
 import com.buddysearch.presentation.mvp.view.impl.SplashViewImpl;
+import com.buddysearch.presentation.mvp.view.impl.ViewImpl;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity<SplashView, SplashPresenter, ViewDataBinding> {
+public class SplashActivity extends BaseActivity<SplashView, SplashPresenter, ActivitySplashBinding> {
 
     @Inject
     SplashPresenter splashPresenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initSwipeToRefresh();
+    }
 
     @Override
     protected SplashView initView() {
@@ -39,7 +50,11 @@ public class SplashActivity extends BaseActivity<SplashView, SplashPresenter, Vi
     }
 
     @Override
-    protected ViewDataBinding initBinding() {
-        return null;
+    protected ActivitySplashBinding initBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_splash);
+    }
+
+    private void initSwipeToRefresh() {
+        ((ViewImpl) view).initSwipeToRefresh(binding.swipeToRefresh, presenter);
     }
 }

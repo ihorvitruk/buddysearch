@@ -1,14 +1,21 @@
 package com.buddysearch.presentation.manager.impl;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.buddysearch.presentation.manager.NetworkManager;
 
-public class NetworkManagerImpl implements NetworkManager {
+public class NetworkManagerImpl extends BroadcastReceiver implements NetworkManager {
 
     private Context context;
+
+    private IntentFilter connectivityIntentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+
+    private Callback callback;
 
     public NetworkManagerImpl(Context context) {
         this.context = context;
@@ -24,5 +31,26 @@ public class NetworkManagerImpl implements NetworkManager {
             }
         }
         return false;
+    }
+
+    @Override
+    public void register(Callback callback) {
+        this.callback = callback;
+        context.registerReceiver(this, connectivityIntentFilter);
+    }
+
+    @Override
+    public void unregister() {
+        context.unregisterReceiver(this);
+        callback = null;
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (isNetworkAvailable() && callback != null) {
+            if (!isInitialStickyBroadcast()) {
+                callback.onNetworkAvailable();
+            }
+        }
     }
 }

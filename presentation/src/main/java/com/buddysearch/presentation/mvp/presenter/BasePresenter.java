@@ -2,29 +2,35 @@ package com.buddysearch.presentation.mvp.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.buddysearch.presentation.cache.Cache;
 import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.mvp.view.View;
 
-public abstract class BasePresenter<VIEW extends View> {
+public abstract class BasePresenter<VIEW extends View, CACHE extends Cache> {
 
     protected NetworkManager networkManager;
 
     protected AuthManager authManager;
 
+    protected CACHE cache;
+
     public BasePresenter(NetworkManager networkManager, AuthManager authManager) {
         this.networkManager = networkManager;
         this.authManager = authManager;
+        this.cache = initCache();
     }
 
     protected VIEW view;
 
     public void attachView(@NonNull VIEW view) {
         this.view = view;
+        networkManager.register(this::refreshData);
         onViewAttached();
     }
 
     public void detachView() {
+        networkManager.unregister();
         onViewDetached();
     }
 
@@ -35,26 +41,13 @@ public abstract class BasePresenter<VIEW extends View> {
         view.hideProgress();
     }
 
-    protected abstract void onViewAttached();
-
-    protected abstract void onViewDetached();
+    protected abstract CACHE initCache();
 
     public abstract void refreshData();
 
-    public void signOut() {
-        view.showProgress();
-        authManager.signOut(new AuthManager.SignOutCallback() {
-            @Override
-            public void onSignOutSuccess() {
-                view.hideProgress();
-                view.navigateToSplash();
-            }
+    protected void onViewAttached() {
+    }
 
-            @Override
-            public void onSignOutError() {
-                view.hideProgress();
-                view.showMessage("Sign out error occurred");
-            }
-        });
+    protected void onViewDetached() {
     }
 }

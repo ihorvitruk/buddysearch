@@ -12,7 +12,7 @@ import com.buddysearch.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.mvp.view.View;
 
 public abstract class BaseActivity<VIEW extends View,
-        PRESENTER extends BasePresenter<VIEW>,
+        PRESENTER extends BasePresenter,
         BINDING extends ViewDataBinding> extends AppCompatActivity {
 
     protected PRESENTER presenter;

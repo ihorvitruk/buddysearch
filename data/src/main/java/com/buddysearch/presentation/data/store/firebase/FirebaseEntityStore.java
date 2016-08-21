@@ -35,6 +35,7 @@ public abstract class FirebaseEntityStore {
     private <T> Observable<T> doQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction) {
         return Observable.create(subscriber -> {
             ValueEventListener eventListener = query.addValueEventListener(new ValueEventListener() {
+
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     onNextAction.call(subscriber, dataSnapshot);

@@ -1,6 +1,6 @@
 package com.buddysearch.presentation.mvp.presenter;
 
-import com.buddysearch.presentation.R;
+import com.buddysearch.presentation.cache.Cache;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.manager.NetworkManager;
@@ -9,7 +9,7 @@ import com.buddysearch.presentation.mvp.view.SplashView;
 import javax.inject.Inject;
 
 @ActivityScope
-public class SplashPresenter extends BasePresenter<SplashView> {
+public class SplashPresenter extends BasePresenter<SplashView, Cache> {
 
     @Inject
     public SplashPresenter(NetworkManager networkManager, AuthManager authManager) {
@@ -17,12 +17,8 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     @Override
-    protected void onViewAttached() {
-        refreshData();
-    }
-
-    @Override
-    protected void onViewDetached() {
+    protected Cache initCache() {
+        return null;
     }
 
     @Override
@@ -30,16 +26,18 @@ public class SplashPresenter extends BasePresenter<SplashView> {
         chooseNavigation();
     }
 
-    private void chooseNavigation() {
-        if (networkManager.isNetworkAvailable()) {
-            if (authManager.isSignedIn()) {
-                view.navigateToUsers();
+    @Override
+    protected void onViewAttached() {
+        super.onViewAttached();
+        refreshData();
+    }
 
-            } else {
-                view.navigateToLogin();
-            }
+    private void chooseNavigation() {
+        if (authManager.isSignedIn()) {
+            view.navigateToUsers();
+
         } else {
-            view.showMessage(R.string.no_internet_connection);
+            view.navigateToLogin();
         }
     }
 }

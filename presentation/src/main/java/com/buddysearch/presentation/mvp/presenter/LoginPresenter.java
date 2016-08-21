@@ -1,12 +1,14 @@
 package com.buddysearch.presentation.mvp.presenter;
 
+import com.buddysearch.presentation.cache.Cache;
 import com.buddysearch.presentation.manager.AuthManager;
 import com.buddysearch.presentation.manager.NetworkManager;
 import com.buddysearch.presentation.mvp.view.LoginView;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import javax.inject.Inject;
 
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class LoginPresenter extends BasePresenter<LoginView, Cache> {
 
     @Inject
     public LoginPresenter(NetworkManager networkManager, AuthManager authManager) {
@@ -14,18 +16,27 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     @Override
-    protected void onViewAttached() {
-    }
-
-    @Override
-    protected void onViewDetached() {
+    protected Cache initCache() {
+        return null;
     }
 
     @Override
     public void refreshData() {
     }
 
-    public AuthManager getAuthManager() {
-        return authManager;
+    public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
+        authManager.signInGoogle(googleSignInAccount, new AuthManager.SignInCallback() {
+            @Override
+            public void onSignInSuccess() {
+                view.navigateToUsers();
+                view.hideProgress();
+            }
+
+            @Override
+            public void onSignInError() {
+                view.showMessage("Authentication failed.");
+                view.hideProgress();
+            }
+        });
     }
 }
