@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
+import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.ui.activity.BaseActivity;
 import com.buddysearch.presentation.ui.activity.SplashActivity;
@@ -105,5 +106,15 @@ public abstract class ViewImpl implements com.buddysearch.presentation.mvp.view.
             return fragment.getView();
         }
         return null;
+    }
+
+    @Override
+    public void showNoNetworkMessage() {
+        showMessage(R.string.no_internet_connection);
+    }
+
+    @Override
+    public void showFromCacheMessage() {
+        showMessage(R.string.data_from_cache);
     }
 }

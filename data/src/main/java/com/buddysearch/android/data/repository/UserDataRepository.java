@@ -1,5 +1,6 @@
 package com.buddysearch.android.data.repository;
 
+import com.buddysearch.android.data.DataStatusMessenger;
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.data.mapper.UserEntityMapper;
@@ -18,10 +19,11 @@ public class UserDataRepository extends BaseDataRepository<UserEntityStore, User
 
     @Inject
     public UserDataRepository(NetworkManager networkManager,
+                              DataStatusMessenger dataStatusMessenger,
                               UserEntityStore cloudStore,
                               UserCache cache,
                               UserEntityMapper entityMapper) {
-        super(networkManager, cloudStore, cache, entityMapper);
+        super(networkManager, dataStatusMessenger, cloudStore, cache, entityMapper);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class UserDataRepository extends BaseDataRepository<UserEntityStore, User
         if (networkManager.isNetworkAvailable()) {
             entityObservable = cloudStore.getUsers().doOnNext(userEntities -> cache.saveUsers(userEntities));
         } else {
-            entityObservable = cache.getUsers();
+            entityObservable = cache.getUsers().doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
         }
         return entityObservable.map(userEntities -> entityMapper.map(userEntities));
     }
@@ -39,8 +41,10 @@ public class UserDataRepository extends BaseDataRepository<UserEntityStore, User
     public Observable<UserDto> getUser(String userId) {
         Observable<UserEntity> entityObservable;
         if (networkManager.isNetworkAvailable()) {
-            entityObservable =
+            entityObservable = cloudStore.getUser(userId).doOnNext(userEntity -> cache.saveUser(userId, userEntity));
+        } else {
+            entityObservable = cache.getUser(userId).doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
         }
-        return cloudStore.getUser(userId).map(userEntity -> entityMapper.map(userEntity));
+        return entityObservable.map(userEntity -> entityMapper.map(userEntity));
     }
 }

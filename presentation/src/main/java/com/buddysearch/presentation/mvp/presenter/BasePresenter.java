@@ -2,9 +2,9 @@ package com.buddysearch.presentation.mvp.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.buddysearch.presentation.cache.Cache;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.NetworkManager;
+import com.buddysearch.android.data.store.cache.Cache;
 import com.buddysearch.presentation.mvp.view.View;
 
 public abstract class BasePresenter<VIEW extends View, CACHE extends Cache> {

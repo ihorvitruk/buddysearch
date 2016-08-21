@@ -55,6 +55,10 @@ public abstract class BaseActivity<VIEW extends View,
         return activityComponent;
     }
 
+    public VIEW getView() {
+        return view;
+    }
+
     protected abstract VIEW initView();
 
     protected abstract PRESENTER initPresenter();

@@ -1,5 +1,6 @@
 package com.buddysearch.android.data.repository;
 
+import com.buddysearch.android.data.DataStatusMessenger;
 import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.data.mapper.BaseEntityMapper;
 import com.buddysearch.android.data.store.EntityStore;
@@ -13,6 +14,8 @@ public abstract class BaseDataRepository
 
     protected NetworkManager networkManager;
 
+    protected DataStatusMessenger dataStatusMessenger;
+
     protected ENTITY_STORE cloudStore;
 
     protected CACHE cache;
@@ -20,10 +23,12 @@ public abstract class BaseDataRepository
     protected ENTITY_MAPPER entityMapper;
 
     public BaseDataRepository(NetworkManager networkManager,
+                              DataStatusMessenger dataStatusMessenger,
                               ENTITY_STORE cloudStore,
                               CACHE cache,
                               ENTITY_MAPPER entityMapper) {
         this.networkManager = networkManager;
+        this.dataStatusMessenger = dataStatusMessenger;
         this.cloudStore = cloudStore;
         this.cache = cache;
         this.entityMapper = entityMapper;

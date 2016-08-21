@@ -1,8 +1,8 @@
 package com.buddysearch.presentation.mvp.presenter;
 
-import com.buddysearch.presentation.cache.Cache;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.NetworkManager;
+import com.buddysearch.android.data.store.cache.Cache;
 import com.buddysearch.presentation.mvp.view.DialogView;
 
 import javax.inject.Inject;

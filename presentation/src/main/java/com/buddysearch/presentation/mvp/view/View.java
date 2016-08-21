@@ -1,6 +1,8 @@
 package com.buddysearch.presentation.mvp.view;
 
-public interface View {
+import com.buddysearch.android.data.DataStatusMessenger;
+
+public interface View extends DataStatusMessenger {
 
     void showMessage(String message);
 
