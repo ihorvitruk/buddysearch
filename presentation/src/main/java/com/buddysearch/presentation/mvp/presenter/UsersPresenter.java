@@ -2,12 +2,10 @@ package com.buddysearch.presentation.mvp.presenter;
 
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.NetworkManager;
-import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.DefaultSubscriber;
 import com.buddysearch.android.domain.interactor.GetUser;
 import com.buddysearch.android.domain.interactor.GetUsers;
-import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
@@ -17,7 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 @ActivityScope
-public class UsersPresenter extends BasePresenter<UsersView, UserCache> {
+public class UsersPresenter extends BasePresenter<UsersView> {
 
     private GetUsers getUsers;
 
@@ -44,11 +42,6 @@ public class UsersPresenter extends BasePresenter<UsersView, UserCache> {
     @Override
     protected void onViewDetached() {
         getUsers.unsubscribe();
-    }
-
-    @Override
-    protected UserCache initCache() {
-        return null;
     }
 
     @Override

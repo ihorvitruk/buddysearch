@@ -9,16 +9,11 @@ import com.buddysearch.presentation.mvp.view.SplashView;
 import javax.inject.Inject;
 
 @ActivityScope
-public class SplashPresenter extends BasePresenter<SplashView, Cache> {
+public class SplashPresenter extends BasePresenter<SplashView> {
 
     @Inject
     public SplashPresenter(NetworkManager networkManager, AuthManager authManager) {
         super(networkManager, authManager);
-    }
-
-    @Override
-    protected Cache initCache() {
-        return null;
     }
 
     @Override

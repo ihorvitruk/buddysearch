@@ -7,16 +7,11 @@ import com.buddysearch.presentation.mvp.view.DialogView;
 
 import javax.inject.Inject;
 
-public class DialogPresenter extends BasePresenter<DialogView, Cache> {
+public class DialogPresenter extends BasePresenter<DialogView> {
 
     @Inject
     public DialogPresenter(NetworkManager networkManager, AuthManager authManager) {
         super(networkManager, authManager);
-    }
-
-    @Override
-    protected Cache initCache() {
-        return null;
     }
 
     @Override

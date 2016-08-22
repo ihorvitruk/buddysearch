@@ -4,21 +4,17 @@ import android.support.annotation.NonNull;
 
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.NetworkManager;
-import com.buddysearch.android.data.store.cache.Cache;
 import com.buddysearch.presentation.mvp.view.View;
 
-public abstract class BasePresenter<VIEW extends View, CACHE extends Cache> {
+public abstract class BasePresenter<VIEW extends View> {
 
     protected NetworkManager networkManager;
 
     protected AuthManager authManager;
 
-    protected CACHE cache;
-
     public BasePresenter(NetworkManager networkManager, AuthManager authManager) {
         this.networkManager = networkManager;
         this.authManager = authManager;
-        this.cache = initCache();
     }
 
     protected VIEW view;
@@ -40,8 +36,6 @@ public abstract class BasePresenter<VIEW extends View, CACHE extends Cache> {
     public void pause() {
         view.hideProgress();
     }
-
-    protected abstract CACHE initCache();
 
     public abstract void refreshData();
 

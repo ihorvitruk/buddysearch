@@ -8,16 +8,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import javax.inject.Inject;
 
-public class LoginPresenter extends BasePresenter<LoginView, Cache> {
+public class LoginPresenter extends BasePresenter<LoginView> {
 
     @Inject
     public LoginPresenter(NetworkManager networkManager, AuthManager authManager) {
         super(networkManager, authManager);
-    }
-
-    @Override
-    protected Cache initCache() {
-        return null;
     }
 
     @Override
