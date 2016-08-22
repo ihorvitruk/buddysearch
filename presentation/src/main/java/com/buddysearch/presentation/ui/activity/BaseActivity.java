@@ -73,6 +73,6 @@ public abstract class BaseActivity<VIEW extends View,
                 .plus(new ActivityModule(this),
                         new RepositoryModule(),
                         new EntityStoreModule(),
-                        new CacheModule());
+                        new CacheModule(this));
     }
 }

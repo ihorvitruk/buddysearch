@@ -2,7 +2,7 @@ package com.buddysearch.android.data.repository;
 
 import com.buddysearch.android.data.DataStatusMessenger;
 import com.buddysearch.android.data.manager.NetworkManager;
-import com.buddysearch.android.data.mapper.BaseEntityMapper;
+import com.buddysearch.android.data.mapper.BaseMapper;
 import com.buddysearch.android.data.store.EntityStore;
 import com.buddysearch.android.data.store.cache.Cache;
 import com.buddysearch.android.domain.repository.Repository;
@@ -10,7 +10,7 @@ import com.buddysearch.android.domain.repository.Repository;
 public abstract class BaseDataRepository
         <ENTITY_STORE extends EntityStore,
                 CACHE extends Cache,
-                ENTITY_MAPPER extends BaseEntityMapper> implements Repository {
+                ENTITY_MAPPER extends BaseMapper> implements Repository {
 
     protected NetworkManager networkManager;
 

@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import static com.buddysearch.android.domain.dto.Gender.FEMALE;
 import static com.buddysearch.android.domain.dto.Gender.MALE;
 
-public class UserEntityMapper extends BaseEntityMapper<UserEntity, UserDto> {
+public class UserEntityMapper extends BaseMapper<UserEntity, UserDto> {
 
     @Inject
     public UserEntityMapper() {

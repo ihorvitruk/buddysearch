@@ -10,6 +10,8 @@ public class ProgressDialogHelper {
     @Getter
     private ProgressDialog dialog;
 
+    private volatile int progressesCount = 0;
+
     public void showProgress(Context context) {
         showProgress(context, null);
     }
@@ -23,19 +25,30 @@ public class ProgressDialogHelper {
             return;
         }
 
-        hideProgress();
+        if (!inProgress()) {
+            dialog = new ProgressDialog(context);
+            if (message != null) dialog.setMessage(message);
+            if (title != null) dialog.setTitle(title);
+            dialog.setIndeterminate(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
 
-        dialog = new ProgressDialog(context);
-        if (message != null) dialog.setMessage(message);
-        if (title != null) dialog.setTitle(title);
-        dialog.setIndeterminate(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        progressesCount++;
     }
 
     public void hideProgress() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+        progressesCount--;
+        if (progressesCount <= 0) {
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+                progressesCount = 0;
+            }
         }
+
+    }
+
+    private boolean inProgress() {
+        return dialog != null && dialog.isShowing();
     }
 }

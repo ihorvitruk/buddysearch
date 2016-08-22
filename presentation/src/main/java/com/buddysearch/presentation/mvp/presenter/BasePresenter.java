@@ -38,7 +38,6 @@ public abstract class BasePresenter<VIEW extends View, CACHE extends Cache> {
     }
 
     public void pause() {
-        view.hideProgress();
     }
 
     protected abstract CACHE initCache();

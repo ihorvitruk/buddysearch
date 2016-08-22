@@ -1,9 +1,10 @@
 package com.buddysearch.android.data.entity;
 
+import io.realm.RealmObject;
 import lombok.Data;
 
 @Data
-public class UserEntity {
+public class UserEntity extends RealmObject {
 
     public static final String GENDER_MALE = "male";
     public static final String GENDER_FEMALE = "female";
@@ -13,7 +14,7 @@ public class UserEntity {
     private String firstName;
 
     private String lastName;
-    
+
     private int age;
 
     private String gender;

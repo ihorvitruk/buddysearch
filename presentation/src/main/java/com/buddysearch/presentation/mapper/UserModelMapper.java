@@ -1,11 +1,12 @@
 package com.buddysearch.presentation.mapper;
 
+import com.buddysearch.android.data.mapper.BaseMapper;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.presentation.mvp.model.UserModel;
 
 import javax.inject.Inject;
 
-public class UserModelMapper extends BaseModelMapper<UserDto, UserModel> {
+public class UserModelMapper extends BaseMapper<UserDto, UserModel> {
 
     @Inject
     public UserModelMapper() {
