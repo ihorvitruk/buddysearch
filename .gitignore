@@ -34,3 +34,5 @@ captures/
 .idea/
 gradle/
 *.iml
+
+data/google-services.json
