@@ -3,12 +3,12 @@ package com.buddysearch.presentation.mvp.presenter;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.domain.dto.UserDto;
-import com.buddysearch.android.domain.interactor.DefaultSubscriber;
 import com.buddysearch.android.domain.interactor.GetUser;
 import com.buddysearch.android.domain.interactor.GetUsers;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
+import com.buddysearch.presentation.util.DefaultSubscriber;
 
 import java.util.List;
 
@@ -47,10 +47,12 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     @Override
     public void refreshData() {
         getCurrentUser();
+        getUsers();
     }
 
     private void getUsers() {
-        getUsers.execute(new DefaultSubscriber<List<UserDto>>() {
+        view.showProgress();
+        getUsers.execute(new DefaultSubscriber<List<UserDto>>(view) {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
@@ -69,12 +71,13 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private void getCurrentUser() {
         view.showProgress();
-        getUser.execute(authManager.getCurrentUserId(), new DefaultSubscriber<UserDto>() {
+        getUser.execute(authManager.getCurrentUserId(), new DefaultSubscriber<UserDto>(view) {
+
             @Override
             public void onNext(UserDto user) {
                 super.onNext(user);
                 view.renderCurrentUser(userModelMapper.map(user));
-                getUsers();
+                view.hideProgress();
             }
 
             @Override

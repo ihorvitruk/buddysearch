@@ -34,7 +34,6 @@ public abstract class BasePresenter<VIEW extends View> {
     }
 
     public void pause() {
-        view.hideProgress();
     }
 
     public abstract void refreshData();
