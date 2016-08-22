@@ -4,7 +4,8 @@ import android.content.Context;
 
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.entity.realm.RealmUserEntity;
-import com.buddysearch.android.data.mapper.realm.RealmUserEntityMapper;
+import com.buddysearch.android.data.mapper.realm.FromRealmUserEntityMapper;
+import com.buddysearch.android.data.mapper.realm.ToRealmUserEntityMapper;
 import com.buddysearch.android.data.store.cache.UserCache;
 
 import java.util.List;
@@ -17,36 +18,43 @@ public class RealmUserCache implements UserCache {
 
     private Realm realm;
 
-    private RealmUserEntityMapper realmUserEntityMapper;
+    private FromRealmUserEntityMapper fromRealmUserEntityMapper;
 
-    public RealmUserCache(Context context) {
+    private ToRealmUserEntityMapper toRealmUserEntityMapper;
+
+    public RealmUserCache(Context context,
+                          FromRealmUserEntityMapper fromRealmUserEntityMapper,
+                          ToRealmUserEntityMapper toRealmUserEntityMapper) {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context).build();
         Realm.setDefaultConfiguration(realmConfiguration);
         realm = Realm.getInstance(realmConfiguration);
-        realmUserEntityMapper = new RealmUserEntityMapper();
+        this.fromRealmUserEntityMapper = fromRealmUserEntityMapper;
+        this.toRealmUserEntityMapper = toRealmUserEntityMapper;
+
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Observable<List<UserEntity>> getUsers() {
-        return (Observable) realm.where(UserEntity.class).findAll().asObservable();
+        List<UserEntity> userEntities = fromRealmUserEntityMapper.map(
+                realm.where(RealmUserEntity.class).findAll());
+        return Observable.just(userEntities);
     }
 
     @Override
     public Observable<UserEntity> getUser(String userId) {
-        RealmUserEntity userEntity = realm.where(UserEntity.class).equalTo("id", userId).findFirst();
-        Observable.from(new UserEntity[]{realmUserEntityMapper.map(userEntity)})
-        }
+        RealmUserEntity userEntity = realm.where(RealmUserEntity.class).equalTo("id", userId).findFirst();
+        return Observable.just(fromRealmUserEntityMapper.map(userEntity));
     }
 
     @Override
     public void saveUser(String userId, UserEntity userEntity) {
-        realm.copyToRealmOrUpdate(userEntity);
+        realm.copyToRealmOrUpdate(toRealmUserEntityMapper.map(userEntity));
     }
 
     @Override
     public void saveUsers(List<UserEntity> userEntityList) {
-        realm.delete(UserEntity.class);
-        realm.copyToRealm(userEntityList);
+        realm.delete(RealmUserEntity.class);
+        realm.copyToRealm(toRealmUserEntityMapper.map(userEntityList));
     }
 }

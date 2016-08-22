@@ -2,6 +2,8 @@ package com.buddysearch.presentation.di.module;
 
 import android.content.Context;
 
+import com.buddysearch.android.data.mapper.realm.FromRealmUserEntityMapper;
+import com.buddysearch.android.data.mapper.realm.ToRealmUserEntityMapper;
 import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.data.store.cache.realm.RealmUserCache;
 import com.buddysearch.presentation.di.scope.ActivityScope;
@@ -20,7 +22,8 @@ public class CacheModule {
 
     @Provides
     @ActivityScope
-    UserCache providesUserCache() {
-        return new RealmUserCache(context);
+    UserCache providesUserCache(FromRealmUserEntityMapper fromRealmUserEntityMapper,
+                                ToRealmUserEntityMapper toRealmUserEntityMapper) {
+        return new RealmUserCache(context, fromRealmUserEntityMapper, toRealmUserEntityMapper);
     }
 }
