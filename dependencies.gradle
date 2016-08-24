@@ -8,8 +8,8 @@ ext {
     //Android
     androidBuildToolsVersion = "24.0.1"
     androidMinSdkVersion = 19
-    androidTargetSdkVersion = 24
-    androidCompileSdkVersion = 24
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
     playServicesVersion = "9.4.0"
     appcompatVersion = "24.1.1"
     designVersion = "24.1.1"
