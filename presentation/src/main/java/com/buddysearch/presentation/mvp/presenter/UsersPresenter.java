@@ -91,15 +91,18 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     public void signOut() {
         view.showProgress();
-        authManager.signOut(new AuthManager.SignOutCallback() {
+        authManager.signOut(new DefaultSubscriber<String>(view) {
+
             @Override
-            public void onSignOutSuccess() {
+            public void onNext(String s) {
+                super.onNext(s);
                 view.hideProgress();
                 view.navigateToSplash();
             }
 
             @Override
-            public void onSignOutError() {
+            public void onError(Throwable e) {
+                super.onError(e);
                 view.hideProgress();
                 view.showMessage("Sign out error occurred");
             }

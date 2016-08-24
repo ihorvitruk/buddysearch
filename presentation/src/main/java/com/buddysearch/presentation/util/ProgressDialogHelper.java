@@ -42,8 +42,8 @@ public class ProgressDialogHelper {
         if (progressesCount <= 0) {
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
-                progressesCount = 0;
             }
+            progressesCount = 0;
         }
 
     }
