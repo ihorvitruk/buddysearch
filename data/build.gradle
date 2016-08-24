@@ -20,6 +20,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     buildToolsVersion '24.0.1'
 }
 
