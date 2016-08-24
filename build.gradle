@@ -23,6 +23,10 @@ allprojects {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1.0'
+}
+
 task runDomainUnitTests(dependsOn: [':domain:test']) {
     description 'Run unit tests for the domain layer.'
 }
