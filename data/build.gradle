@@ -23,8 +23,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    buildToolsVersion '24.0.1'
 }
 
 dependencies {
