@@ -56,6 +56,7 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     @Override
     protected UsersView initView() {
         return new UsersViewImpl(this) {
+            
             @Override
             public void renderCurrentUser(UserModel user) {
                 binding.tvUsername.setText(user.getFirstName() + " " + user.getLastName());
