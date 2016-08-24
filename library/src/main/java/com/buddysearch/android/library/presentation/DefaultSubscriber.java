@@ -1,6 +1,6 @@
-package com.buddysearch.presentation.util;
+package com.buddysearch.android.library.presentation;
 
-import com.buddysearch.presentation.mvp.view.View;
+import com.buddysearch.android.library.presentation.mvp.view.View;
 
 import rx.Subscriber;
 

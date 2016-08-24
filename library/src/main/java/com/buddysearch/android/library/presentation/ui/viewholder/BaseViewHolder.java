@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.ui.viewholder;
+package com.buddysearch.android.library.presentation.ui.viewholder;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;

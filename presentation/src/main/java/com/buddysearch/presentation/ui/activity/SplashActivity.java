@@ -5,16 +5,17 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.databinding.ActivitySplashBinding;
 import com.buddysearch.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.presentation.mvp.view.SplashView;
 import com.buddysearch.presentation.mvp.view.impl.SplashViewImpl;
-import com.buddysearch.presentation.mvp.view.impl.ViewImpl;
+import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity<SplashView, SplashPresenter, ActivitySplashBinding> {
+public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresenter, ActivitySplashBinding> {
 
     @Inject
     SplashPresenter splashPresenter;

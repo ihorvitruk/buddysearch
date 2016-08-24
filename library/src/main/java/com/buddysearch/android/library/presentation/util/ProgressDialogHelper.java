@@ -1,4 +1,4 @@
-package com.buddysearch.presentation.util;
+package com.buddysearch.android.library.presentation.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;

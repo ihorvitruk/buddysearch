@@ -1,4 +1,4 @@
-package com.buddysearch.android.data.manager;
+package com.buddysearch.android.library.data.manager;
 
 public interface NetworkManager {
 

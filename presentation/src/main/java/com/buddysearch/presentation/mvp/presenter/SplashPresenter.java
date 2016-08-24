@@ -1,9 +1,9 @@
 package com.buddysearch.presentation.mvp.presenter;
 
-import com.buddysearch.android.data.store.cache.Cache;
-import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
+import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mvp.view.SplashView;
 
 import javax.inject.Inject;
@@ -11,9 +11,12 @@ import javax.inject.Inject;
 @ActivityScope
 public class SplashPresenter extends BasePresenter<SplashView> {
 
+    private AuthManager authManager;
+
     @Inject
     public SplashPresenter(NetworkManager networkManager, AuthManager authManager) {
-        super(networkManager, authManager);
+        super(networkManager);
+        this.authManager = authManager;
     }
 
     @Override

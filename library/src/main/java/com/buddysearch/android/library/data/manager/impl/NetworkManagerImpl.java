@@ -1,4 +1,4 @@
-package com.buddysearch.android.data.manager.impl;
+package com.buddysearch.android.library.data.manager.impl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.buddysearch.android.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.manager.NetworkManager;
 
 public class NetworkManagerImpl extends BroadcastReceiver implements NetworkManager {
 

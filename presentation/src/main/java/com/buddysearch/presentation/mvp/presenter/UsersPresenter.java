@@ -1,14 +1,15 @@
 package com.buddysearch.presentation.mvp.presenter;
 
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.GetUser;
 import com.buddysearch.android.domain.interactor.GetUsers;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
-import com.buddysearch.presentation.util.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultSubscriber;
 
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private UserModelMapper userModelMapper;
 
+    private AuthManager authManager;
+
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
                           GetUsers getUsers, GetUser getUser, UserModelMapper userModelMapper) {
-        super(networkManager, authManager);
+        super(networkManager);
         this.authManager = authManager;
         this.getUsers = getUsers;
         this.getUser = getUser;

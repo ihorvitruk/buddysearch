@@ -1,4 +1,4 @@
-package com.buddysearch.android.data;
+package com.buddysearch.android.library.data;
 
 public interface DataStatusMessenger {
     /**

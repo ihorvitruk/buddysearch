@@ -1,5 +1,6 @@
 package com.buddysearch.presentation.ui.viewholder;
 
+import com.buddysearch.android.library.presentation.ui.viewholder.BaseViewHolder;
 import com.buddysearch.presentation.databinding.ItemUserBinding;
 import com.buddysearch.presentation.mvp.model.UserModel;
 

@@ -1,11 +1,11 @@
-package com.buddysearch.android.data.repository;
+package com.buddysearch.android.library.data.repository;
 
-import com.buddysearch.android.data.DataStatusMessenger;
-import com.buddysearch.android.data.manager.NetworkManager;
-import com.buddysearch.android.data.mapper.BaseMapper;
-import com.buddysearch.android.data.store.EntityStore;
-import com.buddysearch.android.data.store.cache.Cache;
 import com.buddysearch.android.domain.repository.Repository;
+import com.buddysearch.android.library.data.DataStatusMessenger;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.mapper.BaseMapper;
+import com.buddysearch.android.library.data.store.EntityStore;
+import com.buddysearch.android.library.data.store.cache.Cache;
 
 public abstract class BaseDataRepository
         <ENTITY_STORE extends EntityStore,

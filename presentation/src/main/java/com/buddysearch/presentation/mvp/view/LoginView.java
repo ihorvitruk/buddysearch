@@ -1,6 +1,7 @@
 package com.buddysearch.presentation.mvp.view;
 
-public interface LoginView extends View {
+import com.buddysearch.android.library.presentation.mvp.view.View;
 
+public interface LoginView extends View {
     void navigateToUsers();
 }

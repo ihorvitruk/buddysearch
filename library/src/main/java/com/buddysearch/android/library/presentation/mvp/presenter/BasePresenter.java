@@ -1,20 +1,16 @@
-package com.buddysearch.presentation.mvp.presenter;
+package com.buddysearch.android.library.presentation.mvp.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.manager.NetworkManager;
-import com.buddysearch.presentation.mvp.view.View;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.presentation.mvp.view.View;
 
 public abstract class BasePresenter<VIEW extends View> {
 
     protected NetworkManager networkManager;
 
-    protected AuthManager authManager;
-
-    public BasePresenter(NetworkManager networkManager, AuthManager authManager) {
+    public BasePresenter(NetworkManager networkManager) {
         this.networkManager = networkManager;
-        this.authManager = authManager;
     }
 
     protected VIEW view;

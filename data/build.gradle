@@ -25,6 +25,7 @@ android {
 
 dependencies {
     compile project(':domain')
+    compile project(':library')
     compile globalDependencies.lombok
     provided globalDependencies.javaxAnnotation
     compile globalDependencies.javaxInject

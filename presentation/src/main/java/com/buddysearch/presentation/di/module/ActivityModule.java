@@ -1,11 +1,11 @@
 package com.buddysearch.presentation.di.module;
 
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
-import com.buddysearch.android.data.manager.impl.NetworkManagerImpl;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.presentation.di.scope.ActivityScope;
-import com.buddysearch.presentation.ui.activity.BaseActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import dagger.Module;

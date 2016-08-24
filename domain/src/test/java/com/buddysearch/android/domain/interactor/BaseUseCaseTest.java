@@ -9,7 +9,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import rx.Scheduler;
 import rx.functions.Action0;
-import rx.schedulers.Schedulers;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
