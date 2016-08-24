@@ -9,6 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import rx.Scheduler;
 import rx.functions.Action0;
+import rx.schedulers.Schedulers;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -43,6 +44,5 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
         action.call();
         verifyNoMoreInteractions(mockRepository);
         verifyZeroInteractions(mockPostExecutionScheduler);
-        verifyZeroInteractions(mockThreadScheduler);
     }
 }

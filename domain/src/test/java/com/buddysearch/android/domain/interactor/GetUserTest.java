@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import rx.functions.Action0;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -16,7 +18,7 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
 
     @Override
     protected GetUser createUseCase() {
-        return new GetUser(mockRepository, mockThreadExecutor, mockPostExecutionThread);
+        return new GetUser(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -27,6 +29,11 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_USER_ID, () -> verify(mockRepository).getUser(FAKE_USER_ID));
+        testBuildUseCaseObservable(FAKE_USER_ID, new Action0() {
+            @Override
+            public void call() {
+                verify(mockRepository).getUser(FAKE_USER_ID);
+            }
+        });
     }
 }
