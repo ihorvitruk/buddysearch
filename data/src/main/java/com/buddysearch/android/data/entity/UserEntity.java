@@ -1,6 +1,7 @@
 package com.buddysearch.android.data.entity;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import lombok.Data;
 
 @Data
