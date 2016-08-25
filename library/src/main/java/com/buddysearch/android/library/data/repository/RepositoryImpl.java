@@ -7,7 +7,7 @@ import com.buddysearch.android.library.data.mapper.BaseMapper;
 import com.buddysearch.android.library.data.store.EntityStore;
 import com.buddysearch.android.library.data.store.cache.Cache;
 
-public abstract class BaseDataRepository
+public abstract class RepositoryImpl
         <ENTITY_STORE extends EntityStore,
                 CACHE extends Cache,
                 ENTITY_MAPPER extends BaseMapper> implements Repository {
@@ -22,11 +22,11 @@ public abstract class BaseDataRepository
 
     protected ENTITY_MAPPER entityMapper;
 
-    public BaseDataRepository(NetworkManager networkManager,
-                              DataStatusMessenger dataStatusMessenger,
-                              ENTITY_STORE cloudStore,
-                              CACHE cache,
-                              ENTITY_MAPPER entityMapper) {
+    public RepositoryImpl(NetworkManager networkManager,
+                          DataStatusMessenger dataStatusMessenger,
+                          ENTITY_STORE cloudStore,
+                          CACHE cache,
+                          ENTITY_MAPPER entityMapper) {
         this.networkManager = networkManager;
         this.dataStatusMessenger = dataStatusMessenger;
         this.cloudStore = cloudStore;

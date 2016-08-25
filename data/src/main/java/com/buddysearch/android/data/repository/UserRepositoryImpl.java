@@ -8,8 +8,7 @@ import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.repository.UserRepository;
 import com.buddysearch.android.library.data.DataStatusMessenger;
 import com.buddysearch.android.library.data.manager.NetworkManager;
-import com.buddysearch.android.library.data.repository.BaseDataRepository;
-import com.buddysearch.presentation.data.R;
+import com.buddysearch.android.library.data.repository.RepositoryImpl;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ import javax.inject.Inject;
 
 import rx.Observable;
 
-public class UserDataRepository extends BaseDataRepository<UserEntityStore, UserCache, UserEntityMapper> implements UserRepository {
+public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityMapper> implements UserRepository {
 
     @Inject
-    public UserDataRepository(NetworkManager networkManager,
+    public UserRepositoryImpl(NetworkManager networkManager,
                               DataStatusMessenger dataStatusMessenger,
                               UserEntityStore cloudStore,
                               UserCache cache,

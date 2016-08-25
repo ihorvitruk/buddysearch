@@ -1,7 +1,7 @@
 package com.buddysearch.android.domain.interactor.message;
 
 import com.buddysearch.android.domain.interactor.BaseUseCaseTest;
-import com.buddysearch.android.domain.repository.MessagesRepository;
+import com.buddysearch.android.domain.repository.MessageRepository;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import rx.functions.Action0;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessagesRepository> {
+public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRepository> {
 
     private final String FAKE_MESSAGE_ID = "23232";
 
@@ -20,8 +20,8 @@ public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessagesRe
     }
 
     @Override
-    protected MessagesRepository createRepository() {
-        return mock(MessagesRepository.class);
+    protected MessageRepository createRepository() {
+        return mock(MessageRepository.class);
     }
 
     @Test
