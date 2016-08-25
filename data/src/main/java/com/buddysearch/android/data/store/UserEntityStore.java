@@ -1,6 +1,7 @@
 package com.buddysearch.android.data.store;
 
 import com.buddysearch.android.data.entity.UserEntity;
+import com.buddysearch.android.library.data.store.EntityStore;
 
 import java.util.List;
 

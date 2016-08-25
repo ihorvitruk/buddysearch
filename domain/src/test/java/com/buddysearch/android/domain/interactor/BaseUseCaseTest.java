@@ -43,6 +43,5 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
         action.call();
         verifyNoMoreInteractions(mockRepository);
         verifyZeroInteractions(mockPostExecutionScheduler);
-        verifyZeroInteractions(mockThreadScheduler);
     }
 }

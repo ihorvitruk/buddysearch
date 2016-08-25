@@ -25,9 +25,11 @@ public class RealmUserCache implements UserCache {
     public RealmUserCache(Context context,
                           FromRealmUserEntityMapper fromRealmUserEntityMapper,
                           ToRealmUserEntityMapper toRealmUserEntityMapper) {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context).build();
-        Realm.setDefaultConfiguration(realmConfiguration);
-        realm = Realm.getInstance(realmConfiguration);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
+        realm = Realm.getDefaultInstance();
         this.fromRealmUserEntityMapper = fromRealmUserEntityMapper;
         this.toRealmUserEntityMapper = toRealmUserEntityMapper;
 
@@ -49,12 +51,16 @@ public class RealmUserCache implements UserCache {
 
     @Override
     public void saveUser(String userId, UserEntity userEntity) {
+        realm.beginTransaction();
         realm.copyToRealmOrUpdate(toRealmUserEntityMapper.map(userEntity));
+        realm.commitTransaction();
     }
 
     @Override
     public void saveUsers(List<UserEntity> userEntityList) {
+        realm.beginTransaction();
         realm.delete(RealmUserEntity.class);
         realm.copyToRealm(toRealmUserEntityMapper.map(userEntityList));
+        realm.commitTransaction();
     }
 }

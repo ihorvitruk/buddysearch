@@ -2,7 +2,7 @@ package com.buddysearch.android.data.mapper.realm;
 
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.entity.realm.RealmUserEntity;
-import com.buddysearch.android.data.mapper.BaseMapper;
+import com.buddysearch.android.library.data.mapper.BaseMapper;
 
 import javax.inject.Inject;
 

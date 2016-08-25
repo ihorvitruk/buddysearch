@@ -18,7 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends BaseActivity<LoginView, LoginPresenter, ActivityLoginBinding> {
+public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter, ActivityLoginBinding> {
 
     private static final int RC_SIGN_IN = 9001;
 

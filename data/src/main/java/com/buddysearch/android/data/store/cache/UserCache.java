@@ -2,6 +2,7 @@ package com.buddysearch.android.data.store.cache;
 
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.store.UserEntityStore;
+import com.buddysearch.android.library.data.store.cache.Cache;
 
 import java.util.List;
 

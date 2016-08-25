@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.domain.dto.Gender;
 import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.library.data.mapper.BaseMapper;
 
 import javax.inject.Inject;
 

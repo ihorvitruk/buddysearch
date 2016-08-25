@@ -32,7 +32,6 @@ proguard/
 # Custom patterns
 captures/
 .idea/
-gradle/
 *.iml
 
 data/google-services.json

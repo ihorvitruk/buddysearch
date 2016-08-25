@@ -1,13 +1,15 @@
 package com.buddysearch.android.data.repository;
 
-import com.buddysearch.android.data.DataStatusMessenger;
 import com.buddysearch.android.data.entity.UserEntity;
-import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.data.mapper.UserEntityMapper;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.repository.UserRepository;
+import com.buddysearch.android.library.data.DataStatusMessenger;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.repository.BaseDataRepository;
+import com.buddysearch.presentation.data.R;
 
 import java.util.List;
 

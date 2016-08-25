@@ -5,8 +5,9 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.buddysearch.android.data.entity.UserEntity;
-import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
+import com.buddysearch.android.data.exception.AuthException;
 import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -16,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import rx.Subscriber;
 
 public class AuthManagerImpl implements AuthManager {
 
@@ -32,21 +35,22 @@ public class AuthManagerImpl implements AuthManager {
     }
 
     @Override
-    public void signInGoogle(GoogleSignInAccount acct, SignInCallback signInCallback) {
+    public void signInGoogle(GoogleSignInAccount acct, Subscriber<String> subscriber) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        saveUser(task.getResult().getUser(), signInCallback);
+                        saveUser(task.getResult().getUser(), subscriber);
                     } else {
-                        signInCallback.onSignInError();
+                        subscriber.onError(new AuthException());
                     }
                 });
     }
 
 
     @Override
-    public void signOut(SignOutCallback signOutCallback) {
+    public void signOut(Subscriber<String> subscriber) {
+        String id = getCurrentUserId();
         auth.signOut();
         googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
             @Override
@@ -54,9 +58,9 @@ public class AuthManagerImpl implements AuthManager {
                 Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
                         status -> {
                             if (status.isSuccess()) {
-                                signOutCallback.onSignOutSuccess();
+                                subscriber.onNext(id);
                             } else {
-                                signOutCallback.onSignOutError();
+                                subscriber.onError(new AuthException());
                             }
                             googleApiClient.disconnect();
                         });
@@ -83,7 +87,7 @@ public class AuthManagerImpl implements AuthManager {
         return id;
     }
 
-    private void saveUser(FirebaseUser user, SignInCallback signInCallback) {
+    private void saveUser(FirebaseUser user, Subscriber<String> subscriber) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(user.getUid());
         if (!TextUtils.isEmpty(user.getDisplayName())) {
@@ -94,9 +98,9 @@ public class AuthManagerImpl implements AuthManager {
         database.child(FirebaseUserEntityStore.CHILD_USERS)
                 .child(user.getUid()).setValue(userEntity, (databaseError, databaseReference) -> {
             if (databaseError == null) {
-                signInCallback.onSignInSuccess();
+                subscriber.onNext(userEntity.getId());
             } else {
-                signInCallback.onSignInError();
+                subscriber.onError(new AuthException());
             }
         });
     }

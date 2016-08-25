@@ -31,17 +31,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '24.0.1'
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile project(':domain')
     compile project(':data')
+    compile project(':library')
 
     compile globalDependencies.rxAndroid
 
-    compile globalDependencies.appcompat
-    compile globalDependencies.design
     apt globalDependencies.daggerCompiler
     compile globalDependencies.dagger
     provided globalDependencies.javaxAnnotation

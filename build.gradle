@@ -1,13 +1,15 @@
+apply from: 'ci.gradle'
 apply from: 'dependencies.gradle'
 
 buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
         classpath "io.realm:realm-gradle-plugin:1.2.0"
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha7'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
     }
@@ -20,6 +22,10 @@ allprojects {
         androidVersionName = "1.0"
         testApplicationId = 'com.buddysearch.android.presentation.test'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
 }
 
 task runDomainUnitTests(dependsOn: [':domain:test']) {

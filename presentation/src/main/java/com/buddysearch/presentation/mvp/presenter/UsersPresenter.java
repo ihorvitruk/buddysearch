@@ -1,14 +1,12 @@
 package com.buddysearch.presentation.mvp.presenter;
 
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.manager.NetworkManager;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.domain.interactor.user.GetUsers;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
-import com.buddysearch.presentation.util.DefaultSubscriber;
 
 import java.util.List;
 
@@ -23,10 +21,12 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private UserModelMapper userModelMapper;
 
+    private AuthManager authManager;
+
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
                           GetUsers getUsers, GetUser getUser, UserModelMapper userModelMapper) {
-        super(networkManager, authManager);
+        super(networkManager);
         this.authManager = authManager;
         this.getUsers = getUsers;
         this.getUser = getUser;
@@ -91,15 +91,18 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     public void signOut() {
         view.showProgress();
-        authManager.signOut(new AuthManager.SignOutCallback() {
+        authManager.signOut(new DefaultSubscriber<String>(view) {
+
             @Override
-            public void onSignOutSuccess() {
+            public void onNext(String s) {
+                super.onNext(s);
                 view.hideProgress();
                 view.navigateToSplash();
             }
 
             @Override
-            public void onSignOutError() {
+            public void onError(Throwable e) {
+                super.onError(e);
                 view.hideProgress();
                 view.showMessage("Sign out error occurred");
             }
