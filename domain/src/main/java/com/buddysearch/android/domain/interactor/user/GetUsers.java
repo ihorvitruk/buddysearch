@@ -1,6 +1,7 @@
-package com.buddysearch.android.domain.interactor;
+package com.buddysearch.android.domain.interactor.user;
 
 import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.domain.interactor.UseCase1;
 import com.buddysearch.android.domain.repository.UserRepository;
 
 import java.util.List;

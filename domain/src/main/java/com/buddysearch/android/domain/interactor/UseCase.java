@@ -12,7 +12,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
 
-    final REPOSITORY repository;
+    protected final REPOSITORY repository;
 
     private final Scheduler threadScheduler;
 

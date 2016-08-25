@@ -1,5 +1,6 @@
 package com.buddysearch.android.domain.interactor;
 
+import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.domain.repository.UserRepository;
 
 import org.junit.Test;
