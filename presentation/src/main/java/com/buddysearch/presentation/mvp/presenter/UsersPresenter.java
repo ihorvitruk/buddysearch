@@ -4,6 +4,10 @@ import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.domain.interactor.user.GetUsers;
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
+import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 import com.buddysearch.presentation.mapper.UserModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
@@ -41,6 +45,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     @Override
     protected void onViewDetached() {
+        super.onViewDetached();
         getUsers.unsubscribe();
     }
 
@@ -104,7 +109,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             public void onError(Throwable e) {
                 super.onError(e);
                 view.hideProgress();
-                view.showMessage("Sign out error occurred");
+                view.showMessage(R.string.sign_out_error);
             }
         });
     }

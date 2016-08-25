@@ -5,4 +5,6 @@
     <string name="sign_out">Sign out</string>
     <string name="logged_as">Logged as:</string>
     <string name="all_users">All users:</string>
+    <string name="sign_out_error">Sign out error occurred</string>
+    <string name="authentication_failed">Authentication failed</string>
 </resources>

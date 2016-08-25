@@ -4,6 +4,7 @@ import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.presentation.DefaultSubscriber;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
+import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.mvp.view.LoginView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -36,7 +37,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                view.showMessage("Authentication failed.");
+                view.showMessage(R.string.authentication_failed);
                 view.hideProgress();
             }
         });

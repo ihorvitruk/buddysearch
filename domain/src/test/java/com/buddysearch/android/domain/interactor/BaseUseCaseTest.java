@@ -42,6 +42,7 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
         useCase.buildObservable(requestData);
         action.call();
         verifyNoMoreInteractions(mockRepository);
+        verifyZeroInteractions(mockThreadScheduler);
         verifyZeroInteractions(mockPostExecutionScheduler);
     }
 }

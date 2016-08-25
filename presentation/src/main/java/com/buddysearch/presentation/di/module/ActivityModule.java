@@ -4,8 +4,8 @@ import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
-import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.presentation.di.scope.ActivityScope;
+import com.buddysearch.presentation.ui.activity.BaseDaggerActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import dagger.Module;
@@ -14,14 +14,14 @@ import dagger.Provides;
 @Module
 public final class ActivityModule {
 
-    private BaseActivity activity;
+    private BaseDaggerActivity activity;
 
-    public ActivityModule(BaseActivity activity) {
+    public ActivityModule(BaseDaggerActivity activity) {
         this.activity = activity;
     }
 
     @Provides
-    BaseActivity providesActivity() {
+    BaseDaggerActivity providesActivity() {
         return activity;
     }
 

@@ -1,6 +1,7 @@
-package com.buddysearch.android.domain.interactor;
+package com.buddysearch.android.domain.interactor.user;
 
-import com.buddysearch.android.domain.interactor.user.GetUser;
+import com.buddysearch.android.domain.interactor.BaseUseCaseTest;
+import com.buddysearch.android.domain.interactor.user.GetUsers;
 import com.buddysearch.android.domain.repository.UserRepository;
 
 import org.junit.Test;
@@ -13,13 +14,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
-
-    private static final String FAKE_USER_ID = "123";
+public class GetUsersTest extends BaseUseCaseTest<GetUsers, UserRepository> {
 
     @Override
-    protected GetUser createUseCase() {
-        return new GetUser(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+    protected GetUsers createUseCase() {
+        return new GetUsers(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -30,10 +29,10 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_USER_ID, new Action0() {
+        testBuildUseCaseObservable(null, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).getUser(FAKE_USER_ID);
+                verify(mockRepository).getUsers();
             }
         });
     }
