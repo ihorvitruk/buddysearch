@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.buddysearch.presentation.data">
+    package="com.buddysearch.android.data">
 
     <application android:allowBackup="true" />
 </manifest>
