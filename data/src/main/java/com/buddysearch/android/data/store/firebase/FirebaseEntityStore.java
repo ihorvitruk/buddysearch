@@ -37,6 +37,31 @@ public abstract class FirebaseEntityStore {
         return postQuery(databaseReference, value, true, successResponse);
     }
 
+    protected <T extends Entity, R> Observable<R> createIfNotExists(DatabaseReference databaseReference, T value, R successResponse) {
+        return Observable.create(new Observable.OnSubscribe<R>() {
+            @Override
+            public void call(Subscriber<? super R> subscriber) {
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() == null) {
+                            postQuery(databaseReference, value, false, successResponse)
+                                    .subscribe(subscriber);
+                        } else {
+                            subscriber.onNext(successResponse);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                    }
+                });
+            }
+        });
+    }
+
+
     protected <T extends Entity, R> Observable<R> update(DatabaseReference databaseReference, T value, R successResponse) {
         return postQuery(databaseReference, value, false, successResponse);
     }
@@ -63,15 +88,19 @@ public abstract class FirebaseEntityStore {
         });
     }
 
-    private <T extends Entity, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean push, R successResponse) {
+    private <T extends Entity, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean newChild, R successResponse) {
 
         return Observable.create(new Observable.OnSubscribe<R>() {
             @Override
             public void call(Subscriber<? super R> subscriber) {
                 DatabaseReference reference = databaseReference;
-                if (push) {
-                    reference = databaseReference.push();
-                    value.setId(reference.getKey());
+                if (newChild) {
+                    if (value.getId() == null) {
+                        reference = databaseReference.push();
+                        value.setId(reference.getKey());
+                    } else {
+                        reference = databaseReference.child(value.getId());
+                    }
                 }
                 reference.setValue(value, (databaseError, databaseReference1) -> {
                     if (databaseError == null) {

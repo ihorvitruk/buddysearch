@@ -28,9 +28,9 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
     }
 
     @Override
-    public Observable<String> createUser(UserDto user) {
+    public Observable<String> createUserIfNotExists(UserDto user) {
         if (networkManager.isNetworkAvailable()) {
-            return cloudStore.createUser(entityDtoMapper.map1(user));
+            return cloudStore.createUserIfNotExists(entityDtoMapper.map1(user));
         } else {
             return Observable.<String>empty().doOnCompleted(() -> dataStatusMessenger.showNoNetworkMessage());
         }

@@ -15,7 +15,7 @@ public class UserViewHolder extends BaseViewHolder<ItemUserBinding, UserModel> {
     }
 
     @Override
-    public void bind(UserModel userModel) {
+    public void bind(UserModel userModel, int position) {
         binding.getRoot().setOnClickListener(view -> usersView.navigateToDialog(userModel.getId()));
         binding.tvFirstName.setText(userModel.getFirstName());
         binding.tvLastName.setText(userModel.getLastName());

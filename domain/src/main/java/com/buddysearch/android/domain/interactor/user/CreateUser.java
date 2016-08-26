@@ -19,6 +19,6 @@ public class CreateUser extends UseCase<UserDto, String, UserRepository> {
 
     @Override
     protected Observable<String> buildObservable(UserDto userDto) {
-        return repository.createUser(userDto);
+        return repository.createUserIfNotExists(userDto);
     }
 }

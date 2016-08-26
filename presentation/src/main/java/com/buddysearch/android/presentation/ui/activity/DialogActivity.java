@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
@@ -63,6 +65,26 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
             public void clearInput() {
                 binding.tvInputMessage.getText().clear();
             }
+
+            @Override
+            public void showMessageMenu(MessageModel message, int position) {
+                View item = binding.rvUsers.getChildAt(position).findViewById(R.id.tv_text);
+                PopupMenu popupMenu = new PopupMenu(item.getContext(), item);
+                boolean findItemVisibility = message.getSenderId().equals(presenter.getAuthManager().getCurrentUserId())
+                        && position == messagesAdapter.getItemCount() - 1;
+                popupMenu.inflate(R.menu.menu_message_item);
+                popupMenu.getMenu().findItem(R.id.item_edit).setVisible(findItemVisibility);
+                popupMenu.setOnMenuItemClickListener(menuItem -> {
+                    switch (menuItem.getItemId()) {
+                        case R.id.item_delete: {
+                            presenter.deleteMessage(message);
+                        }
+                        default:
+                            return false;
+                    }
+                });
+                popupMenu.show();
+            }
         };
     }
 
@@ -78,7 +100,7 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     private void initMessagesRecyclerView() {
-        messagesAdapter = new MessagesAdapter(presenter.getAuthManager().getCurrentUserId());
+        messagesAdapter = new MessagesAdapter(view, presenter.getAuthManager().getCurrentUserId());
         binding.rvUsers.setAdapter(messagesAdapter);
         binding.rvUsers.setLayoutManager(new LinearLayoutManager(this));
     }

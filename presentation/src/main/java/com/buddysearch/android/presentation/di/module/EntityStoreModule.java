@@ -1,5 +1,6 @@
 package com.buddysearch.android.presentation.di.module;
 
+import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.store.MessageEntityStore;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.firebase.FirebaseMessageEntityStore;
@@ -20,7 +21,7 @@ public class EntityStoreModule {
 
     @Provides
     @ActivityScope
-    MessageEntityStore providesMessageEntityStore() {
-        return new FirebaseMessageEntityStore();
+    MessageEntityStore providesMessageEntityStore(AuthManager authManager) {
+        return new FirebaseMessageEntityStore(authManager);
     }
 }

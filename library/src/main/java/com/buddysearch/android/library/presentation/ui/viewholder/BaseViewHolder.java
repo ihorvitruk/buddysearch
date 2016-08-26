@@ -12,5 +12,5 @@ public abstract class BaseViewHolder<BINDING extends ViewDataBinding, MODEL> ext
         this.binding = binding;
     }
 
-    public abstract void bind(MODEL model);
+    public abstract void bind(MODEL model, int position);
 }

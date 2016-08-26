@@ -8,7 +8,7 @@ import rx.Observable;
 
 public interface UserRepository extends Repository {
 
-    Observable<String> createUser(UserDto user);
+    Observable<String> createUserIfNotExists(UserDto user);
 
     Observable<List<UserDto>> getUsers();
 

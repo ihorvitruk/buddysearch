@@ -19,10 +19,9 @@ public class FirebaseUserEntityStore extends FirebaseEntityStore implements User
     public FirebaseUserEntityStore() {
     }
 
-    @Override
-    public Observable<String> createUser(UserEntity userEntity) {
+    public Observable<String> createUserIfNotExists(UserEntity userEntity) {
         DatabaseReference reference = database.child(CHILD_USERS).child(userEntity.getId());
-        return update(reference, userEntity, userEntity.getId());
+        return createIfNotExists(reference, userEntity, userEntity.getId());
     }
 
     @Override

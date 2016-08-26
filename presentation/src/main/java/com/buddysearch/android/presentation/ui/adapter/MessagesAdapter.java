@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ItemMessageBinding;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
+import com.buddysearch.android.presentation.mvp.view.DialogView;
 import com.buddysearch.android.presentation.ui.viewholder.MessageViewHolder;
 
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private String currentUserId;
 
-    public MessagesAdapter(String currentUserId) {
+    private DialogView dialogView;
+
+    public MessagesAdapter(DialogView dialogView, String currentUserId) {
+        this.dialogView = dialogView;
         this.currentUserId = currentUserId;
     }
 
@@ -27,12 +31,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemMessageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_message, parent, false);
-        return new MessageViewHolder(currentUserId, binding);
+        return new MessageViewHolder(dialogView, currentUserId, binding);
     }
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(items.get(position), position);
     }
 
     @Override

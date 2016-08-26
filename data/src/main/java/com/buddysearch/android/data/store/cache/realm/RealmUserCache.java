@@ -22,7 +22,7 @@ public class RealmUserCache implements UserCache {
     }
 
     @Override
-    public Observable<String> createUser(UserEntity userEntity) {
+    public Observable<String> createUserIfNotExists(UserEntity userEntity) {
         //cache does not support this method
         return null;
     }
@@ -43,16 +43,16 @@ public class RealmUserCache implements UserCache {
 
     @Override
     public void saveUser(String userId, UserEntity userEntity) {
-        realm.beginTransaction();
+        /*realm.beginTransaction();
         realm.copyToRealmOrUpdate(realmUserEntityMapper.map1(userEntity));
-        realm.commitTransaction();
+        realm.commitTransaction();*/
     }
 
     @Override
     public void saveUsers(List<UserEntity> userEntityList) {
-        realm.beginTransaction();
+       /* realm.beginTransaction();
         realm.delete(RealmUserEntity.class);
         realm.copyToRealm(realmUserEntityMapper.map1(userEntityList));
-        realm.commitTransaction();
+        realm.commitTransaction();*/
     }
 }

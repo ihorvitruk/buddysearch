@@ -12,4 +12,6 @@ public interface DialogView extends View {
     void setTitle(String title);
 
     void clearInput();
+
+    void showMessageMenu(MessageModel message, int position);
 }
