@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.buddysearch.android.data.manager.AuthException;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.user.CreateUser;
@@ -58,7 +59,7 @@ public class AuthManagerImpl implements AuthManager {
                             if (status.isSuccess()) {
                                 subscriber.onNext(id);
                             } else {
-                                subscriber.onError(new FirebaseException(status.getStatusMessage()));
+                                subscriber.onError(new AuthException());
                             }
                             googleApiClient.disconnect();
                         });
@@ -93,7 +94,7 @@ public class AuthManagerImpl implements AuthManager {
             userDto.setFirstName(name[0]);
             userDto.setLastName(name[1]);
         }
-        
+
         createUser.execute(userDto, subscriber);
     }
 }
