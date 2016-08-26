@@ -1,11 +1,13 @@
 package com.buddysearch.android.data.entity;
 
+import com.buddysearch.android.library.data.entity.Entity;
+
 import lombok.Data;
 
 @Data
-public class MessageEntity {
+public class MessageEntity implements Entity {
 
-    private String messageId;
+    private String id;
 
     private String senderId;
 

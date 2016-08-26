@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
@@ -48,11 +49,19 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
             @Override
             public void renderMessages(List<MessageModel> messages) {
                 messagesAdapter.setItems(messages);
+                if (messagesAdapter.getItemCount() > 0) {
+                    binding.rvUsers.scrollToPosition(messagesAdapter.getItemCount() - 1);
+                }
             }
 
             @Override
             public void setTitle(String title) {
                 DialogActivity.this.setTitle(title);
+            }
+
+            @Override
+            public void clearInput() {
+                binding.tvInputMessage.getText().clear();
             }
         };
     }
@@ -69,7 +78,7 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     private void initMessagesRecyclerView() {
-        messagesAdapter = new MessagesAdapter();
+        messagesAdapter = new MessagesAdapter(presenter.getAuthManager().getCurrentUserId());
         binding.rvUsers.setAdapter(messagesAdapter);
         binding.rvUsers.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -83,6 +92,11 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     private void initSendMessageButton() {
-        binding.btnSend.setOnClickListener(view1 -> presenter.sendMessage(binding.tvInputMessage.getText().toString()));
+        binding.btnSend.setOnClickListener(view1 -> {
+            String message = binding.tvInputMessage.getText().toString();
+            if (!TextUtils.isEmpty(message)) {
+                presenter.sendMessage(message);
+            }
+        });
     }
 }

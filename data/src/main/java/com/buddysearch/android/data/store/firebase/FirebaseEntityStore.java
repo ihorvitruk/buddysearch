@@ -1,5 +1,6 @@
 package com.buddysearch.android.data.store.firebase;
 
+import com.buddysearch.android.library.data.entity.Entity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,11 +33,11 @@ public abstract class FirebaseEntityStore {
         return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
     }
 
-    protected <T, R> Observable<R> create(DatabaseReference databaseReference, T value, R successResponse) {
+    protected <T extends Entity, R> Observable<R> create(DatabaseReference databaseReference, T value, R successResponse) {
         return postQuery(databaseReference, value, true, successResponse);
     }
 
-    protected <T, R> Observable<R> update(DatabaseReference databaseReference, T value, R successResponse) {
+    protected <T extends Entity, R> Observable<R> update(DatabaseReference databaseReference, T value, R successResponse) {
         return postQuery(databaseReference, value, false, successResponse);
     }
 
@@ -62,7 +63,7 @@ public abstract class FirebaseEntityStore {
         });
     }
 
-    private <T, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean push, R successResponse) {
+    private <T extends Entity, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean push, R successResponse) {
 
         return Observable.create(new Observable.OnSubscribe<R>() {
             @Override
@@ -70,6 +71,7 @@ public abstract class FirebaseEntityStore {
                 DatabaseReference reference = databaseReference;
                 if (push) {
                     reference = databaseReference.push();
+                    value.setId(reference.getKey());
                 }
                 reference.setValue(value, (databaseError, databaseReference1) -> {
                     if (databaseError == null) {

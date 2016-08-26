@@ -18,7 +18,7 @@ public class MessageEntityDtoMapper extends BaseMapper<MessageEntity, MessageDto
             return null;
         }
         MessageEntity messageEntity = new MessageEntity();
-        messageEntity.setMessageId(o2.getMessageId());
+        messageEntity.setId(o2.getMessageId());
         messageEntity.setSenderId(o2.getSenderId());
         messageEntity.setReceiverId(o2.getReceiverId());
         messageEntity.setText(o2.getText());
@@ -32,7 +32,7 @@ public class MessageEntityDtoMapper extends BaseMapper<MessageEntity, MessageDto
             return null;
         }
         MessageDto messageDto = new MessageDto();
-        messageDto.setMessageId(o1.getMessageId());
+        messageDto.setMessageId(o1.getId());
         messageDto.setSenderId(o1.getSenderId());
         messageDto.setReceiverId(o1.getReceiverId());
         messageDto.setText(o1.getText());

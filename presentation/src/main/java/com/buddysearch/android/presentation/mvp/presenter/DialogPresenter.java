@@ -1,7 +1,5 @@
 package com.buddysearch.android.presentation.mvp.presenter;
 
-import android.os.SystemClock;
-
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.domain.dto.MessageDto;
 import com.buddysearch.android.domain.dto.UserDto;
@@ -57,11 +55,12 @@ public class DialogPresenter extends BasePresenter<DialogView> {
         messageModel.setSenderId(authManager.getCurrentUserId());
         messageModel.setReceiverId(peerId);
         messageModel.setText(message);
-        messageModel.setTimestamp(SystemClock.currentThreadTimeMillis());
+        messageModel.setTimestamp(System.currentTimeMillis());
         postMessage.execute(messageDtoModelMapper.map1(messageModel), new DefaultSubscriber<Void>(view) {
             @Override
             public void onNext(Void aVoid) {
                 super.onNext(aVoid);
+                view.clearInput();
                 view.hideProgress();
             }
 
@@ -118,8 +117,12 @@ public class DialogPresenter extends BasePresenter<DialogView> {
             @Override
             public void onNext(UserDto userDto) {
                 super.onNext(userDto);
-                view.setTitle(userDto.getFirstName());
+                view.setTitle(userDto.getFirstName() + " " + userDto.getLastName());
             }
         });
+    }
+
+    public AuthManager getAuthManager() {
+        return authManager;
     }
 }

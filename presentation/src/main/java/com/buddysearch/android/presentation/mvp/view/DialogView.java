@@ -10,4 +10,6 @@ public interface DialogView extends View {
     void renderMessages(List<MessageModel> messages);
 
     void setTitle(String title);
+
+    void clearInput();
 }

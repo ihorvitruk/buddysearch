@@ -18,7 +18,7 @@ public class RealmMessageEntityMapper extends BaseMapper<RealmMessageEntity, Mes
             return null;
         }
         RealmMessageEntity realmMessageEntity = new RealmMessageEntity();
-        realmMessageEntity.setMessageId(o2.getMessageId());
+        realmMessageEntity.setMessageId(o2.getId());
         realmMessageEntity.setSenderId(o2.getSenderId());
         realmMessageEntity.setReceiverId(o2.getReceiverId());
         realmMessageEntity.setText(o2.getText());
@@ -32,7 +32,7 @@ public class RealmMessageEntityMapper extends BaseMapper<RealmMessageEntity, Mes
             return null;
         }
         MessageEntity messageEntity = new MessageEntity();
-        messageEntity.setMessageId(o1.getMessageId());
+        messageEntity.setId(o1.getMessageId());
         messageEntity.setSenderId(o1.getSenderId());
         messageEntity.setReceiverId(o1.getReceiverId());
         messageEntity.setText(o1.getText());

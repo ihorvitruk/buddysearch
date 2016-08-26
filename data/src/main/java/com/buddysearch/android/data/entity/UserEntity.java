@@ -1,9 +1,11 @@
 package com.buddysearch.android.data.entity;
 
+import com.buddysearch.android.library.data.entity.Entity;
+
 import lombok.Data;
 
 @Data
-public class UserEntity {
+public class UserEntity implements Entity {
 
     public static final String GENDER_MALE = "male";
     public static final String GENDER_FEMALE = "female";

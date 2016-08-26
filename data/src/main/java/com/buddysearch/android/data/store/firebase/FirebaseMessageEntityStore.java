@@ -33,14 +33,14 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
 
     @Override
     public Observable<Void> editMessage(MessageEntity editedMessage) {
-        DatabaseReference databaseReference = database.child(CHILD_MESSAGES).child(editedMessage.getReceiverId()).child(editedMessage.getMessageId());
+        DatabaseReference databaseReference = database.child(CHILD_MESSAGES).child(editedMessage.getReceiverId()).child(editedMessage.getId());
         return update(databaseReference, editedMessage, null);
 
     }
 
     @Override
     public Observable<Void> deleteMessage(MessageEntity message) {
-        DatabaseReference databaseReference = database.child(CHILD_MESSAGES).child(message.getReceiverId()).child(message.getMessageId());
+        DatabaseReference databaseReference = database.child(CHILD_MESSAGES).child(message.getReceiverId()).child(message.getId());
         return delete(databaseReference, null);
     }
 }

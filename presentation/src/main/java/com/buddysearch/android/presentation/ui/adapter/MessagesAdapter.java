@@ -17,11 +17,17 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private List<MessageModel> items = new ArrayList<>();
 
+    private String currentUserId;
+
+    public MessagesAdapter(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemMessageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_message, parent, false);
-        return new MessageViewHolder(binding);
+        return new MessageViewHolder(currentUserId, binding);
     }
 
     @Override
