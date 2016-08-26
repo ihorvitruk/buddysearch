@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface UsersView extends View {
     void renderCurrentUser(UserModel user);
+
     void renderUsers(List<UserModel> users);
+
     void navigateToSplash();
+
+    void navigateToDialog(String peerId);
 }

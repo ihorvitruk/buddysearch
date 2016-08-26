@@ -12,9 +12,6 @@ public class DefaultSubscriber<T> extends Subscriber<T> {
         this.view = view;
     }
 
-    public DefaultSubscriber() {
-    }
-
     @Override
     public void onCompleted() {
         if (view != null) {

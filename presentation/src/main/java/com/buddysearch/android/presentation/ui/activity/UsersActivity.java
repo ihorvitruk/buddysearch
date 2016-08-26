@@ -73,6 +73,11 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
+
+            @Override
+            public void navigateToDialog(String peerId) {
+                DialogActivity.start(UsersActivity.this, peerId);
+            }
         };
     }
 
@@ -88,7 +93,7 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     }
 
     private void initUsersRecyclerView() {
-        usersAdapter = new UsersAdapter();
+        usersAdapter = new UsersAdapter(view);
         binding.rvUsers.setAdapter(usersAdapter);
         binding.rvUsers.setLayoutManager(new LinearLayoutManager(this));
     }

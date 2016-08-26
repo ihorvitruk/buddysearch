@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ItemUserBinding;
 import com.buddysearch.android.presentation.mvp.model.UserModel;
+import com.buddysearch.android.presentation.mvp.view.UsersView;
 import com.buddysearch.android.presentation.ui.viewholder.UserViewHolder;
 
 import java.util.ArrayList;
@@ -17,12 +18,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     private List<UserModel> items = new ArrayList<>();
 
+    private UsersView usersView;
+
+    public UsersAdapter(UsersView usersView) {
+        this.usersView = usersView;
+    }
+
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         ItemUserBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_user, parent, false);
-        return new UserViewHolder(binding);
+        return new UserViewHolder(usersView, binding);
     }
 
     @Override

@@ -7,4 +7,7 @@
     <string name="all_users">All users:</string>
     <string name="sign_out_error">Sign out error occurred</string>
     <string name="authentication_failed">Authentication failed</string>
+    <string name="send">Send</string>
+    <string name="label_users">Users</string>
+    <string name="label_login">Login</string>
 </resources>

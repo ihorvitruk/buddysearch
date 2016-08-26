@@ -17,8 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.buddysearch.android.presentation.ui.activity.LoginActivity" />
-        <activity android:name="com.buddysearch.android.presentation.ui.activity.UsersActivity" />
+        <activity
+            android:name="com.buddysearch.android.presentation.ui.activity.LoginActivity"
+            android:label="@string/label_login" />
+        <activity
+            android:name="com.buddysearch.android.presentation.ui.activity.UsersActivity"
+            android:label="@string/label_users" />
+        <activity android:name=".ui.activity.DialogActivity" />
     </application>
 
 </manifest>

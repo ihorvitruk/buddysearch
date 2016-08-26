@@ -24,6 +24,11 @@ public abstract class BaseActivity<VIEW extends View,
         binding = initBinding();
         view = initView();
         presenter = initPresenter();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         presenter.attachView(view);
     }
 
@@ -40,8 +45,8 @@ public abstract class BaseActivity<VIEW extends View,
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         presenter.detachView();
     }
 
@@ -54,6 +59,4 @@ public abstract class BaseActivity<VIEW extends View,
     protected abstract PRESENTER initPresenter();
 
     protected abstract BINDING initBinding();
-
-
 }

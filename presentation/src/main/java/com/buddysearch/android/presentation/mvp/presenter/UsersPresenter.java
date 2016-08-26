@@ -47,6 +47,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     protected void onViewDetached() {
         super.onViewDetached();
         getUsers.unsubscribe();
+        getUser.unsubscribe();
     }
 
     @Override
@@ -101,15 +102,15 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             @Override
             public void onNext(String s) {
                 super.onNext(s);
-                view.hideProgress();
                 view.navigateToSplash();
+                view.hideProgress();
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                view.hideProgress();
                 view.showMessage(R.string.sign_out_error);
+                view.hideProgress();
             }
         });
     }
