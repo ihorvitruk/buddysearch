@@ -34,4 +34,4 @@ captures/
 .idea/
 *.iml
 
-data/google-services.json
+*/google-services.json

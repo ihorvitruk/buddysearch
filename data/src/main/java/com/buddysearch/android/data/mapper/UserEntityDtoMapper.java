@@ -28,7 +28,10 @@ public class UserEntityDtoMapper extends BaseMapper<UserEntity, UserDto> {
         userEntity.setAge(userDto.getAge());
         userEntity.setFirstName(userDto.getFirstName());
         userEntity.setLastName(userDto.getLastName());
-        userEntity.setGender(userDto.getGender().name().toLowerCase());
+        Gender gender = userDto.getGender();
+        if (gender != null) {
+            userEntity.setGender(gender.name().toLowerCase());
+        }
         userEntity.setLatitude(userDto.getLatitude());
         userEntity.setLongitude(userDto.getLongitude());
         return userEntity;
