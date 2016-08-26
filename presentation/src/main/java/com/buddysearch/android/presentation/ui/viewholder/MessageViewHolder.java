@@ -7,6 +7,9 @@ import com.buddysearch.android.library.presentation.ui.viewholder.BaseViewHolder
 import com.buddysearch.android.presentation.databinding.ItemMessageBinding;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, MessageModel> {
@@ -27,6 +30,11 @@ public class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, Messag
             linearLayout.setGravity(Gravity.LEFT);
         }
         binding.tvText.setText(messageModel.getText());
-        binding.tvTime.setText(new Date(messageModel.getTimestamp()).toString());
+        binding.tvTime.setText(formatTime(messageModel.getTimestamp()));
+    }
+
+    private String formatTime(long timestamp) {
+        DateFormat df = new SimpleDateFormat("dd MMM, HH:mm");
+        return df.format(timestamp);
     }
 }

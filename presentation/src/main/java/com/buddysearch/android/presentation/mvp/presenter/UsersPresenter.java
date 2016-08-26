@@ -10,6 +10,7 @@ import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ActivityScope;
 import com.buddysearch.android.presentation.mapper.UserDtoModelMapper;
+import com.buddysearch.android.presentation.mvp.model.UserModel;
 import com.buddysearch.android.presentation.mvp.view.UsersView;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
-                view.renderUsers(userDtoModelMapper.map2(users));
+                view.renderUsers(excludeCurrent(userDtoModelMapper.map2(users)));
                 view.hideProgress();
             }
 
@@ -113,5 +114,15 @@ public class UsersPresenter extends BasePresenter<UsersView> {
                 view.hideProgress();
             }
         });
+    }
+
+    private List<UserModel> excludeCurrent(List<UserModel> users) {
+        for (UserModel user : users) {
+            if (user.getId().equals(authManager.getCurrentUserId())) {
+                users.remove(user);
+                break;
+            }
+        }
+        return users;
     }
 }
