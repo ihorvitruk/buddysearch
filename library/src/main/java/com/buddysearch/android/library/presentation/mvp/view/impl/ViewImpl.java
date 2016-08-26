@@ -45,7 +45,7 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     @Override
     public void showProgress() {
-        progressDialogHelper.showProgress(getContext());
+        progressDialogHelper.showProgress(getContext(), getContext().getString(R.string.loading));
     }
 
     @Override

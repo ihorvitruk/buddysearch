@@ -3,4 +3,5 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="data_from_cache">No internet connection. Data was loaded from cache</string>
     <string name="authentication_error">Authentication error</string>
+    <string name="loading">Loading…</string>
 </resources>

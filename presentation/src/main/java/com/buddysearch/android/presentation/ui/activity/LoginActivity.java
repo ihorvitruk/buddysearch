@@ -49,7 +49,7 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
             view.hideProgress();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                view.showProgress();
+                view.showProgress(getString(R.string.authenticating));
                 GoogleSignInAccount account = result.getSignInAccount();
                 presenter.signInWithGoogle(account);
             }
