@@ -2,6 +2,7 @@ package com.buddysearch.android.data.store.firebase;
 
 import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.store.UserEntityStore;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public class FirebaseUserEntityStore extends FirebaseEntityStore implements User
 
     @Inject
     public FirebaseUserEntityStore() {
+    }
+
+    @Override
+    public Observable<String> createUser(UserEntity userEntity) {
+        DatabaseReference reference = database.child(CHILD_USERS).child(userEntity.getId());
+        return update(reference, userEntity, userEntity.getId());
     }
 
     @Override

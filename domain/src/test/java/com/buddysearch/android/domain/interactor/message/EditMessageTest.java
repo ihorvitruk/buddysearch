@@ -13,8 +13,6 @@ import static org.mockito.Mockito.verify;
 
 public class EditMessageTest extends BaseUseCaseTest<EditMessage, MessageRepository> {
 
-    private final String FAKE_MESSAGE_ID = "12345";
-
     private final MessageDto testMessage = new MessageDto();
 
     @Override
@@ -30,12 +28,10 @@ public class EditMessageTest extends BaseUseCaseTest<EditMessage, MessageReposit
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        EditMessageRequestModel editMessageRequestModel
-                = new EditMessageRequestModel(FAKE_MESSAGE_ID, testMessage);
-        testBuildUseCaseObservable(editMessageRequestModel, new Action0() {
+        testBuildUseCaseObservable(testMessage, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).editMessage(FAKE_MESSAGE_ID, testMessage);
+                verify(mockRepository).editMessage(testMessage);
             }
         });
     }

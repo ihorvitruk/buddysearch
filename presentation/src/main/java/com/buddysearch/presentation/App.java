@@ -7,6 +7,9 @@ import com.buddysearch.presentation.di.component.DaggerAppComponent;
 import com.buddysearch.presentation.di.module.AppModule;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class App extends Application {
 
     private AppComponent appComponent;
@@ -14,8 +17,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initRealm();
         initializeInjector();
         initializeLeakDetection();
+    }
+
+    private void initRealm() {
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
     }
 
     private void initializeInjector() {

@@ -10,7 +10,7 @@ import javax.inject.Named;
 import rx.Observable;
 import rx.Scheduler;
 
-public class PostMessage extends UseCase<MessageDto, Boolean, MessageRepository> {
+public class PostMessage extends UseCase<MessageDto, Void, MessageRepository> {
 
     @Inject
     public PostMessage(MessageRepository repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
@@ -18,7 +18,7 @@ public class PostMessage extends UseCase<MessageDto, Boolean, MessageRepository>
     }
 
     @Override
-    protected Observable<Boolean> buildObservable(MessageDto messageDto) {
+    protected Observable<Void> buildObservable(MessageDto messageDto) {
         return repository.postMessage(messageDto);
     }
 }

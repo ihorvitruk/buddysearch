@@ -1,10 +1,10 @@
 package com.buddysearch.presentation.di.module;
 
-import android.content.Context;
-
-import com.buddysearch.android.data.mapper.realm.FromRealmUserEntityMapper;
-import com.buddysearch.android.data.mapper.realm.ToRealmUserEntityMapper;
+import com.buddysearch.android.data.mapper.realm.RealmMessageEntityMapper;
+import com.buddysearch.android.data.mapper.realm.RealmUserEntityMapper;
+import com.buddysearch.android.data.store.cache.MessageCache;
 import com.buddysearch.android.data.store.cache.UserCache;
+import com.buddysearch.android.data.store.cache.realm.RealmMessageCache;
 import com.buddysearch.android.data.store.cache.realm.RealmUserCache;
 import com.buddysearch.presentation.di.scope.ActivityScope;
 
@@ -14,16 +14,15 @@ import dagger.Provides;
 @Module
 public class CacheModule {
 
-    private Context context;
-
-    public CacheModule(Context context) {
-        this.context = context;
+    @Provides
+    @ActivityScope
+    UserCache providesUserCache(RealmUserEntityMapper realmUserEntityMapper) {
+        return new RealmUserCache(realmUserEntityMapper);
     }
 
     @Provides
     @ActivityScope
-    UserCache providesUserCache(FromRealmUserEntityMapper fromRealmUserEntityMapper,
-                                ToRealmUserEntityMapper toRealmUserEntityMapper) {
-        return new RealmUserCache(context, fromRealmUserEntityMapper, toRealmUserEntityMapper);
+    MessageCache providesMessageCache(RealmMessageEntityMapper realmMessageEntityMapper) {
+        return new RealmMessageCache(realmMessageEntityMapper);
     }
 }

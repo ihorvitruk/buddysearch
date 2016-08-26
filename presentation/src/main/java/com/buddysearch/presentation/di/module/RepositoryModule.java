@@ -1,6 +1,6 @@
 package com.buddysearch.presentation.di.module;
 
-import com.buddysearch.android.data.mapper.UserEntityMapper;
+import com.buddysearch.android.data.mapper.UserEntityDtoMapper;
 import com.buddysearch.android.data.repository.UserRepositoryImpl;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.cache.UserCache;
@@ -21,8 +21,8 @@ public class RepositoryModule {
                                           BaseDaggerActivity activity,
                                           UserEntityStore userEntityStore,
                                           UserCache userCache,
-                                          UserEntityMapper userEntityMapper) {
+                                          UserEntityDtoMapper userEntityDtoMapper) {
         return new UserRepositoryImpl(networkManager, activity.getView(),
-                userEntityStore, userCache, userEntityMapper);
+                userEntityStore, userCache, userEntityDtoMapper);
     }
 }

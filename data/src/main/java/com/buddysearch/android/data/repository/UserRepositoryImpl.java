@@ -1,7 +1,7 @@
 package com.buddysearch.android.data.repository;
 
 import com.buddysearch.android.data.entity.UserEntity;
-import com.buddysearch.android.data.mapper.UserEntityMapper;
+import com.buddysearch.android.data.mapper.UserEntityDtoMapper;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.domain.dto.UserDto;
@@ -16,15 +16,24 @@ import javax.inject.Inject;
 
 import rx.Observable;
 
-public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityMapper> implements UserRepository {
+public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityDtoMapper> implements UserRepository {
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
                               DataStatusMessenger dataStatusMessenger,
                               UserEntityStore cloudStore,
                               UserCache cache,
-                              UserEntityMapper entityMapper) {
-        super(networkManager, dataStatusMessenger, cloudStore, cache, entityMapper);
+                              UserEntityDtoMapper entityDtoMapper) {
+        super(networkManager, dataStatusMessenger, cloudStore, cache, entityDtoMapper);
+    }
+
+    @Override
+    public Observable<String> createUser(UserDto user) {
+        if (networkManager.isNetworkAvailable()) {
+            return cloudStore.createUser(entityDtoMapper.map1(user));
+        } else {
+            return Observable.<String>empty().doOnCompleted(() -> dataStatusMessenger.showNoNetworkMessage());
+        }
     }
 
     @Override
@@ -35,7 +44,7 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
         } else {
             entityObservable = cache.getUsers().doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
         }
-        return entityObservable.map(userEntities -> entityMapper.map(userEntities));
+        return entityObservable.map(userEntities -> entityDtoMapper.map2(userEntities));
     }
 
     @Override
@@ -46,6 +55,6 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
         } else {
             entityObservable = cache.getUser(userId).doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
         }
-        return entityObservable.map(userEntity -> entityMapper.map(userEntity));
+        return entityObservable.map(userEntity -> entityDtoMapper.map2(userEntity));
     }
 }

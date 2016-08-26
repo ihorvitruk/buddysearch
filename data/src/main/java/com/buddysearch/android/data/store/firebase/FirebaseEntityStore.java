@@ -24,15 +24,27 @@ public abstract class FirebaseEntityStore {
         database = FirebaseDatabase.getInstance().getReference();
     }
 
-    protected <T> Observable<List<T>> getList(Query query, Class<T> itemClass) {
-        return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
-    }
-
     protected <T> Observable<T> get(Query query, Class<T> itemClass) {
-        return doQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot, itemClass)));
+        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot, itemClass)));
     }
 
-    private <T> Observable<T> doQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction) {
+    protected <T> Observable<List<T>> getList(Query query, Class<T> itemClass) {
+        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
+    }
+
+    protected <T, R> Observable<R> create(DatabaseReference databaseReference, T value, R successResponse) {
+        return postQuery(databaseReference, value, true, successResponse);
+    }
+
+    protected <T, R> Observable<R> update(DatabaseReference databaseReference, T value, R successResponse) {
+        return postQuery(databaseReference, value, false, successResponse);
+    }
+
+    protected <R> Observable<R> delete(DatabaseReference databaseReference, R successResponse) {
+        return deleteQuery(databaseReference, successResponse);
+    }
+
+    private <T> Observable<T> getQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction) {
         return Observable.create(subscriber -> {
             ValueEventListener eventListener = query.addValueEventListener(new ValueEventListener() {
 
@@ -47,6 +59,41 @@ public abstract class FirebaseEntityStore {
                 }
             });
             subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
+        });
+    }
+
+    private <T, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean push, R successResponse) {
+
+        return Observable.create(new Observable.OnSubscribe<R>() {
+            @Override
+            public void call(Subscriber<? super R> subscriber) {
+                DatabaseReference reference = databaseReference;
+                if (push) {
+                    reference = databaseReference.push();
+                }
+                reference.setValue(value, (databaseError, databaseReference1) -> {
+                    if (databaseError == null) {
+                        subscriber.onNext(successResponse);
+                    } else {
+                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                    }
+                });
+            }
+        });
+    }
+
+    private <R> Observable<R> deleteQuery(DatabaseReference databaseReference, R successResponse) {
+        return Observable.create(new Observable.OnSubscribe<R>() {
+            @Override
+            public void call(Subscriber<? super R> subscriber) {
+                databaseReference.removeValue((databaseError, databaseReference1) -> {
+                    if (databaseError == null) {
+                        subscriber.onNext(successResponse);
+                    } else {
+                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                    }
+                });
+            }
         });
     }
 

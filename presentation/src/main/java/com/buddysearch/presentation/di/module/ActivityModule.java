@@ -2,6 +2,7 @@ package com.buddysearch.presentation.di.module;
 
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
+import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
 import com.buddysearch.presentation.di.scope.ActivityScope;
@@ -27,8 +28,8 @@ public final class ActivityModule {
 
     @Provides
     @ActivityScope
-    AuthManager providesAuthManager(GoogleApiClient googleApiClient) {
-        return new AuthManagerImpl(googleApiClient);
+    AuthManager providesAuthManager(CreateUser createUser, GoogleApiClient googleApiClient) {
+        return new AuthManagerImpl(createUser, googleApiClient);
     }
 
     @Provides

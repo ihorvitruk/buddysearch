@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.buddysearch.android.data.entity.UserEntity;
-import com.buddysearch.android.data.exception.AuthException;
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
+import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import rx.Subscriber;
 
@@ -24,14 +22,14 @@ public class AuthManagerImpl implements AuthManager {
 
     private FirebaseAuth auth;
 
-    private DatabaseReference database;
-
     private GoogleApiClient googleApiClient;
 
-    public AuthManagerImpl(GoogleApiClient googleApiClient) {
+    private CreateUser createUser;
+
+    public AuthManagerImpl(CreateUser createUser, GoogleApiClient googleApiClient) {
         this.googleApiClient = googleApiClient;
         this.auth = FirebaseAuth.getInstance();
-        this.database = FirebaseDatabase.getInstance().getReference();
+        this.createUser = createUser;
     }
 
     @Override
@@ -42,7 +40,7 @@ public class AuthManagerImpl implements AuthManager {
                     if (task.isSuccessful()) {
                         saveUser(task.getResult().getUser(), subscriber);
                     } else {
-                        subscriber.onError(new AuthException());
+                        subscriber.onError(new FirebaseException(task.getException().getMessage()));
                     }
                 });
     }
@@ -60,7 +58,7 @@ public class AuthManagerImpl implements AuthManager {
                             if (status.isSuccess()) {
                                 subscriber.onNext(id);
                             } else {
-                                subscriber.onError(new AuthException());
+                                subscriber.onError(new FirebaseException(status.getStatusMessage()));
                             }
                             googleApiClient.disconnect();
                         });
@@ -88,20 +86,14 @@ public class AuthManagerImpl implements AuthManager {
     }
 
     private void saveUser(FirebaseUser user, Subscriber<String> subscriber) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.getUid());
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getUid());
         if (!TextUtils.isEmpty(user.getDisplayName())) {
             String[] name = user.getDisplayName().split(" ");
-            userEntity.setFirstName(name[0]);
-            userEntity.setLastName(name[1]);
+            userDto.setFirstName(name[0]);
+            userDto.setLastName(name[1]);
         }
-        database.child(FirebaseUserEntityStore.CHILD_USERS)
-                .child(user.getUid()).setValue(userEntity, (databaseError, databaseReference) -> {
-            if (databaseError == null) {
-                subscriber.onNext(userEntity.getId());
-            } else {
-                subscriber.onError(new AuthException());
-            }
-        });
+        
+        createUser.execute(userDto, subscriber);
     }
 }

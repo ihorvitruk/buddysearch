@@ -9,6 +9,8 @@ import rx.Observable;
 
 public interface UserEntityStore extends EntityStore {
 
+    Observable<String> createUser(UserEntity userEntity);
+
     Observable<List<UserEntity>> getUsers();
 
     Observable<UserEntity> getUser(String userId);

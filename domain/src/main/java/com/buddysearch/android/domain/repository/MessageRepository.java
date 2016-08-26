@@ -8,11 +8,11 @@ import rx.Observable;
 
 public interface MessageRepository extends Repository {
 
-    Observable<Boolean> postMessage(MessageDto message);
-    
-    Observable<List<MessageDto>> getMessages(String peerUserId);
+    Observable<List<MessageDto>> getMessages(String peerId);
 
-    Observable<Boolean> editMessage(String messageId, MessageDto newMessage);
+    Observable<Void> postMessage(MessageDto message);
 
-    Observable<Boolean> deleteMessage(String messageId);
+    Observable<Void> editMessage(MessageDto editedMessage);
+
+    Observable<Void> deleteMessage(MessageDto message);
 }

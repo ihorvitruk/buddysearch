@@ -35,6 +35,6 @@ public abstract class BaseDaggerActivity<VIEW extends View,
                 .plus(new ActivityModule(this),
                         new RepositoryModule(),
                         new EntityStoreModule(),
-                        new CacheModule(this));
+                        new CacheModule());
     }
 }

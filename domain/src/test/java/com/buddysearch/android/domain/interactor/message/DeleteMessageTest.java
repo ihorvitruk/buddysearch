@@ -1,5 +1,6 @@
 package com.buddysearch.android.domain.interactor.message;
 
+import com.buddysearch.android.domain.dto.MessageDto;
 import com.buddysearch.android.domain.interactor.BaseUseCaseTest;
 import com.buddysearch.android.domain.repository.MessageRepository;
 
@@ -12,7 +13,7 @@ import static org.mockito.Mockito.verify;
 
 public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRepository> {
 
-    private final String FAKE_MESSAGE_ID = "23232";
+    private final MessageDto testMessage = new MessageDto();
 
     @Override
     protected DeleteMessage createUseCase() {
@@ -27,10 +28,10 @@ public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRep
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_MESSAGE_ID, new Action0() {
+        testBuildUseCaseObservable(testMessage, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).deleteMessage(FAKE_MESSAGE_ID);
+                verify(mockRepository).deleteMessage(testMessage);
             }
         });
     }

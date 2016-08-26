@@ -12,9 +12,14 @@ public class DefaultSubscriber<T> extends Subscriber<T> {
         this.view = view;
     }
 
+    public DefaultSubscriber() {
+    }
+
     @Override
     public void onCompleted() {
-        view.hideProgress();
+        if (view != null) {
+            view.hideProgress();
+        }
     }
 
     @Override

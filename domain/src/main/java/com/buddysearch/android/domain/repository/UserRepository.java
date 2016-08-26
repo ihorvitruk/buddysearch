@@ -8,6 +8,8 @@ import rx.Observable;
 
 public interface UserRepository extends Repository {
 
+    Observable<String> createUser(UserDto user);
+
     Observable<List<UserDto>> getUsers();
 
     Observable<UserDto> getUser(final String userId);

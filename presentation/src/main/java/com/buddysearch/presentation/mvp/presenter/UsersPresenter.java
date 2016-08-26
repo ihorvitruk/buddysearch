@@ -9,7 +9,7 @@ import com.buddysearch.android.library.presentation.DefaultSubscriber;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.presentation.R;
 import com.buddysearch.presentation.di.scope.ActivityScope;
-import com.buddysearch.presentation.mapper.UserModelMapper;
+import com.buddysearch.presentation.mapper.UserDtoModelMapper;
 import com.buddysearch.presentation.mvp.view.UsersView;
 
 import java.util.List;
@@ -23,18 +23,18 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private GetUser getUser;
 
-    private UserModelMapper userModelMapper;
+    private UserDtoModelMapper userDtoModelMapper;
 
     private AuthManager authManager;
 
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
-                          GetUsers getUsers, GetUser getUser, UserModelMapper userModelMapper) {
+                          GetUsers getUsers, GetUser getUser, UserDtoModelMapper userDtoModelMapper) {
         super(networkManager);
         this.authManager = authManager;
         this.getUsers = getUsers;
         this.getUser = getUser;
-        this.userModelMapper = userModelMapper;
+        this.userDtoModelMapper = userDtoModelMapper;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
-                view.renderUsers(userModelMapper.map(users));
+                view.renderUsers(userDtoModelMapper.map2(users));
                 view.hideProgress();
             }
 
@@ -81,7 +81,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             @Override
             public void onNext(UserDto user) {
                 super.onNext(user);
-                view.renderCurrentUser(userModelMapper.map(user));
+                view.renderCurrentUser(userDtoModelMapper.map2(user));
                 view.hideProgress();
             }
 
