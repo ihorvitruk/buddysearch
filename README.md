@@ -14,10 +14,10 @@
 * __FirebaseAuth__ - used for user authentication.
 * __FirebaseDatabase__ - used as a remote data repository.
 * __Realm__ - used as a local data cache.
-* __LeakCanary__ - used to avoid possible memory leaks.
-* __Lombok__ - useful annotations.
 * __Play Services Auth__ - for signing in with Google.
 * __Android Data Binding Library__.
+* __LeakCanary__ - used to avoid possible memory leaks.
+* __Lombok__ - useful annotations.
 * __AppCompat__, __Design Library__.
 
 Libraries for testing
