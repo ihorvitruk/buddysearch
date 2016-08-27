@@ -1,7 +1,13 @@
 # Buddy Search
 
-License
---------
+## TODO
+* Add __presentation_mvvm module__ - Write alternative presentation layer to demonstrate MVVM architectural pattern.
+* Write __data layer tests__.
+* Write __presentation layer tests__.
+* Add __NavigationDrawer__ and a few __fragments__ with some new logic: __Dialogs List, Users Map__ (using Google Map) etc. 
+* Write __Kotlin__ version of this project to demonstrate power and benefits of this programming language on real project example.
+
+##License
 
     Copyright 2016 Ihor Vitruk
 
