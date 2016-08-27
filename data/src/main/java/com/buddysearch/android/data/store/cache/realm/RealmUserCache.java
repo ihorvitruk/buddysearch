@@ -43,16 +43,16 @@ public class RealmUserCache implements UserCache {
 
     @Override
     public void saveUser(String userId, UserEntity userEntity) {
-        /*realm.beginTransaction();
-        realm.copyToRealmOrUpdate(realmUserEntityMapper.map1(userEntity));
-        realm.commitTransaction();*/
+        realm.executeTransaction(realm1 -> {
+            realm.copyToRealmOrUpdate(realmUserEntityMapper.map1(userEntity));
+        });
     }
 
     @Override
     public void saveUsers(List<UserEntity> userEntityList) {
-       /* realm.beginTransaction();
-        realm.delete(RealmUserEntity.class);
-        realm.copyToRealm(realmUserEntityMapper.map1(userEntityList));
-        realm.commitTransaction();*/
+        realm.executeTransaction(realm1 -> {
+            realm1.delete(RealmUserEntity.class);
+            realm1.copyToRealm(realmUserEntityMapper.map1(userEntityList));
+        });
     }
 }

@@ -48,9 +48,9 @@ public class RealmMessageCache implements MessageCache {
 
     @Override
     public void saveMessages(List<MessageEntity> messageEntities) {
-      /*  realm.beginTransaction();
-        realm.delete(RealmMessageEntity.class);
-        realm.copyToRealm(realmMessageEntityMapper.map1(messageEntities));
-        realm.commitTransaction();*/
+        realm.executeTransaction(realm1 -> {
+            realm1.delete(RealmMessageEntity.class);
+            realm1.copyToRealm(realmMessageEntityMapper.map1(messageEntities));
+        });
     }
 }

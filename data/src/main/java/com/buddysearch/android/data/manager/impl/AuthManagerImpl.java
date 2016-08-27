@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import io.realm.Realm;
 import rx.Subscriber;
 
 public class AuthManagerImpl implements AuthManager {
@@ -57,6 +58,7 @@ public class AuthManagerImpl implements AuthManager {
                 Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
                         status -> {
                             if (status.isSuccess()) {
+                                deleteCache();
                                 subscriber.onNext(id);
                             } else {
                                 subscriber.onError(new AuthException());
@@ -96,5 +98,9 @@ public class AuthManagerImpl implements AuthManager {
         }
 
         createUser.execute(userDto, subscriber);
+    }
+
+    private void deleteCache() {
+        Realm.getDefaultInstance().executeTransactionAsync(realm -> realm.deleteAll());
     }
 }
