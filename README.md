@@ -1,5 +1,21 @@
 # Buddy Search
 
+## Used libraries
+* __Dagger2__ - used to make the app more structural and its modules - more independent (weak connected). 
+* __RxJava/RxAndroid__ - used for multithreading.
+* __FirebaseAuth__ - used for user authentication.
+* __FirebaseDatabase__ - used as a remote data repository.
+* __Realm__ - used as a local data cache.
+* __LeakCanary__ - used to avoid possible memory leaks.
+* __Lombok__ - useful annotations.
+* __Playservices Auth__ - for signing in with Google.
+* __Android Data Binding Library__.
+* __AppCompat__, __Design Library__.
+
+Libraries for testing
+* __JUnit__
+* __Mockito__
+
 ## TODO
 * Add __presentation_mvvm module__ - Write alternative presentation layer to demonstrate MVVM architectural pattern.
 * Write __data layer tests__.
@@ -10,7 +26,7 @@
 ##License
 
     Copyright 2016 Ihor Vitruk
-
+    
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
