@@ -97,7 +97,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     public void signOut() {
-        view.showProgress();
+        view.showProgress(R.string.signing_out);
         authManager.signOut(new DefaultSubscriber<String>(view) {
 
             @Override

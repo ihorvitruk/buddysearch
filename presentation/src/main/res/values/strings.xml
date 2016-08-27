@@ -14,4 +14,8 @@
     <string name="delete_message">Delete message</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="sending">Sending…</string>
+    <string name="deleting">Deleting…</string>
+    <string name="editing">Editing…</string>
+    <string name="signing_out">Signing out…</string>
 </resources>

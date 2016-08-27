@@ -11,6 +11,7 @@ import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.presentation.DefaultSubscriber;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
+import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.mapper.MessageDtoModelMapper;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
 import com.buddysearch.android.presentation.mvp.view.DialogView;
@@ -60,7 +61,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     }
 
     public void sendMessage(String message) {
-        view.showProgress();
+        view.showProgress(R.string.sending);
         MessageModel messageModel = new MessageModel();
         messageModel.setSenderId(authManager.getCurrentUserId());
         messageModel.setReceiverId(peerId);
@@ -84,7 +85,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     }
 
     public void deleteMessage(MessageModel messageModel) {
-        view.showProgress();
+        view.showProgress(R.string.deleting);
         deleteMessage.execute(messageDtoModelMapper.map1(messageModel),
                 new DefaultSubscriber<Void>(null) {
                     @Override
@@ -103,7 +104,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     }
 
     public void editMessage(MessageModel messageModel) {
-        view.showProgress();
+        view.showProgress(R.string.editing);
         editMessage.execute(messageDtoModelMapper.map1(messageModel),
                 new DefaultSubscriber<Void>(view) {
                     @Override

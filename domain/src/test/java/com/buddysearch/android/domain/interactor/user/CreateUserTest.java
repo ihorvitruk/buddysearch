@@ -31,7 +31,7 @@ public class CreateUserTest extends BaseUseCaseTest<CreateUser, UserRepository> 
         testBuildUseCaseObservable(testUser, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).createUser(testUser);
+                verify(mockRepository).createUserIfNotExists(testUser);
             }
         });
     }
