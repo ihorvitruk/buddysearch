@@ -1,4 +1,6 @@
 # Buddy Search
+
+## Demo
 ![Demo movie]
 (https://github.com/ihorvitruk/buddysearch/blob/master/demo.gif)
 
