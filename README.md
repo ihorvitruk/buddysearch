@@ -10,8 +10,8 @@
 * __RxJava/RxAndroid__ - used for multithreading.
 * __FirebaseAuth__ - used for user authentication.
 * __FirebaseDatabase__ - used as a remote data repository.
-* __Realm__ - used as a local data cache.
-* __Play Services Auth__ - for signing in with Google.
+* __Realm__ - used for local data caching.
+* __Play Services Auth__ - used for signing in with Google.
 * __Android Data Binding Library__.
 * __LeakCanary__ - used to avoid possible memory leaks.
 * __Lombok__ - useful annotations.
@@ -22,13 +22,13 @@ Libraries for testing
 * __Mockito__
 
 ## Project Setup
-* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for data and library modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module.)
+* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for __data__ and __presentation__ modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module.)
 * Go to the [Firebase Console](https://console.firebase.google.com) and navigate to your project:
   * Select the **Auth** panel and then click the **Sign In Method** tab.
   * Click **Google** and turn on the **Enable** switch, then click **Save**.
-* Compile the __presentation__ module and Run on your device or emulator. (should have Play Services enabled)
+* Compile the __presentation__ module and run on your device or emulator. (should have Play Services enabled)
 
-## Classes description
+## Description of Classes
 //TODO description for classes: entity, store, repository etc will be here
 
 ## TODO
