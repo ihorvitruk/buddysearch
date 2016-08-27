@@ -1,5 +1,13 @@
 # Buddy Search
 
+## Project Setup
+
+* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for data and library modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module.)
+* Go to the [Firebase Console](https://console.firebase.google.com) and navigate to your project:
+  * Select the **Auth** panel and then click the **Sign In Method** tab.
+  * Click **Google** and turn on the **Enable** switch, then click **Save**.
+* Compile the __presentation__ module and Run on your device or emulator. (should have Play Services enabled)
+
 ## Used libraries
 * __Dagger2__ - used to make the app more structural and its modules - more independent (weak connected). 
 * __RxJava/RxAndroid__ - used for multithreading.
