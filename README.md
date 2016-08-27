@@ -8,7 +8,7 @@
 * __Realm__ - used as a local data cache.
 * __LeakCanary__ - used to avoid possible memory leaks.
 * __Lombok__ - useful annotations.
-* __Playservices Auth__ - for signing in with Google.
+* __Play Services Auth__ - for signing in with Google.
 * __Android Data Binding Library__.
 * __AppCompat__, __Design Library__.
 
