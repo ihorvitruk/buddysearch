@@ -12,4 +12,6 @@
     <string name="authenticating">Authenticating…</string>
     <string name="edit_message">Edit message</string>
     <string name="delete_message">Delete message</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

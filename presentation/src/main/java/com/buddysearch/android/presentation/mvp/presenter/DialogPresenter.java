@@ -4,6 +4,7 @@ import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.domain.dto.MessageDto;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.message.DeleteMessage;
+import com.buddysearch.android.domain.interactor.message.EditMessage;
 import com.buddysearch.android.domain.interactor.message.GetMessages;
 import com.buddysearch.android.domain.interactor.message.PostMessage;
 import com.buddysearch.android.domain.interactor.user.GetUser;
@@ -28,6 +29,8 @@ public class DialogPresenter extends BasePresenter<DialogView> {
 
     private DeleteMessage deleteMessage;
 
+    private EditMessage editMessage;
+
     private GetUser getUser;
 
     @Setter
@@ -43,6 +46,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
                            GetMessages getMessages,
                            PostMessage postMessage,
                            DeleteMessage deleteMessage,
+                           EditMessage editMessage,
                            GetUser getUser,
                            MessageDtoModelMapper messageDtoModelMapper) {
         super(networkManager);
@@ -50,6 +54,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
         this.getMessages = getMessages;
         this.postMessage = postMessage;
         this.deleteMessage = deleteMessage;
+        this.editMessage = editMessage;
         this.getUser = getUser;
         this.messageDtoModelMapper = messageDtoModelMapper;
     }
@@ -97,6 +102,25 @@ public class DialogPresenter extends BasePresenter<DialogView> {
                 });
     }
 
+    public void editMessage(MessageModel messageModel) {
+        view.showProgress();
+        editMessage.execute(messageDtoModelMapper.map1(messageModel),
+                new DefaultSubscriber<Void>(view) {
+                    @Override
+                    public void onNext(Void aVoid) {
+                        super.onNext(aVoid);
+                        view.hideProgress();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        view.showMessage(e.getMessage());
+                        view.hideProgress();
+                    }
+                });
+    }
+
     @Override
     public void refreshData() {
         getMessages();
@@ -115,6 +139,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
         getMessages.unsubscribe();
         postMessage.unsubscribe();
         deleteMessage.unsubscribe();
+        editMessage.unsubscribe();
         getUser.unsubscribe();
     }
 

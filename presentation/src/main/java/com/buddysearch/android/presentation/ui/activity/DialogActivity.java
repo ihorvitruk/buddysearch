@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 
 import com.buddysearch.android.presentation.R;
@@ -68,22 +70,7 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
 
             @Override
             public void showMessageMenu(MessageModel message, int position) {
-                View item = binding.rvUsers.getChildAt(position).findViewById(R.id.tv_text);
-                PopupMenu popupMenu = new PopupMenu(item.getContext(), item);
-                boolean findItemVisibility = message.getSenderId().equals(presenter.getAuthManager().getCurrentUserId())
-                        && position == messagesAdapter.getItemCount() - 1;
-                popupMenu.inflate(R.menu.menu_message_item);
-                popupMenu.getMenu().findItem(R.id.item_edit).setVisible(findItemVisibility);
-                popupMenu.setOnMenuItemClickListener(menuItem -> {
-                    switch (menuItem.getItemId()) {
-                        case R.id.item_delete: {
-                            presenter.deleteMessage(message);
-                        }
-                        default:
-                            return false;
-                    }
-                });
-                popupMenu.show();
+                showMessagePopup(message, position);
             }
         };
     }
@@ -120,5 +107,41 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
                 presenter.sendMessage(message);
             }
         });
+    }
+
+    private void showMessagePopup(MessageModel message, int position) {
+        View item = binding.rvUsers.getChildAt(position).findViewById(R.id.tv_text);
+        PopupMenu popupMenu = new PopupMenu(item.getContext(), item);
+        boolean findItemVisibility = message.getSenderId().equals(presenter.getAuthManager().getCurrentUserId())
+                && position == messagesAdapter.getItemCount() - 1;
+        popupMenu.inflate(R.menu.menu_message_item);
+        popupMenu.getMenu().findItem(R.id.item_edit).setVisible(findItemVisibility);
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.item_delete:
+                    presenter.deleteMessage(message);
+                    return true;
+                case R.id.item_edit:
+                    showEditMessageDialog(message);
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void showEditMessageDialog(MessageModel messageModel) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        final EditText editText = new EditText(this);
+        editText.setText(messageModel.getText());
+        dialog.setView(editText);
+        dialog.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
+            messageModel.setText(editText.getText().toString());
+            presenter.editMessage(messageModel);
+        });
+        dialog.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
+        });
+        dialog.show();
     }
 }
