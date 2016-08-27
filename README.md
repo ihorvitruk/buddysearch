@@ -1,4 +1,7 @@
 # Buddy Search
+![Demo movie]
+(https://github.com/ihorvitruk/buddysearch/blob/master/demo.gif)
+
 
 ## Project Setup
 
