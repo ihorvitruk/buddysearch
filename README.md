@@ -1,7 +1,7 @@
 # Buddy Search
 This app demonstrates how to use [Uncle Bob's Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) in practice, with __MVP__ on presentation layer.
-App is based on [this famous repository](https://github.com/android10/Android-CleanArchitecture) (thank author for it).
-But for me, there were a lot of things that i wanted somehow to modify or improve, somewhere to simplify or to generify the code with creating __Base__-classes, somewhere to separate or move the code to other places etc. That's why I created this app and I will continue developing it and show, thus, how to apply this architecture approach on real projects. 
+App is based on [this famous repository](https://github.com/android10/Android-CleanArchitecture) (thanks author for it).
+But for me, there were a lot of things that I wanted somehow to modify or improve, somewhere to simplify or to generify the code with creating __Base__-classes, somewhere to separate or move the code to other places etc. That's why I created this app and I will continue developing it and show, thus, how to apply this architecture approach on real projects. 
 
 ## Demo
 The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. App provides __offline data cache__ with __Realm__.
@@ -26,7 +26,7 @@ Libraries for testing
 * __Mockito__
 
 ## Project Setup
-* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for __data__ and __presentation__ modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module.)
+* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for __data__ and __presentation__ modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module)
 * Go to the [Firebase Console](https://console.firebase.google.com) and navigate to your project:
   * Select the **Auth** panel and then click the **Sign In Method** tab.
   * Click **Google** and turn on the **Enable** switch, then click **Save**.
