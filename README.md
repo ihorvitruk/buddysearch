@@ -28,7 +28,12 @@ Libraries for testing
   * Click **Google** and turn on the **Enable** switch, then click **Save**.
 * Compile the __presentation__ module and run on your device or emulator. (should have Play Services enabled)
 
-## Description of Classes
+## Description of Classes and layers
+* __Data__ layer
+* __Domain__ layer - the whole business logic of your project is described here. When you decide to implement a new feature in app, start from this layer. Describe new __dto__, __usecases__ and __repositories__ for it. 
+** __Dto__ - data class on __domain__ layer.
+** __UseCase__ - appropriate business logic use case is described here. 
+** __Repository__ - provides appropriate data.
 //TODO description for classes: entity, store, repository etc will be here
 
 ## TODO
