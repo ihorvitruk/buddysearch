@@ -1,5 +1,7 @@
 # Buddy Search
-//TODO description will be here
+This app demonstrates how to use [Uncle Bob's Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) in practice, with MVP on presentation layer.
+App is based on [this famous repository](https://github.com/android10/Android-CleanArchitecture) (thank author for it).
+But for me, there were a lot of things that i wanted somehow to modify or improve, somewhere to simplify or to generify the code with creating __Base__-classes, somewhere to separate or move the code to other places etc. That's why a I created this app and I will continue developing it and show, thus, how to apply this architecture approach on real projects. 
 
 ## Demo
 ![Demo movie]
