@@ -28,13 +28,21 @@ Libraries for testing
   * Click **Google** and turn on the **Enable** switch, then click **Save**.
 * Compile the __presentation__ module and run on your device or emulator. (should have Play Services enabled)
 
-## Description of Classes and layers
-* __Data__ layer
+## Description of Classes and Layers
+* __Data__ layer - responsible for working with all data that app requires.
+ * __Entity__ - data class for __data__ layer.
+ * __BaseMapper__ - can convert one object to another and vice versa.
+ * __EntityStore__ - provides data (used by __Repository__)
+ * __Cache__ - an extension to __EntityStore__ (also can provide all related data), but with own methods for data caching.
 * __Domain__ layer - the whole business logic of your project is described here. When you decide to implement a new feature in app, start from this layer. Describe new __dto__, __usecases__ and __repositories__ for it. 
-** __Dto__ - data class on __domain__ layer.
-** __UseCase__ - appropriate business logic use case is described here. 
-** __Repository__ - provides appropriate data.
-//TODO description for classes: entity, store, repository etc will be here
+ * __Dto__ - data class on __domain__ layer.
+ * __UseCase__ - appropriate business logic use case is described here. 
+ * __Repository__ - describes what data should pe provided from __data__ layer.
+* __Presentation__ layer - platform-specific implementation of the app.
+ * __Model__ - data class for __presentation__ layer (MVP Model).
+ * __View__ - MVP View
+ * __Presenter__ - MVP Presenter
+* __Library__ module - base classes for __data__ and __presentation__ layers can be found here.
 
 ## TODO
 * Add __presentation_mvvm module__ - Write alternative presentation layer to demonstrate MVVM architectural pattern.
