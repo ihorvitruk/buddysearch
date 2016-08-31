@@ -16,7 +16,7 @@ android:
 sudo: false
 
 script:
-  - ./gradlew build
+  - ./build.sh
 
 cache:
   directories:
