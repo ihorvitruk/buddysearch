@@ -4,15 +4,15 @@ apply from: 'dependencies.gradle'
 buildscript {
     repositories {
         jcenter()
+        mavenSearch
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.0.0'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
         classpath "io.realm:realm-gradle-plugin:1.2.0"
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
-        classpath "com.android.databinding:dataBinder:1.0-rc1"
     }
 }
 
