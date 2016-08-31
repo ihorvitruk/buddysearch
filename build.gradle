@@ -4,7 +4,6 @@ apply from: 'dependencies.gradle'
 buildscript {
     repositories {
         jcenter()
-        mavenSearch
     }
 
     dependencies {
