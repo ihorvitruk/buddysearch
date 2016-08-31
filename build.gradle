@@ -12,6 +12,7 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:1.2.0"
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
+        classpath "com.android.databinding:dataBinder:1.0-rc1"
     }
 }
 
