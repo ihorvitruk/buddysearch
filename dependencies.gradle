@@ -15,7 +15,7 @@ ext {
     designVersion = "24.1.1"
 
     //Libraries
-    daggerVersion = '2.6'
+    daggerVersion = '2.6.1'
     rxJavaVersion = '1.1.8'
     rxAndroidVersion = '1.2.1'
     lombokVersion = '1.16.10'
@@ -23,6 +23,7 @@ ext {
     javaxInjectVersion = '1'
     firebaseVersion = '9.4.0'
     leakCanaryVersion = '1.3'
+    guavaVersion = '19.0'
 
     //Testing libraries
     jUnitVersion = '4.12'
@@ -33,6 +34,7 @@ ext {
             design          : "com.android.support:design:${designVersion}",
             daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger          : "com.google.dagger:dagger:${daggerVersion}",
+            guava           : "com.google.guava:guava:${guavaVersion}",
             rxJava          : "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid       : "io.reactivex:rxandroid:${rxAndroidVersion}",
             lombok          : "org.projectlombok:lombok:${lombokVersion}",
