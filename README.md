@@ -1,4 +1,4 @@
-# Buddy Search
+# Buddy Search  [![Build Status](https://travis-ci.org/ihorvitruk/buddysearch.svg?branch=master)](https://travis-ci.org/ihorvitruk/buddysearch)
 This app demonstrates how to use [Uncle Bob's Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) in practice, with __MVP__ on presentation layer.
 App is based on [this famous repository](https://github.com/android10/Android-CleanArchitecture) (thanks author for it).
 But for me, there were a lot of things that I wanted somehow to modify or improve, somewhere to simplify or to generify the code with creating __Base__-classes, somewhere to separate or move the code to other places etc. That's why I created this app and I will continue developing it and show, thus, how to apply this architecture approach on real projects. 
