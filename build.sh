@@ -8,4 +8,4 @@ if [ ! -f ./data/google-services.json ]; then
     cp ./mock-google-services.json ./data/google-services.json
   fi
 
-./gradlew build
+./gradlew clean runDomainUnitTests jacoco assembleDebug
