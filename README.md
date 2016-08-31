@@ -7,7 +7,7 @@ But for me, there were a lot of things that I wanted somehow to modify or improv
 The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. App provides __offline data cache__ with __Realm__.
 
 ![Demo movie]
-(https://github.com/ihorvitruk/buddysearch/blob/master/demo.gif)
+(https://github.com/ihorvitruk/buddysearch/blob/master/README/demo.gif)
 
 ## Used libraries
 * __Dagger2__ - used to make the app more structural and its modules - more independent (weak connected). 
