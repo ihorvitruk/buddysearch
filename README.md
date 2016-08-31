@@ -26,7 +26,7 @@ Libraries for testing
 * __Mockito__
 
 ## Project Setup
-* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), both for __data__ and __presentation__ modules. (As a result you should have two __google-services.json__ files, one for __data__ module and one for __presentation__ module)
+* [Add Firebase to Android Project](https://firebase.google.com/docs/android/setup), for __data__ module. (As a result you should have __google-services.json__ file in __data__ module)
 * Go to the [Firebase Console](https://console.firebase.google.com) and navigate to your project:
   * Select the **Auth** panel and then click the **Sign In Method** tab.
   * Click **Google** and turn on the **Enable** switch, then click **Save**.
