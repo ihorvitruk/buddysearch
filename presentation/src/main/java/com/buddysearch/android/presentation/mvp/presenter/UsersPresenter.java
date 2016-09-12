@@ -28,6 +28,14 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private AuthManager authManager;
 
+    //region Data
+
+    private UserModel currentUser;
+
+    private List<UserModel> otherUsers;
+
+    //endregion
+
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
                           GetUsers getUsers, GetUser getUser, UserDtoModelMapper userDtoModelMapper) {
@@ -58,12 +66,18 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     private void getUsers() {
+        if (otherUsers != null) {
+            view.renderUsers(otherUsers);
+            return;
+        }
+
         view.showProgress();
         getUsers.execute(new DefaultSubscriber<List<UserDto>>(view) {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
-                view.renderUsers(excludeCurrent(userDtoModelMapper.map2(users)));
+                otherUsers = excludeCurrent(userDtoModelMapper.map2(users));
+                view.renderUsers(otherUsers);
                 view.hideProgress();
             }
 
@@ -77,13 +91,19 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     private void getCurrentUser() {
+        if (currentUser != null) {
+            view.renderCurrentUser(currentUser);
+            return;
+        }
+
         view.showProgress();
         getUser.execute(authManager.getCurrentUserId(), new DefaultSubscriber<UserDto>(view) {
 
             @Override
             public void onNext(UserDto user) {
                 super.onNext(user);
-                view.renderCurrentUser(userDtoModelMapper.map2(user));
+                currentUser = userDtoModelMapper.map2(user);
+                view.renderCurrentUser(currentUser);
                 view.hideProgress();
             }
 

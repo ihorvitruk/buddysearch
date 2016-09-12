@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,11 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUsersRecyclerView();
+    }
+
+    @Override
+    public void onLoadFinished(Loader<UsersPresenter> loader, UsersPresenter presenter) {
+        super.onLoadFinished(loader, presenter);
         initSwipeToRefresh();
     }
 

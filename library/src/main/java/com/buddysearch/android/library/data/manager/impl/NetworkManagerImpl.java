@@ -35,14 +35,15 @@ public class NetworkManagerImpl extends BroadcastReceiver implements NetworkMana
 
     @Override
     public void register(Callback callback) {
-        this.callback = callback;
-        context.registerReceiver(this, connectivityIntentFilter);
+        //  context.registerReceiver(this, connectivityIntentFilter);
+        //  this.callback = callback;
+
     }
 
     @Override
     public void unregister() {
-        context.unregisterReceiver(this);
-        callback = null;
+        //  context.unregisterReceiver(this);
+        // callback = null;
     }
 
     @Override

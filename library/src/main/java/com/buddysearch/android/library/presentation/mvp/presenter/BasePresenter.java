@@ -17,19 +17,24 @@ public abstract class BasePresenter<VIEW extends View> {
 
     public void attachView(@NonNull VIEW view) {
         this.view = view;
-        networkManager.register(this::refreshData);
         onViewAttached();
     }
 
     public void detachView() {
-        networkManager.unregister();
+        this.view = null;
         onViewDetached();
     }
 
     public void resume() {
+        networkManager.register(this::refreshData);
     }
 
     public void pause() {
+        networkManager.unregister();
+    }
+
+    public void destroy() {
+        onDestroyed();
     }
 
     public abstract void refreshData();
@@ -38,5 +43,8 @@ public abstract class BasePresenter<VIEW extends View> {
     }
 
     protected void onViewDetached() {
+    }
+
+    protected void onDestroyed() {
     }
 }

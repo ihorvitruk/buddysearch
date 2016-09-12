@@ -22,6 +22,7 @@ public final class ActivityModule {
     }
 
     @Provides
+    @ActivityScope
     BaseDaggerActivity providesActivity() {
         return activity;
     }
@@ -33,7 +34,7 @@ public final class ActivityModule {
     }
 
     @Provides
-        //must not have scopes. See usages
+    @ActivityScope
     NetworkManager providesNetworkManager() {
         return new NetworkManagerImpl(activity);
     }
