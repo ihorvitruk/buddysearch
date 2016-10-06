@@ -2,12 +2,12 @@ package com.buddysearch.android.presentation.ui.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.content.Loader;
 import android.view.View;
 
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityLoginBinding;
+import com.buddysearch.android.presentation.di.component.ActivityComponent;
 import com.buddysearch.android.presentation.mvp.presenter.LoginPresenter;
 import com.buddysearch.android.presentation.mvp.view.LoginView;
 import com.buddysearch.android.presentation.mvp.view.impl.LoginViewImpl;
@@ -29,15 +29,14 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
     GoogleApiClient googleApiClient;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onLoadFinished(Loader<LoginPresenter> loader, LoginPresenter presenter) {
+        super.onLoadFinished(loader, presenter);
         googleApiClient.connect();
-
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onLoaderReset(Loader<LoginPresenter> loader) {
+        super.onLoaderReset(loader);
         googleApiClient.disconnect();
     }
 
@@ -69,7 +68,6 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
 
     @Override
     protected LoginPresenter initPresenter() {
-        getActivityComponent().inject(this);
         return loginPresenter;
     }
 
@@ -90,5 +88,10 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
             Auth.GoogleSignInApi.signOut(googleApiClient);
         } catch (Exception e) {
         }
+    }
+
+    @Override
+    protected void injectActivityComponent(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 }

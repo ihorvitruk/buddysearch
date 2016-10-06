@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
+import com.buddysearch.android.presentation.di.component.ActivityComponent;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
 import com.buddysearch.android.presentation.mvp.presenter.DialogPresenter;
 import com.buddysearch.android.presentation.mvp.view.DialogView;
@@ -77,13 +78,17 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
 
     @Override
     protected DialogPresenter initPresenter() {
-        getActivityComponent().inject(this);
         return dialogPresenter;
     }
 
     @Override
     protected ActivityDialogBinding initBinding() {
         return DataBindingUtil.setContentView(this, R.layout.activity_dialog);
+    }
+
+    @Override
+    protected void injectActivityComponent(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 
     private void initMessagesRecyclerView() {
@@ -144,4 +149,5 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
         });
         dialog.show();
     }
+
 }

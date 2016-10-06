@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityUsersBinding;
+import com.buddysearch.android.presentation.di.component.ActivityComponent;
 import com.buddysearch.android.presentation.mvp.model.UserModel;
 import com.buddysearch.android.presentation.mvp.presenter.UsersPresenter;
 import com.buddysearch.android.presentation.mvp.view.UsersView;
@@ -89,13 +90,17 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
     @Override
     protected UsersPresenter initPresenter() {
-        getActivityComponent().inject(this);
         return usersPresenter;
     }
 
     @Override
     protected ActivityUsersBinding initBinding() {
         return DataBindingUtil.setContentView(this, R.layout.activity_users);
+    }
+
+    @Override
+    protected void injectActivityComponent(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 
     private void initUsersRecyclerView() {

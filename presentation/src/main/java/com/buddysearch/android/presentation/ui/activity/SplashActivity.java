@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivitySplashBinding;
+import com.buddysearch.android.presentation.di.component.ActivityComponent;
 import com.buddysearch.android.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.android.presentation.mvp.view.SplashView;
 import com.buddysearch.android.presentation.mvp.view.impl.SplashViewImpl;
@@ -46,13 +47,17 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
 
     @Override
     protected SplashPresenter initPresenter() {
-        getActivityComponent().inject(this);
         return splashPresenter;
     }
 
     @Override
     protected ActivitySplashBinding initBinding() {
         return DataBindingUtil.setContentView(this, R.layout.activity_splash);
+    }
+
+    @Override
+    protected void injectActivityComponent(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 
     private void initSwipeToRefresh() {

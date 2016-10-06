@@ -27,6 +27,7 @@ public abstract class BaseActivity<VIEW extends View,
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = initPresenter();
         binding = initBinding();
         view = initView();
 

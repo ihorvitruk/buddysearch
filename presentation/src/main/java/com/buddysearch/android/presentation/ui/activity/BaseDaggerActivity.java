@@ -26,9 +26,7 @@ public abstract class BaseDaggerActivity<VIEW extends View,
         super.onCreate(savedInstanceState);
     }
 
-    public ActivityComponent getActivityComponent() {
-        return activityComponent;
-    }
+    protected abstract void injectActivityComponent(ActivityComponent activityComponent);
 
     private void initActivityComponent() {
         activityComponent = ((App) getApplication()).getAppComponent()
@@ -36,5 +34,6 @@ public abstract class BaseDaggerActivity<VIEW extends View,
                         new RepositoryModule(),
                         new EntityStoreModule(),
                         new CacheModule());
+        injectActivityComponent(activityComponent);
     }
 }
