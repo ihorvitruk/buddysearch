@@ -11,6 +11,8 @@ import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.library.presentation.mvp.view.View;
 import com.buddysearch.android.library.presentation.ui.loader.PresenterLoader;
 
+import dagger.Lazy;
+
 public abstract class BaseActivity<VIEW extends View,
         PRESENTER extends BasePresenter,
         BINDING extends ViewDataBinding> extends AppCompatActivity
@@ -63,19 +65,27 @@ public abstract class BaseActivity<VIEW extends View,
 
             @Override
             protected PRESENTER initPresenter() {
-                return BaseActivity.this.initPresenter();
+                return BaseActivity.this.initPresenter().get();
             }
         };
     }
 
     @Override
-    public void onLoadFinished(Loader<PRESENTER> loader, PRESENTER presenter) {
+    public final void onLoadFinished(Loader<PRESENTER> loader, PRESENTER presenter) {
         this.presenter = presenter;
+        onLoadFinished();
+    }
+
+    public void onLoadFinished() {
     }
 
     @Override
-    public void onLoaderReset(Loader<PRESENTER> loader) {
+    public final void onLoaderReset(Loader<PRESENTER> loader) {
+        onLoadReset();
         presenter = null;
+    }
+
+    public void onLoadReset() {
     }
 
     public VIEW getView() {
@@ -84,7 +94,7 @@ public abstract class BaseActivity<VIEW extends View,
 
     protected abstract VIEW initView();
 
-    protected abstract PRESENTER initPresenter();
+    protected abstract Lazy<PRESENTER> initPresenter();
 
     protected abstract BINDING initBinding();
 }

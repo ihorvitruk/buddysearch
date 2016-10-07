@@ -10,9 +10,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import javax.inject.Inject;
 
+import rx.Subscriber;
+
 public class LoginPresenter extends BasePresenter<LoginView> {
 
     private AuthManager authManager;
+
+    private Subscriber<String> signInSubscriber;
 
     @Inject
     public LoginPresenter(NetworkManager networkManager, AuthManager authManager) {
@@ -24,9 +28,17 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void refreshData() {
     }
 
-    public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
-        authManager.signInGoogle(googleSignInAccount, new DefaultSubscriber<String>(view) {
+    @Override
+    protected void onViewDetached() {
+        super.onViewDetached();
+        if (signInSubscriber != null) {
+            signInSubscriber.unsubscribe();
+            signInSubscriber = null;
+        }
+    }
 
+    public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
+        signInSubscriber = new DefaultSubscriber<String>(view) {
             @Override
             public void onNext(String s) {
                 super.onNext(s);
@@ -40,6 +52,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 view.showMessage(R.string.authentication_failed);
                 view.hideProgress();
             }
-        });
+        };
+        authManager.signInGoogle(googleSignInAccount, signInSubscriber);
     }
 }

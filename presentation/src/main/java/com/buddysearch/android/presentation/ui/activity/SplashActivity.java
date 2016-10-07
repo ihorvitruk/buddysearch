@@ -16,14 +16,16 @@ import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresenter, ActivitySplashBinding> {
 
     @Inject
-    SplashPresenter splashPresenter;
+    Lazy<SplashPresenter> splashPresenter;
 
     @Override
-    public void onLoadFinished(Loader<SplashPresenter> loader, SplashPresenter presenter) {
-        super.onLoadFinished(loader, presenter);
+    public void onLoadFinished() {
+        super.onLoadFinished();
         initSwipeToRefresh();
     }
 
@@ -46,7 +48,7 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     }
 
     @Override
-    protected SplashPresenter initPresenter() {
+    protected Lazy<SplashPresenter> initPresenter() {
         return splashPresenter;
     }
 

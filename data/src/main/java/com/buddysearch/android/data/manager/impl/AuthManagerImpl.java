@@ -39,10 +39,12 @@ public class AuthManagerImpl implements AuthManager {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        saveUser(task.getResult().getUser(), subscriber);
-                    } else {
-                        subscriber.onError(new FirebaseException(task.getException().getMessage()));
+                    if (!subscriber.isUnsubscribed()) {
+                        if (task.isSuccessful()) {
+                            saveUser(task.getResult().getUser(), subscriber);
+                        } else {
+                            subscriber.onError(new FirebaseException(task.getException().getMessage()));
+                        }
                     }
                 });
     }
@@ -57,11 +59,13 @@ public class AuthManagerImpl implements AuthManager {
             public void onConnected(@Nullable Bundle bundle) {
                 Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
                         status -> {
-                            if (status.isSuccess()) {
-                                deleteCache();
-                                subscriber.onNext(id);
-                            } else {
-                                subscriber.onError(new AuthException());
+                            if (!subscriber.isUnsubscribed()) {
+                                if (status.isSuccess()) {
+                                    deleteCache();
+                                    subscriber.onNext(id);
+                                } else {
+                                    subscriber.onError(new AuthException());
+                                }
                             }
                             googleApiClient.disconnect();
                         });

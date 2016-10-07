@@ -26,6 +26,7 @@ android {
 dependencies {
     compile project(':domain')
     compile globalDependencies.rxJava
+    compile globalDependencies.dagger
     compile globalDependencies.lombok
     provided globalDependencies.javaxAnnotation
     compile globalDependencies.javaxInject

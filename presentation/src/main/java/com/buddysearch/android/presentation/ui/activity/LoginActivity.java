@@ -2,7 +2,6 @@ package com.buddysearch.android.presentation.ui.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v4.content.Loader;
 import android.view.View;
 
 import com.buddysearch.android.presentation.R;
@@ -18,25 +17,27 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter, ActivityLoginBinding> {
 
     private static final int RC_SIGN_IN = 9001;
 
     @Inject
-    LoginPresenter loginPresenter;
+    Lazy<LoginPresenter> loginPresenter;
 
     @Inject
     GoogleApiClient googleApiClient;
 
     @Override
-    public void onLoadFinished(Loader<LoginPresenter> loader, LoginPresenter presenter) {
-        super.onLoadFinished(loader, presenter);
+    public void onLoadFinished() {
+        super.onLoadFinished();
         googleApiClient.connect();
     }
 
     @Override
-    public void onLoaderReset(Loader<LoginPresenter> loader) {
-        super.onLoaderReset(loader);
+    public void onLoadReset() {
+        super.onLoadReset();
         googleApiClient.disconnect();
     }
 
@@ -67,7 +68,7 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
     }
 
     @Override
-    protected LoginPresenter initPresenter() {
+    protected Lazy<LoginPresenter> initPresenter() {
         return loginPresenter;
     }
 

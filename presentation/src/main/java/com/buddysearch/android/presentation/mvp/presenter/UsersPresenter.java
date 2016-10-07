@@ -17,6 +17,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscriber;
+
 @ActivityScope
 public class UsersPresenter extends BasePresenter<UsersView> {
 
@@ -35,6 +37,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     private List<UserModel> otherUsers;
 
     //endregion
+
+    private Subscriber<String> signOutSubscriber;
 
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
@@ -57,6 +61,11 @@ public class UsersPresenter extends BasePresenter<UsersView> {
         super.onViewDetached();
         getUsers.unsubscribe();
         getUser.unsubscribe();
+
+        if (signOutSubscriber != null) {
+            signOutSubscriber.unsubscribe();
+            signOutSubscriber = null;
+        }
     }
 
     @Override
@@ -118,8 +127,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     public void signOut() {
         view.showProgress(R.string.signing_out);
-        authManager.signOut(new DefaultSubscriber<String>(view) {
 
+        signOutSubscriber = new DefaultSubscriber<String>(view) {
             @Override
             public void onNext(String s) {
                 super.onNext(s);
@@ -133,7 +142,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
                 view.showMessage(R.string.sign_out_error);
                 view.hideProgress();
             }
-        });
+        };
+        authManager.signOut(signOutSubscriber);
     }
 
     private List<UserModel> excludeCurrent(List<UserModel> users) {

@@ -25,12 +25,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresenter, ActivityDialogBinding> {
 
     public static final String KEY_PEER_ID = "peer_id";
 
     @Inject
-    DialogPresenter dialogPresenter;
+    Lazy<DialogPresenter> dialogPresenter;
 
     private MessagesAdapter messagesAdapter;
 
@@ -41,8 +43,8 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     @Override
-    public void onLoadFinished(Loader<DialogPresenter> loader, DialogPresenter presenter) {
-        super.onLoadFinished(loader, presenter);
+    public void onLoadFinished() {
+        super.onLoadFinished();
         initPeerId();
         initSendMessageButton();
         initMessagesRecyclerView();
@@ -77,7 +79,7 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     @Override
-    protected DialogPresenter initPresenter() {
+    protected Lazy<DialogPresenter> initPresenter() {
         return dialogPresenter;
     }
 

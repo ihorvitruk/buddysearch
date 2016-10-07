@@ -23,10 +23,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter, ActivityUsersBinding> {
 
     @Inject
-    UsersPresenter usersPresenter;
+    Lazy<UsersPresenter> usersPresenter;
 
     private UsersAdapter usersAdapter;
 
@@ -37,8 +39,8 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     }
 
     @Override
-    public void onLoadFinished(Loader<UsersPresenter> loader, UsersPresenter presenter) {
-        super.onLoadFinished(loader, presenter);
+    public void onLoadFinished() {
+        super.onLoadFinished();
         initSwipeToRefresh();
     }
 
@@ -89,7 +91,7 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     }
 
     @Override
-    protected UsersPresenter initPresenter() {
+    protected Lazy<UsersPresenter> initPresenter() {
         return usersPresenter;
     }
 
