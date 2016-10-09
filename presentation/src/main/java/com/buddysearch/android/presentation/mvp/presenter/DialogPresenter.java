@@ -12,6 +12,7 @@ import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.presentation.DefaultSubscriber;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
+import com.buddysearch.android.presentation.di.scope.ViewScope;
 import com.buddysearch.android.presentation.mapper.MessageDtoModelMapper;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
 import com.buddysearch.android.presentation.mvp.view.DialogView;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 
 import lombok.Setter;
 
+@ViewScope
 public class DialogPresenter extends BasePresenter<DialogView> {
 
     private GetMessages getMessages;

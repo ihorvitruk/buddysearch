@@ -26,22 +26,19 @@ public class AuthManagerImpl implements AuthManager {
 
     private GoogleApiClient googleApiClient;
 
-    private CreateUser createUser;
-
-    public AuthManagerImpl(CreateUser createUser, GoogleApiClient googleApiClient) {
+    public AuthManagerImpl(GoogleApiClient googleApiClient) {
         this.googleApiClient = googleApiClient;
         this.auth = FirebaseAuth.getInstance();
-        this.createUser = createUser;
     }
 
     @Override
-    public void signInGoogle(GoogleSignInAccount acct, Subscriber<String> subscriber) {
+    public void signInGoogle(GoogleSignInAccount acct, Subscriber<String> subscriber, CreateUser createUser) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (!subscriber.isUnsubscribed()) {
                         if (task.isSuccessful()) {
-                            saveUser(task.getResult().getUser(), subscriber);
+                            saveUser(task.getResult().getUser(), subscriber, createUser);
                         } else {
                             subscriber.onError(new FirebaseException(task.getException().getMessage()));
                         }
@@ -92,7 +89,7 @@ public class AuthManagerImpl implements AuthManager {
         return id;
     }
 
-    private void saveUser(FirebaseUser user, Subscriber<String> subscriber) {
+    private void saveUser(FirebaseUser user, Subscriber<String> subscriber, CreateUser createUser) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getUid());
         if (!TextUtils.isEmpty(user.getDisplayName())) {

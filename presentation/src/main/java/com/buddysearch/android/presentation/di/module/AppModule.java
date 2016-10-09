@@ -74,7 +74,7 @@ public class AppModule {
 
     @Provides
     @AppScope
-    AuthManager providesAuthManager(CreateUser createUser, GoogleApiClient googleApiClient) {
-        return new AuthManagerImpl(createUser, googleApiClient);
+    AuthManager providesAuthManager(GoogleApiClient googleApiClient) {
+        return new AuthManagerImpl(googleApiClient);
     }
 }

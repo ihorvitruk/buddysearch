@@ -7,14 +7,14 @@ import com.buddysearch.android.presentation.ui.activity.LoginActivity;
 import com.buddysearch.android.presentation.ui.activity.SplashActivity;
 import com.buddysearch.android.presentation.ui.activity.UsersActivity;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by ihor on 10/9/16.
  */
 
 @ViewScope
-@Component(modules = {ViewModule.class})
+@Subcomponent(modules = {ViewModule.class})
 public interface ViewComponent {
 
     void inject(LoginActivity loginActivity);

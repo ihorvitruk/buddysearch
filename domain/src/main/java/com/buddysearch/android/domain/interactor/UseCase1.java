@@ -14,7 +14,8 @@ public abstract class UseCase1<RESPONSE_DATA, REPOSITORY extends Repository> ext
 
     public UseCase1(REPOSITORY repository,
                     Messenger messenger,
-                    @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
+                    @Named("Thread") Scheduler threadScheduler,
+                    @Named("PostExecution") Scheduler postExecutionScheduler) {
         super(repository, messenger, threadScheduler, postExecutionScheduler);
     }
 
