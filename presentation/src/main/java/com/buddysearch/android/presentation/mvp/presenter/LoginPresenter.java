@@ -1,7 +1,6 @@
 package com.buddysearch.android.presentation.mvp.presenter;
 
 import com.buddysearch.android.data.manager.AuthManager;
-import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.presentation.DefaultSubscriber;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
@@ -17,15 +16,12 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     private AuthManager authManager;
 
-    private CreateUser createUser;
-
     private Subscriber<String> signInSubscriber;
 
     @Inject
-    public LoginPresenter(NetworkManager networkManager, AuthManager authManager, CreateUser createUser) {
+    public LoginPresenter(NetworkManager networkManager, AuthManager authManager) {
         super(networkManager);
         this.authManager = authManager;
-        this.createUser = createUser;
     }
 
     @Override
@@ -39,11 +35,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             signInSubscriber.unsubscribe();
             signInSubscriber = null;
         }
-        createUser.unsubscribe();
     }
 
     public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
-
         signInSubscriber = new DefaultSubscriber<String>(view) {
             @Override
             public void onNext(String s) {
@@ -59,7 +53,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 view.hideProgress();
             }
         };
-
-        authManager.signInGoogle(googleSignInAccount, signInSubscriber, createUser);
+        authManager.signInGoogle(googleSignInAccount, signInSubscriber);
     }
 }

@@ -34,12 +34,12 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
                 .subscribe(useCaseSubscriber));
     }
 
-    public boolean isUnsubscribed() { // is unregistered
-        return !subscription.hasSubscriptions(); // do not have subscriptions == true
+    public boolean isUnsubscribed() {
+        return !subscription.hasSubscriptions();
     }
 
     public void unsubscribe() {
-        if (!isUnsubscribed()) { //is not unregistered
+        if (!isUnsubscribed()) {
             subscription.clear();
         }
     }
