@@ -17,7 +17,7 @@ public class CreateUserTest extends BaseUseCaseTest<CreateUser, UserRepository> 
 
     @Override
     protected CreateUser createUseCase() {
-        return new CreateUser(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new CreateUser(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CreateUserTest extends BaseUseCaseTest<CreateUser, UserRepository> 
         testBuildUseCaseObservable(testUser, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).createUserIfNotExists(testUser);
+                verify(mockRepository).createUserIfNotExists(testUser, mockMessenger);
             }
         });
     }

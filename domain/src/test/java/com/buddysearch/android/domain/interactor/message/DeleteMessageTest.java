@@ -17,7 +17,7 @@ public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRep
 
     @Override
     protected DeleteMessage createUseCase() {
-        return new DeleteMessage(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new DeleteMessage(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRep
         testBuildUseCaseObservable(testMessage, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).deleteMessage(testMessage);
+                verify(mockRepository).deleteMessage(testMessage, mockMessenger);
             }
         });
     }

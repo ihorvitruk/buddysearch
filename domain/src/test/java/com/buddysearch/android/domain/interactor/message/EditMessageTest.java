@@ -17,7 +17,7 @@ public class EditMessageTest extends BaseUseCaseTest<EditMessage, MessageReposit
 
     @Override
     protected EditMessage createUseCase() {
-        return new EditMessage(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new EditMessage(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class EditMessageTest extends BaseUseCaseTest<EditMessage, MessageReposit
         testBuildUseCaseObservable(testMessage, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).editMessage(testMessage);
+                verify(mockRepository).editMessage(testMessage, mockMessenger);
             }
         });
     }

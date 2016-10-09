@@ -35,17 +35,7 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     @Override
     protected TestUseCase createUseCase() {
-        return new TestUseCase(mockRepository, new Messenger() {
-            @Override
-            public void showNoNetworkMessage() {
-
-            }
-
-            @Override
-            public void showFromCacheMessage() {
-
-            }
-        }, mockThreadScheduler, new TestScheduler());
+        return new TestUseCase(mockRepository, mockMessenger, mockThreadScheduler, new TestScheduler());
     }
 
     @Override

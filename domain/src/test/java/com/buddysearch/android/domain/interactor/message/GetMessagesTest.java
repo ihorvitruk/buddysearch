@@ -16,7 +16,7 @@ public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageReposit
 
     @Override
     protected GetMessages createUseCase() {
-        return new GetMessages(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new GetMessages(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageReposit
         testBuildUseCaseObservable(FAKE_PEER_ID, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).getMessages(FAKE_PEER_ID);
+                verify(mockRepository).getMessages(FAKE_PEER_ID, mockMessenger);
             }
         });
     }

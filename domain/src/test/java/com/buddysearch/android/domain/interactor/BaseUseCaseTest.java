@@ -1,5 +1,6 @@
 package com.buddysearch.android.domain.interactor;
 
+import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.repository.Repository;
 
 import org.junit.Before;
@@ -19,6 +20,9 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
     protected USE_CASE useCase;
 
     protected REPOSITORY mockRepository;
+
+    @Mock
+    protected Messenger mockMessenger;
 
     @Mock
     protected Scheduler mockThreadScheduler;

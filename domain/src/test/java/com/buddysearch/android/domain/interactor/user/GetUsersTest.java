@@ -17,7 +17,7 @@ public class GetUsersTest extends BaseUseCaseTest<GetUsers, UserRepository> {
 
     @Override
     protected GetUsers createUseCase() {
-        return new GetUsers(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new GetUsers(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class GetUsersTest extends BaseUseCaseTest<GetUsers, UserRepository> {
         testBuildUseCaseObservable(null, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).getUsers();
+                verify(mockRepository).getUsers(mockMessenger);
             }
         });
     }

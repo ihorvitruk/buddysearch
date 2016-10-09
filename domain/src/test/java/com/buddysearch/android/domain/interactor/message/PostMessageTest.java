@@ -17,7 +17,7 @@ public class PostMessageTest extends BaseUseCaseTest<PostMessage, MessageReposit
 
     @Override
     protected PostMessage createUseCase() {
-        return new PostMessage(mockRepository, mockThreadScheduler, mockPostExecutionScheduler);
+        return new PostMessage(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PostMessageTest extends BaseUseCaseTest<PostMessage, MessageReposit
         testBuildUseCaseObservable(testMessage, new Action0() {
             @Override
             public void call() {
-                verify(mockRepository).postMessage(testMessage);
+                verify(mockRepository).postMessage(testMessage, mockMessenger);
             }
         });
     }
