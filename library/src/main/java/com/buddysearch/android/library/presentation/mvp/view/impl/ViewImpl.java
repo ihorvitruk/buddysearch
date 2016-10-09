@@ -97,14 +97,4 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
         }
         return null;
     }
-
-    @Override
-    public void showNoNetworkMessage() {
-        showMessage(R.string.no_internet_connection);
-    }
-
-    @Override
-    public void showFromCacheMessage() {
-        showMessage(R.string.data_from_cache);
-    }
 }

@@ -5,7 +5,7 @@ import com.buddysearch.android.data.store.MessageEntityStore;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.firebase.FirebaseMessageEntityStore;
 import com.buddysearch.android.data.store.firebase.FirebaseUserEntityStore;
-import com.buddysearch.android.presentation.di.scope.ActivityScope;
+import com.buddysearch.android.presentation.di.scope.AppScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,13 +14,13 @@ import dagger.Provides;
 public class EntityStoreModule {
 
     @Provides
-    @ActivityScope
+    @AppScope
     UserEntityStore providesUserEntityStore() {
         return new FirebaseUserEntityStore();
     }
 
     @Provides
-    @ActivityScope
+    @AppScope
     MessageEntityStore providesMessageEntityStore(AuthManager authManager) {
         return new FirebaseMessageEntityStore(authManager);
     }

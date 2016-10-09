@@ -1,8 +1,6 @@
 package com.buddysearch.android.library.presentation.mvp.view;
 
-import com.buddysearch.android.library.data.DataStatusMessenger;
-
-public interface View extends DataStatusMessenger {
+public interface View {
 
     void showMessage(String message);
 
@@ -19,4 +17,5 @@ public interface View extends DataStatusMessenger {
     void showProgress(int messageResId, int titleResId);
 
     void hideProgress();
+
 }

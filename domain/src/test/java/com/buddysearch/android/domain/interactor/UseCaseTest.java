@@ -1,5 +1,6 @@
 package com.buddysearch.android.domain.interactor;
 
+import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.repository.Repository;
 
 import org.hamcrest.core.Is;
@@ -34,7 +35,17 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     @Override
     protected TestUseCase createUseCase() {
-        return new TestUseCase(mockRepository, mockThreadScheduler, new TestScheduler());
+        return new TestUseCase(mockRepository, new Messenger() {
+            @Override
+            public void showNoNetworkMessage() {
+
+            }
+
+            @Override
+            public void showFromCacheMessage() {
+
+            }
+        }, mockThreadScheduler, new TestScheduler());
     }
 
     @Override
@@ -75,8 +86,12 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     class TestUseCase extends UseCase1<Integer, TestRepository> {
 
-        public TestUseCase(TestRepository repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
-            super(repository, threadScheduler, postExecutionScheduler);
+
+        public TestUseCase(TestRepository repository,
+                           Messenger messenger,
+                           @Named("Thread") Scheduler threadScheduler,
+                           @Named("PostExecution") Scheduler postExecutionScheduler) {
+            super(repository, messenger, threadScheduler, postExecutionScheduler);
         }
 
         @Override

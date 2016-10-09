@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -12,9 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
-import com.buddysearch.android.presentation.di.component.ActivityComponent;
+import com.buddysearch.android.presentation.di.component.ViewComponent;
 import com.buddysearch.android.presentation.mvp.model.MessageModel;
 import com.buddysearch.android.presentation.mvp.presenter.DialogPresenter;
 import com.buddysearch.android.presentation.mvp.view.DialogView;
@@ -89,8 +89,8 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     }
 
     @Override
-    protected void injectActivityComponent(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    protected void injectViewComponent(ViewComponent viewComponent) {
+        viewComponent.inject(this);
     }
 
     private void initMessagesRecyclerView() {

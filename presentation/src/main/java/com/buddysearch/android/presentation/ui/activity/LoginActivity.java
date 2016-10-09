@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityLoginBinding;
-import com.buddysearch.android.presentation.di.component.ActivityComponent;
+import com.buddysearch.android.presentation.di.component.ViewComponent;
 import com.buddysearch.android.presentation.mvp.presenter.LoginPresenter;
 import com.buddysearch.android.presentation.mvp.view.LoginView;
 import com.buddysearch.android.presentation.mvp.view.impl.LoginViewImpl;
@@ -92,7 +93,7 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
     }
 
     @Override
-    protected void injectActivityComponent(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    protected void injectViewComponent(ViewComponent viewComponent) {
+        viewComponent.inject(this);
     }
 }

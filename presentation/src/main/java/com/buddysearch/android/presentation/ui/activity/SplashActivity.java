@@ -2,13 +2,11 @@ package com.buddysearch.android.presentation.ui.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.Loader;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivitySplashBinding;
-import com.buddysearch.android.presentation.di.component.ActivityComponent;
+import com.buddysearch.android.presentation.di.component.ViewComponent;
 import com.buddysearch.android.presentation.mvp.presenter.SplashPresenter;
 import com.buddysearch.android.presentation.mvp.view.SplashView;
 import com.buddysearch.android.presentation.mvp.view.impl.SplashViewImpl;
@@ -58,8 +56,8 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     }
 
     @Override
-    protected void injectActivityComponent(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    protected void injectViewComponent(ViewComponent viewComponent) {
+        viewComponent.inject(this);
     }
 
     private void initSwipeToRefresh() {

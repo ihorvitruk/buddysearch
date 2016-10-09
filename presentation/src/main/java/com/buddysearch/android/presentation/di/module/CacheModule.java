@@ -6,7 +6,7 @@ import com.buddysearch.android.data.store.cache.MessageCache;
 import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.data.store.cache.realm.RealmMessageCache;
 import com.buddysearch.android.data.store.cache.realm.RealmUserCache;
-import com.buddysearch.android.presentation.di.scope.ActivityScope;
+import com.buddysearch.android.presentation.di.scope.AppScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,13 +15,13 @@ import dagger.Provides;
 public class CacheModule {
 
     @Provides
-    @ActivityScope
+    @AppScope
     UserCache providesUserCache(RealmUserEntityMapper realmUserEntityMapper) {
         return new RealmUserCache(realmUserEntityMapper);
     }
 
     @Provides
-    @ActivityScope
+    @AppScope
     MessageCache providesMessageCache(RealmMessageEntityMapper realmMessageEntityMapper) {
         return new RealmMessageCache(realmMessageEntityMapper);
     }

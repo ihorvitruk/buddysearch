@@ -4,9 +4,9 @@ import com.buddysearch.android.data.entity.UserEntity;
 import com.buddysearch.android.data.mapper.UserEntityDtoMapper;
 import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.cache.UserCache;
+import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.repository.UserRepository;
-import com.buddysearch.android.library.data.DataStatusMessenger;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.repository.RepositoryImpl;
 
@@ -20,40 +20,39 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
-                              DataStatusMessenger dataStatusMessenger,
                               UserEntityStore cloudStore,
                               UserCache cache,
                               UserEntityDtoMapper entityDtoMapper) {
-        super(networkManager, dataStatusMessenger, cloudStore, cache, entityDtoMapper);
+        super(networkManager, cloudStore, cache, entityDtoMapper);
     }
 
     @Override
-    public Observable<String> createUserIfNotExists(UserDto user) {
+    public Observable<String> createUserIfNotExists(UserDto user, Messenger messenger) {
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.createUserIfNotExists(entityDtoMapper.map1(user));
         } else {
-            return Observable.<String>empty().doOnCompleted(() -> dataStatusMessenger.showNoNetworkMessage());
+            return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
         }
     }
 
     @Override
-    public Observable<List<UserDto>> getUsers() {
+    public Observable<List<UserDto>> getUsers(Messenger messenger) {
         Observable<List<UserEntity>> entityObservable;
         if (networkManager.isNetworkAvailable()) {
             entityObservable = cloudStore.getUsers().doOnNext(userEntities -> cache.saveUsers(userEntities));
         } else {
-            entityObservable = cache.getUsers().doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
+            entityObservable = cache.getUsers().doOnNext(userEntities -> messenger.showFromCacheMessage());
         }
         return entityObservable.map(userEntities -> entityDtoMapper.map2(userEntities));
     }
 
     @Override
-    public Observable<UserDto> getUser(String userId) {
+    public Observable<UserDto> getUser(String userId, Messenger messenger) {
         Observable<UserEntity> entityObservable;
         if (networkManager.isNetworkAvailable()) {
             entityObservable = cloudStore.getUser(userId).doOnNext(userEntity -> cache.saveUser(userId, userEntity));
         } else {
-            entityObservable = cache.getUser(userId).doOnNext(userEntities -> dataStatusMessenger.showFromCacheMessage());
+            entityObservable = cache.getUser(userId).doOnNext(userEntities -> messenger.showFromCacheMessage());
         }
         return entityObservable.map(userEntity -> entityDtoMapper.map2(userEntity));
     }

@@ -2,16 +2,19 @@ package com.buddysearch.android.presentation.di.module;
 
 import android.content.Context;
 
+import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
+import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
 import com.buddysearch.android.presentation.App;
 import com.buddysearch.android.presentation.R;
+import com.buddysearch.android.presentation.di.scope.AppScope;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,13 +32,14 @@ public class AppModule {
     }
 
     @Provides
+    @AppScope
     Context provideAppContext() {
         return app;
     }
 
     @Provides
     @Named("Thread")
-    @Singleton
+    @AppScope
     Scheduler providesThreadScheduler() {
         return Schedulers.io();
     }
@@ -43,14 +47,14 @@ public class AppModule {
 
     @Provides
     @Named("PostExecution")
-    @Singleton
+    @AppScope
     Scheduler providesPostExecutionScheduler() {
         return AndroidSchedulers.mainThread();
     }
 
 
     @Provides
-    @Singleton
+    @AppScope
     GoogleApiClient providesGoogleApiClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(app.getString(R.string.default_web_client_id))
@@ -63,8 +67,14 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
+    @AppScope
     NetworkManager providesNetworkManager() {
         return new NetworkManagerImpl(app);
+    }
+
+    @Provides
+    @AppScope
+    AuthManager providesAuthManager(CreateUser createUser, GoogleApiClient googleApiClient) {
+        return new AuthManagerImpl(createUser, googleApiClient);
     }
 }

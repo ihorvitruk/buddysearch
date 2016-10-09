@@ -1,6 +1,6 @@
-package com.buddysearch.android.library.data;
+package com.buddysearch.android.domain;
 
-public interface DataStatusMessenger {
+public interface Messenger {
     /**
      * Show a message about network connection problem
      */

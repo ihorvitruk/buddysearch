@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +11,7 @@ import android.view.MenuItem;
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityUsersBinding;
-import com.buddysearch.android.presentation.di.component.ActivityComponent;
+import com.buddysearch.android.presentation.di.component.ViewComponent;
 import com.buddysearch.android.presentation.mvp.model.UserModel;
 import com.buddysearch.android.presentation.mvp.presenter.UsersPresenter;
 import com.buddysearch.android.presentation.mvp.view.UsersView;
@@ -101,8 +100,8 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     }
 
     @Override
-    protected void injectActivityComponent(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    protected void injectViewComponent(ViewComponent viewComponent) {
+        viewComponent.inject(this);
     }
 
     private void initUsersRecyclerView() {

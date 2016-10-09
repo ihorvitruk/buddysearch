@@ -1,5 +1,6 @@
 package com.buddysearch.android.domain.interactor;
 
+import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.repository.Repository;
 
 import javax.inject.Named;
@@ -13,14 +14,20 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
 
     protected final REPOSITORY repository;
 
+    protected final Messenger messenger;
+
     private final Scheduler threadScheduler;
 
     private final Scheduler postExecutionScheduler;
 
     private CompositeSubscription subscription = new CompositeSubscription();
 
-    public UseCase(REPOSITORY repository, @Named("Thread") Scheduler threadScheduler, @Named("PostExecution") Scheduler postExecutionScheduler) {
+    public UseCase(REPOSITORY repository,
+                   Messenger messenger,
+                   @Named("Thread") Scheduler threadScheduler,
+                   @Named("PostExecution") Scheduler postExecutionScheduler) {
         this.repository = repository;
+        this.messenger = messenger;
         this.threadScheduler = threadScheduler;
         this.postExecutionScheduler = postExecutionScheduler;
     }

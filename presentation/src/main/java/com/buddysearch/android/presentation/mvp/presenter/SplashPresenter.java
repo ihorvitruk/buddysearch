@@ -3,12 +3,12 @@ package com.buddysearch.android.presentation.mvp.presenter;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
-import com.buddysearch.android.presentation.di.scope.ActivityScope;
+import com.buddysearch.android.presentation.di.scope.ViewScope;
 import com.buddysearch.android.presentation.mvp.view.SplashView;
 
 import javax.inject.Inject;
 
-@ActivityScope
+@ViewScope
 public class SplashPresenter extends BasePresenter<SplashView> {
 
     private AuthManager authManager;

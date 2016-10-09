@@ -1,23 +1,23 @@
 package com.buddysearch.android.presentation.di.component;
 
 import com.buddysearch.android.presentation.App;
-import com.buddysearch.android.presentation.di.module.ActivityModule;
 import com.buddysearch.android.presentation.di.module.AppModule;
 import com.buddysearch.android.presentation.di.module.CacheModule;
 import com.buddysearch.android.presentation.di.module.EntityStoreModule;
 import com.buddysearch.android.presentation.di.module.RepositoryModule;
-
-import javax.inject.Singleton;
+import com.buddysearch.android.presentation.di.module.ViewModule;
+import com.buddysearch.android.presentation.di.scope.AppScope;
 
 import dagger.Component;
 
-@Singleton
-@Component(modules = {AppModule.class})
+@AppScope
+@Component(modules = {AppModule.class,
+        RepositoryModule.class,
+        EntityStoreModule.class,
+        CacheModule.class})
 public interface AppComponent {
-    ActivityComponent plus(ActivityModule activityModule,
-                           RepositoryModule repositoryModule,
-                           EntityStoreModule entityStoreModule,
-                           CacheModule cacheModule);
+
+    ViewComponent plus(ViewModule viewModule);
 
     void inject(App app);
 }

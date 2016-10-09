@@ -8,32 +8,26 @@ import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.library.presentation.mvp.view.View;
 import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.App;
-import com.buddysearch.android.presentation.di.component.ActivityComponent;
-import com.buddysearch.android.presentation.di.module.ActivityModule;
-import com.buddysearch.android.presentation.di.module.CacheModule;
-import com.buddysearch.android.presentation.di.module.EntityStoreModule;
-import com.buddysearch.android.presentation.di.module.RepositoryModule;
+import com.buddysearch.android.presentation.di.component.ViewComponent;
+import com.buddysearch.android.presentation.di.module.ViewModule;
 
 public abstract class BaseDaggerActivity<VIEW extends View,
         PRESENTER extends BasePresenter,
         BINDING extends ViewDataBinding> extends BaseActivity<VIEW, PRESENTER, BINDING> {
 
-    private ActivityComponent activityComponent;
+    private ViewComponent viewComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        initActivityComponent();
+        initViewComponent();
         super.onCreate(savedInstanceState);
     }
 
-    protected abstract void injectActivityComponent(ActivityComponent activityComponent);
+    protected abstract void injectViewComponent(ViewComponent viewComponent);
 
-    private void initActivityComponent() {
-        activityComponent = ((App) getApplication()).getAppComponent()
-                .plus(new ActivityModule(this),
-                        new RepositoryModule(),
-                        new EntityStoreModule(),
-                        new CacheModule());
-        injectActivityComponent(activityComponent);
+    private void initViewComponent() {
+        viewComponent = ((App) getApplication()).getAppComponent()
+                .plus(new ViewModule(view));
+        injectViewComponent(viewComponent);
     }
 }
