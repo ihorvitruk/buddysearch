@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 
-import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
 import com.buddysearch.android.presentation.di.component.ViewComponent;

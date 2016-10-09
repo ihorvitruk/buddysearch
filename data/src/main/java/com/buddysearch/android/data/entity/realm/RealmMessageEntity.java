@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class RealmMessageEntity extends RealmObject{
+public class RealmMessageEntity extends RealmObject {
 
     @PrimaryKey
     private String messageId;

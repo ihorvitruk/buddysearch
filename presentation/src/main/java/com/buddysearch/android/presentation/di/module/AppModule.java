@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
-import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
 import com.buddysearch.android.presentation.App;

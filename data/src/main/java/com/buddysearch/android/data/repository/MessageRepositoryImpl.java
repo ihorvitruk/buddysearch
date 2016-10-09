@@ -4,9 +4,9 @@ import com.buddysearch.android.data.entity.MessageEntity;
 import com.buddysearch.android.data.mapper.MessageEntityDtoMapper;
 import com.buddysearch.android.data.store.MessageEntityStore;
 import com.buddysearch.android.data.store.cache.MessageCache;
+import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.dto.MessageDto;
 import com.buddysearch.android.domain.repository.MessageRepository;
-import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.repository.RepositoryImpl;
 
