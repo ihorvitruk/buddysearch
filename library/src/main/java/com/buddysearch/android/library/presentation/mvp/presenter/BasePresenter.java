@@ -18,11 +18,11 @@ public abstract class BasePresenter<VIEW extends View> {
     public void attachView(@NonNull VIEW view) {
         this.view = view;
         onViewAttached();
-        networkManager.add(getClass().getName(), this::refreshData);
+        networkManager.add(toString(), this::refreshData);
     }
 
     public void detachView() {
-        networkManager.remove(getClass().getName());
+        networkManager.remove(toString());
         onViewDetached();
         this.view = null;
     }
