@@ -2,10 +2,14 @@ package com.buddysearch.android.presentation.di.module;
 
 import android.content.Context;
 
+import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
+import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
 import com.buddysearch.android.presentation.App;
 import com.buddysearch.android.presentation.R;
+import com.buddysearch.android.presentation.di.scope.ActivityScope;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -66,5 +70,12 @@ public class AppModule {
     @Singleton
     NetworkManager providesNetworkManager() {
         return new NetworkManagerImpl(app);
+    }
+
+
+    @Provides
+    @Singleton
+    AuthManager providesAuthManager(GoogleApiClient googleApiClient) {
+        return new AuthManagerImpl(googleApiClient);
     }
 }
