@@ -1,5 +1,6 @@
 package com.buddysearch.android.presentation.di.component;
 
+import com.buddysearch.android.presentation.App;
 import com.buddysearch.android.presentation.di.module.ActivityModule;
 import com.buddysearch.android.presentation.di.module.AppModule;
 import com.buddysearch.android.presentation.di.module.CacheModule;
@@ -17,4 +18,6 @@ public interface AppComponent {
                            RepositoryModule repositoryModule,
                            EntityStoreModule entityStoreModule,
                            CacheModule cacheModule);
+
+    void inject(App app);
 }

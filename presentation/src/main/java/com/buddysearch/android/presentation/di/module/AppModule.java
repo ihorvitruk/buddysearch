@@ -2,6 +2,8 @@ package com.buddysearch.android.presentation.di.module;
 
 import android.content.Context;
 
+import com.buddysearch.android.library.data.manager.NetworkManager;
+import com.buddysearch.android.library.data.manager.impl.NetworkManagerImpl;
 import com.buddysearch.android.presentation.App;
 import com.buddysearch.android.presentation.R;
 import com.google.android.gms.auth.api.Auth;
@@ -58,5 +60,11 @@ public class AppModule {
         return new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    NetworkManager providesNetworkManager() {
+        return new NetworkManagerImpl(app);
     }
 }

@@ -32,10 +32,4 @@ public final class ActivityModule {
     AuthManager providesAuthManager(CreateUser createUser, GoogleApiClient googleApiClient) {
         return new AuthManagerImpl(createUser, googleApiClient);
     }
-
-    @Provides
-    @ActivityScope
-    NetworkManager providesNetworkManager() {
-        return new NetworkManagerImpl(activity);
-    }
 }

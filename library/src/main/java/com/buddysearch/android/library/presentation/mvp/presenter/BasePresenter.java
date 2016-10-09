@@ -17,14 +17,14 @@ public abstract class BasePresenter<VIEW extends View> {
 
     public void attachView(@NonNull VIEW view) {
         this.view = view;
-        networkManager.register(this::refreshData);
         onViewAttached();
+        networkManager.add(getClass().getName(), this::refreshData);
     }
 
     public void detachView() {
-        networkManager.unregister();
-        this.view = null;
+        networkManager.remove(getClass().getName());
         onViewDetached();
+        this.view = null;
     }
 
     public void resume() {

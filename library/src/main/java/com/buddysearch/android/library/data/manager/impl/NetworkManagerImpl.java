@@ -9,13 +9,16 @@ import android.net.NetworkInfo;
 
 import com.buddysearch.android.library.data.manager.NetworkManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NetworkManagerImpl extends BroadcastReceiver implements NetworkManager {
 
     private Context context;
 
     private IntentFilter connectivityIntentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
-    private Callback callback;
+    private Map<String, Listener> listeners = new HashMap<>();
 
     public NetworkManagerImpl(Context context) {
         this.context = context;
@@ -34,23 +37,34 @@ public class NetworkManagerImpl extends BroadcastReceiver implements NetworkMana
     }
 
     @Override
-    public void register(Callback callback) {
-     /*   context.registerReceiver(this, connectivityIntentFilter);
-        this.callback = callback;*/
-
+    public void start() {
+        context.registerReceiver(this, connectivityIntentFilter);
     }
 
     @Override
-    public void unregister() {
-      /*  context.unregisterReceiver(this);
-        callback = null;*/
+    public void stop() {
+        context.unregisterReceiver(this);
+    }
+
+    @Override
+    public void add(String tag, Listener listener) {
+        listeners.put(tag, listener);
+    }
+
+    @Override
+    public void remove(String tag) {
+        listeners.remove(tag);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (isNetworkAvailable() && callback != null) {
+        if (isNetworkAvailable()) {
             if (!isInitialStickyBroadcast()) {
-                callback.onNetworkAvailable();
+                for (Listener listener : listeners.values()) {
+                    if (listener != null) {
+                        listener.onNetworkAvailable();
+                    }
+                }
             }
         }
     }
