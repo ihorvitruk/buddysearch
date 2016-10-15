@@ -56,6 +56,8 @@ public class AuthManagerImpl implements AuthManager {
             public void onConnected(@Nullable Bundle bundle) {
                 Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
                         status -> {
+                            googleApiClient.disconnect();
+                            googleApiClient.unregisterConnectionCallbacks(this);
                             if (!subscriber.isUnsubscribed()) {
                                 if (status.isSuccess()) {
                                     deleteCache();
@@ -64,7 +66,6 @@ public class AuthManagerImpl implements AuthManager {
                                     subscriber.onError(new AuthException());
                                 }
                             }
-                            googleApiClient.disconnect();
                         });
             }
 

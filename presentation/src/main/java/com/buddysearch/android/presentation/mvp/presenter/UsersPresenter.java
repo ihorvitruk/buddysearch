@@ -132,8 +132,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
             @Override
             public void onNext(String s) {
                 super.onNext(s);
-                view.navigateToSplash();
                 view.hideProgress();
+                view.navigateToSplash();
             }
 
             @Override
