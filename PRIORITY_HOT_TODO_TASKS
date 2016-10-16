@@ -1,6 +1,4 @@
 PRIORITY / HOT TODO TASKS
 
-1. Logout "permission denied" error.
-2. Travis CI, reduce time, optimize building. add more CACHE instead of downloading.
-3. Add versioning. (Debug build - new version, version.properties).
-4. Integrate git flow releases system.
+1. Add versioning. (Debug build - new version, version.properties).
+2. Integrate git flow releases system.

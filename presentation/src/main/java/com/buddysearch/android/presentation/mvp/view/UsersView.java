@@ -13,4 +13,6 @@ public interface UsersView extends View {
     void navigateToSplash();
 
     void navigateToDialog(String peerId);
+
+    void navigateToEditProfile();
 }

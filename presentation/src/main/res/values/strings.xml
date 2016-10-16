@@ -18,4 +18,5 @@
     <string name="deleting">Deleting…</string>
     <string name="editing">Editing…</string>
     <string name="signing_out">Signing out…</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -86,6 +86,11 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
             public void navigateToDialog(String peerId) {
                 DialogActivity.start(UsersActivity.this, peerId);
             }
+
+            @Override
+            public void navigateToEdit() {
+
+            }
         };
     }
 
