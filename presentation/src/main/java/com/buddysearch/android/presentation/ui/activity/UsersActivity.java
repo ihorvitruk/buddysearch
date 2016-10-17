@@ -33,21 +33,22 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
     private UsersAdapter usersAdapter;
 
-    public static void start(Context context, boolean clearStack) {
-        Intent intent = BaseActivity.getBaseStartIntent(context, UsersActivity.class, clearStack);
+    public static void start(Context context) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, UsersActivity.class, false);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUsersRecyclerView();
+
     }
 
     @Override
     public void onLoadFinished() {
         super.onLoadFinished();
-        initSwipeToRefresh();
+        initUi();
+
     }
 
     @Override
@@ -84,17 +85,17 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
             @Override
             public void navigateToSplash() {
-                SplashActivity.start(UsersActivity.this, true);
+                SplashActivity.start(UsersActivity.this);
             }
 
             @Override
             public void navigateToDialog(String peerId) {
-                DialogActivity.start(UsersActivity.this, peerId, false);
+                DialogActivity.start(UsersActivity.this, peerId);
             }
 
             @Override
             public void navigateToEditProfile() {
-                EditProfileActivity.start(UsersActivity.this, false);
+                EditProfileActivity.start(UsersActivity.this);
             }
         };
     }
@@ -112,6 +113,16 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     @Override
     protected void injectViewComponent(ViewComponent viewComponent) {
         viewComponent.inject(this);
+    }
+
+    private void initUi() {
+        initUsersRecyclerView();
+        initEditProfileButton();
+        initSwipeToRefresh();
+    }
+
+    private void initEditProfileButton() {
+        binding.btnEdit.setOnClickListener(view1 -> UsersActivity.this.view.navigateToEditProfile());
     }
 
     private void initUsersRecyclerView() {

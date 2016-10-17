@@ -22,8 +22,8 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     @Inject
     Lazy<SplashPresenter> splashPresenter;
 
-    public static void start(Context context, boolean clearStack) {
-        Intent intent = BaseActivity.getBaseStartIntent(context, SplashActivity.class, clearStack);
+    public static void start(Context context) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, SplashActivity.class, true);
         context.startActivity(intent);
     }
 
@@ -39,12 +39,14 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
 
             @Override
             public void navigateToLogin() {
-                LoginActivity.start(SplashActivity.this, true);
+                LoginActivity.start(SplashActivity.this);
+                finish();
             }
 
             @Override
             public void navigateToUsers() {
-                UsersActivity.start(SplashActivity.this, true);
+                UsersActivity.start(SplashActivity.this);
+                finish();
             }
         };
     }

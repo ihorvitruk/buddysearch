@@ -106,5 +106,6 @@ public abstract class BaseActivity<VIEW extends View,
         if (clearStack) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
+        return intent;
     }
 }

@@ -21,8 +21,8 @@ public class EditProfileActivity extends BaseDaggerActivity<EditProfileView, Edi
     @Inject
     Lazy<EditProfilePresenter> editProfilePresenter;
 
-    public static void start(Context context, boolean clearStack) {
-        Intent intent = BaseActivity.getBaseStartIntent(context, EditProfileActivity.class, clearStack);
+    public static void start(Context context) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, EditProfileActivity.class, false);
         context.startActivity(intent);
     }
 

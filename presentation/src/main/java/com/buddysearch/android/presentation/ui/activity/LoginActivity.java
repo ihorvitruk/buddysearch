@@ -31,8 +31,8 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
     @Inject
     GoogleApiClient googleApiClient;
 
-    public static void start(Context context, boolean clearStack) {
-        Intent intent = BaseActivity.getBaseStartIntent(context, LoginActivity.class, clearStack);
+    public static void start(Context context) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, LoginActivity.class, false);
         context.startActivity(intent);
     }
 
@@ -68,7 +68,8 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
         return new LoginViewImpl(this) {
             @Override
             public void navigateToUsers() {
-                UsersActivity.start(LoginActivity.this, true);
+                UsersActivity.start(LoginActivity.this);
+                finish();
             }
         };
     }

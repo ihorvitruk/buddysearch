@@ -26,6 +26,10 @@
         <activity
             android:name=".ui.activity.DialogActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.EditProfileActivity"
+            android:label="@string/label_edit_profile" />
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

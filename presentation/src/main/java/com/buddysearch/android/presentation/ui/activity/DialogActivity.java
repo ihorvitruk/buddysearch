@@ -36,8 +36,8 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
 
     private MessagesAdapter messagesAdapter;
 
-    public static void start(Context context, String peerId, boolean clearStack) {
-        Intent intent = BaseActivity.getBaseStartIntent(context, DialogActivity.class, clearStack);
+    public static void start(Context context, String peerId) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, DialogActivity.class, false);
         intent.putExtra(KEY_PEER_ID, peerId);
         context.startActivity(intent);
     }

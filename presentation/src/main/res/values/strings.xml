@@ -9,6 +9,7 @@
     <string name="send">Send</string>
     <string name="label_users">Users</string>
     <string name="label_login">Login</string>
+    <string name="label_edit_profile">Edit Profile</string>
     <string name="authenticating">Authenticating…</string>
     <string name="edit_message">Edit message</string>
     <string name="delete_message">Delete message</string>
