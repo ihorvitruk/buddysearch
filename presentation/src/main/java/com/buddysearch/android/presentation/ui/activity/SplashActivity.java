@@ -30,7 +30,7 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     @Override
     public void onLoadFinished() {
         super.onLoadFinished();
-        initSwipeToRefresh();
+        initUi();
     }
 
     @Override
@@ -64,6 +64,10 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     @Override
     protected void injectViewComponent(ViewComponent viewComponent) {
         viewComponent.inject(this);
+    }
+
+    private void initUi() {
+        initSwipeToRefresh();
     }
 
     private void initSwipeToRefresh() {

@@ -39,16 +39,9 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public void onLoadFinished() {
         super.onLoadFinished();
         initUi();
-
     }
 
     @Override
@@ -95,7 +88,7 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
             @Override
             public void navigateToEditProfile() {
-                EditProfileActivity.start(UsersActivity.this);
+                EditProfileActivity.start(UsersActivity.this, presenter.getCurrentUser());
             }
         };
     }

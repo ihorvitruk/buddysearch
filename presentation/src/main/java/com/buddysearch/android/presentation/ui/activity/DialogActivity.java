@@ -45,9 +45,10 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     @Override
     public void onLoadFinished() {
         super.onLoadFinished();
+
         initPeerId();
-        initSendMessageButton();
-        initMessagesRecyclerView();
+
+        initUi();
     }
 
     @Override
@@ -91,6 +92,11 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     @Override
     protected void injectViewComponent(ViewComponent viewComponent) {
         viewComponent.inject(this);
+    }
+
+    private void initUi() {
+        initSendMessageButton();
+        initMessagesRecyclerView();
     }
 
     private void initMessagesRecyclerView() {

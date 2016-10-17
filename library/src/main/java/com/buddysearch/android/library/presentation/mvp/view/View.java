@@ -18,4 +18,5 @@ public interface View {
 
     void hideProgress();
 
+    void hideKeyboard();
 }

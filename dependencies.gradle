@@ -24,6 +24,9 @@ ext {
     firebaseVersion = '9.4.0'
     leakCanaryVersion = '1.3'
     guavaVersion = '19.0'
+    saripaarVersion = '2.0.2'
+    parcelerVersion = '1.1.5'
+    dartVersion = "2.0.1"
 
     //Testing libraries
     jUnitVersion = '4.12'
@@ -44,7 +47,14 @@ ext {
             firebaseAuth    : "com.google.firebase:firebase-auth:${firebaseVersion}",
             leakCanary      : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
             leakCanaryNoOps : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
-            playServicesAuth: "com.google.android.gms:play-services-auth:${playServicesVersion}"
+            playServicesAuth: "com.google.android.gms:play-services-auth:${playServicesVersion}",
+            saripaar        : "com.mobsandgeeks:android-saripaar:${saripaarVersion}",
+            parceler        : "org.parceler:parceler:${parcelerVersion}",
+            parcelerApi     : "org.parceler:parceler-api:${parcelerVersion}",
+            dart            : "com.f2prateek.dart:dart:${dartVersion}",
+            dartProcessor   : "com.f2prateek.dart:dart-processor:${dartVersion}",
+            henson          : "com.f2prateek.dart:henson:${dartVersion}",
+            hensonProcessor : "com.f2prateek.dart:henson-processor:${dartVersion}"
     ]
 
     globalTestDependencies = [

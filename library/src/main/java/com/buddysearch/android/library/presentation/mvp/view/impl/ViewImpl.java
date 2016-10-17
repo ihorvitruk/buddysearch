@@ -2,10 +2,12 @@ package com.buddysearch.android.library.presentation.mvp.view.impl;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.IBinder;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.buddysearch.android.library.R;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
@@ -35,16 +37,25 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     @Override
     public void showMessage(String message) {
+        if (getSnackBarBackground() == null) {
+            return;
+        }
         Snackbar.make(getSnackBarBackground(), message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void showMessage(int messageResId) {
+        if (getContext() == null) {
+            return;
+        }
         showMessage(getContext().getString(messageResId));
     }
 
     @Override
     public void showProgress() {
+        if (getContext() == null) {
+            return;
+        }
         progressDialogHelper.showProgress(getContext(), getContext().getString(R.string.loading));
     }
 
@@ -55,6 +66,9 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     @Override
     public void showProgress(int messageResId) {
+        if (getContext() == null) {
+            return;
+        }
         showProgress(getContext().getString(messageResId));
     }
 
@@ -65,12 +79,24 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     @Override
     public void showProgress(int messageResId, int titleResId) {
+        if (getContext() == null) {
+            return;
+        }
         showProgress(getContext().getString(messageResId), getContext().getString(titleResId));
     }
 
     @Override
     public void hideProgress() {
         progressDialogHelper.hideProgress();
+    }
+
+    @Override
+    public void hideKeyboard() {
+        if (getContext() == null) {
+            return;
+        }
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
     public void initSwipeToRefresh(SwipeRefreshLayout swipeRefreshLayout, BasePresenter presenter) {
@@ -94,6 +120,21 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
             return activity.findViewById(android.R.id.content);
         } else if (fragment != null) {
             return fragment.getView();
+        }
+        return null;
+    }
+
+    private IBinder getWindowToken() {
+        if (activity != null) {
+            View view = activity.getCurrentFocus();
+            return view == null ? null : view.getWindowToken();
+        } else if (fragment != null) {
+            Activity activity = fragment.getActivity();
+            if (activity == null) {
+                return null;
+            }
+            View view = activity.getCurrentFocus();
+            return view == null ? null : view.getWindowToken();
         }
         return null;
     }

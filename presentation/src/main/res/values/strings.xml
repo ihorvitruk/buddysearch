@@ -20,4 +20,8 @@
     <string name="editing">Editing…</string>
     <string name="signing_out">Signing out…</string>
     <string name="edit">Edit</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="save">Save</string>
 </resources>

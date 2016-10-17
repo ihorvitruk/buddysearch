@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
 import rx.Subscriber;
 
 @ViewScope
@@ -32,6 +33,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     //region Data
 
+    @Getter
     private UserModel currentUser;
 
     private List<UserModel> otherUsers;
@@ -70,11 +72,11 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     @Override
     public void refreshData() {
-        getCurrentUser();
-        getUsers();
+        retrieveCurrentUser();
+        retrieveUsers();
     }
 
-    private void getUsers() {
+    private void retrieveUsers() {
         if (otherUsers != null) {
             view.renderUsers(otherUsers);
             return;
@@ -99,7 +101,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
         });
     }
 
-    private void getCurrentUser() {
+    private void retrieveCurrentUser() {
         if (currentUser != null) {
             view.renderCurrentUser(currentUser);
             return;

@@ -2,22 +2,25 @@ package com.buddysearch.android.presentation.mvp.model;
 
 import com.buddysearch.android.domain.dto.Gender;
 
+import org.parceler.Parcel;
+
 import lombok.Data;
 
 @Data
+@Parcel
 public class UserModel {
 
-    private String id;
+    String id;
 
-    private String firstName;
+    String firstName;
 
-    private String lastName;
+    String lastName;
 
-    private int age;
+    int age;
 
-    private Gender gender;
+    Gender gender;
 
-    private float latitude;
+    float latitude;
 
-    private float longitude;
+    float longitude;
 }

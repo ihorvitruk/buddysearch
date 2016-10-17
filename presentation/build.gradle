@@ -39,12 +39,23 @@ dependencies {
     compile project(':library')
 
     compile globalDependencies.rxAndroid
-
     apt globalDependencies.guava
     apt globalDependencies.daggerCompiler
     compile globalDependencies.dagger
     provided globalDependencies.javaxAnnotation
+    compile globalDependencies.saripaar
+
+    compile globalDependencies.parcelerApi
+    apt globalDependencies.parceler
+
+    compile globalDependencies.dart
+    provided globalDependencies.dartProcessor
+
+    compile globalDependencies.henson
+    provided globalDependencies.hensonProcessor
+
     debugCompile globalDependencies.leakCanary
     releaseCompile globalDependencies.leakCanaryNoOps
+
     testCompile globalDependencies.leakCanaryNoOps
 }
