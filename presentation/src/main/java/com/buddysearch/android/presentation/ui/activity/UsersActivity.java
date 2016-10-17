@@ -1,5 +1,6 @@
 package com.buddysearch.android.presentation.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityUsersBinding;
 import com.buddysearch.android.presentation.di.component.ViewComponent;
@@ -30,6 +32,11 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
     Lazy<UsersPresenter> usersPresenter;
 
     private UsersAdapter usersAdapter;
+
+    public static void start(Context context, boolean clearStack) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, UsersActivity.class, clearStack);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,19 +84,17 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
             @Override
             public void navigateToSplash() {
-                Intent intent = new Intent(UsersActivity.this, SplashActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                SplashActivity.start(UsersActivity.this, true);
             }
 
             @Override
             public void navigateToDialog(String peerId) {
-                DialogActivity.start(UsersActivity.this, peerId);
+                DialogActivity.start(UsersActivity.this, peerId, false);
             }
 
             @Override
-            public void navigateToEdit() {
-
+            public void navigateToEditProfile() {
+                EditProfileActivity.start(UsersActivity.this, false);
             }
         };
     }

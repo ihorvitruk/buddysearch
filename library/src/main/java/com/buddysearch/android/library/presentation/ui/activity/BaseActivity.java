@@ -1,5 +1,7 @@
 package com.buddysearch.android.library.presentation.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -97,4 +99,12 @@ public abstract class BaseActivity<VIEW extends View,
     protected abstract Lazy<PRESENTER> initPresenter();
 
     protected abstract BINDING initBinding();
+
+    protected static Intent getBaseStartIntent(Context context, Class<? extends BaseActivity> activityClass, boolean clearStack) {
+        Intent intent = new Intent(context, activityClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (clearStack) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+    }
 }

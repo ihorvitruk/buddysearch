@@ -1,9 +1,11 @@
 package com.buddysearch.android.presentation.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivitySplashBinding;
 import com.buddysearch.android.presentation.di.component.ViewComponent;
@@ -20,6 +22,11 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
     @Inject
     Lazy<SplashPresenter> splashPresenter;
 
+    public static void start(Context context, boolean clearStack) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, SplashActivity.class, clearStack);
+        context.startActivity(intent);
+    }
+
     @Override
     public void onLoadFinished() {
         super.onLoadFinished();
@@ -32,14 +39,12 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
 
             @Override
             public void navigateToLogin() {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                finish();
+                LoginActivity.start(SplashActivity.this, true);
             }
 
             @Override
             public void navigateToUsers() {
-                startActivity(new Intent(SplashActivity.this, UsersActivity.class));
-                finish();
+                UsersActivity.start(SplashActivity.this, true);
             }
         };
     }

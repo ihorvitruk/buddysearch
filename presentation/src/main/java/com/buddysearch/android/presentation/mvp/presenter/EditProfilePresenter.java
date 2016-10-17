@@ -7,10 +7,6 @@ import com.buddysearch.android.presentation.mvp.view.EditProfileView;
 
 import javax.inject.Inject;
 
-/**
- * Created by ihor on 10/16/16.
- */
-
 @ViewScope
 public class EditProfilePresenter extends BasePresenter<EditProfileView> {
 

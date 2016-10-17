@@ -7,10 +7,6 @@ import javax.inject.Singleton;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * Created by ihor on 10/9/16.
- */
-
 @Scope
 @Retention(RUNTIME)
 @Singleton

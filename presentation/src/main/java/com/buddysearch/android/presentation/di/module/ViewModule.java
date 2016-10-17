@@ -8,10 +8,6 @@ import com.buddysearch.android.presentation.di.scope.ViewScope;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by ihor on 10/9/16.
- */
-
 @Module
 public class ViewModule {
 

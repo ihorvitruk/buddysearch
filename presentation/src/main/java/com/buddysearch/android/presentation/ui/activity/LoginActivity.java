@@ -1,9 +1,11 @@
 package com.buddysearch.android.presentation.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityLoginBinding;
 import com.buddysearch.android.presentation.di.component.ViewComponent;
@@ -28,6 +30,11 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
 
     @Inject
     GoogleApiClient googleApiClient;
+
+    public static void start(Context context, boolean clearStack) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, LoginActivity.class, clearStack);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onLoadFinished() {
@@ -61,8 +68,7 @@ public class LoginActivity extends BaseDaggerActivity<LoginView, LoginPresenter,
         return new LoginViewImpl(this) {
             @Override
             public void navigateToUsers() {
-                startActivity(new Intent(LoginActivity.this, UsersActivity.class));
-                finish();
+                UsersActivity.start(LoginActivity.this, true);
             }
         };
     }

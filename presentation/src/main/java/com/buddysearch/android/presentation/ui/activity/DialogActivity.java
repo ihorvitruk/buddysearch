@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 
+import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.databinding.ActivityDialogBinding;
 import com.buddysearch.android.presentation.di.component.ViewComponent;
@@ -35,8 +36,8 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
 
     private MessagesAdapter messagesAdapter;
 
-    public static void start(Context context, String peerId) {
-        Intent intent = new Intent(context, DialogActivity.class);
+    public static void start(Context context, String peerId, boolean clearStack) {
+        Intent intent = BaseActivity.getBaseStartIntent(context, DialogActivity.class, clearStack);
         intent.putExtra(KEY_PEER_ID, peerId);
         context.startActivity(intent);
     }
