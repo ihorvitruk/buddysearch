@@ -29,7 +29,7 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
     }
 
     @Override
-    public void refreshData(LoadDataType loadDataType) {
+    public void refreshData() {
     }
 
     @Override

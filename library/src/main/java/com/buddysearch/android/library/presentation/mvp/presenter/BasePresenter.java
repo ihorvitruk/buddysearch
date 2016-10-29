@@ -15,19 +15,10 @@ public abstract class BasePresenter<VIEW extends View> {
 
     protected VIEW view;
 
-    /**
-     * Use this to define data source for presenter:
-     * - repository (server or storage)
-     * - presenter (from presenter cache)
-     */
-    public enum LoadDataType {
-        FROM_REPOSITORY, FROM_PRESENTER
-    }
-
     public void attachView(@NonNull VIEW view) {
         this.view = view;
         onViewAttached();
-        networkManager.add(toString(), () -> refreshData(LoadDataType.FROM_PRESENTER));
+        networkManager.add(toString(), this::refreshData);
     }
 
     public void detachView() {
@@ -46,7 +37,7 @@ public abstract class BasePresenter<VIEW extends View> {
         onDestroyed();
     }
 
-    public abstract void refreshData(LoadDataType loadDataType);
+    public abstract void refreshData();
 
     protected void onViewAttached() {
     }

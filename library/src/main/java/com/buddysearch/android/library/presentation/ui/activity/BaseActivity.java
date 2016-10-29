@@ -40,7 +40,6 @@ public abstract class BaseActivity<VIEW extends View,
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.attachView(view);
     }
 
     @Override
@@ -57,8 +56,14 @@ public abstract class BaseActivity<VIEW extends View,
 
     @Override
     protected void onStop() {
-        presenter.detachView();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+        presenter = null;
     }
 
     @Override
@@ -76,6 +81,7 @@ public abstract class BaseActivity<VIEW extends View,
     public final void onLoadFinished(Loader<PRESENTER> loader, PRESENTER presenter) {
         this.presenter = presenter;
         onLoadFinished();
+        presenter.attachView(view);
     }
 
     public void onLoadFinished() {
@@ -84,7 +90,6 @@ public abstract class BaseActivity<VIEW extends View,
     @Override
     public final void onLoaderReset(Loader<PRESENTER> loader) {
         onLoadReset();
-        presenter = null;
     }
 
     public void onLoadReset() {

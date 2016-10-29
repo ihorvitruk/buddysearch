@@ -31,7 +31,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     @Override
-    public void refreshData(LoadDataType loadDataType) {
+    public void refreshData() {
     }
 
     @Override

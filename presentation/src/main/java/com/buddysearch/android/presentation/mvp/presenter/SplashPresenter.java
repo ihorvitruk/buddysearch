@@ -20,14 +20,14 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     @Override
-    public void refreshData(LoadDataType loadDataType) {
+    public void refreshData() {
         chooseNavigation();
     }
 
     @Override
     protected void onViewAttached() {
         super.onViewAttached();
-        refreshData(LoadDataType.FROM_REPOSITORY);
+        refreshData();
     }
 
     private void chooseNavigation() {

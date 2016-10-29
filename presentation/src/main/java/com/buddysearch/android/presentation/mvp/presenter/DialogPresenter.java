@@ -125,7 +125,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     }
 
     @Override
-    public void refreshData(LoadDataType loadDataType) {
+    public void refreshData() {
         getMessages();
         getPeerUser();
     }
@@ -133,7 +133,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     @Override
     protected void onViewAttached() {
         super.onViewAttached();
-        refreshData(LoadDataType.FROM_PRESENTER);
+        refreshData();
     }
 
     @Override

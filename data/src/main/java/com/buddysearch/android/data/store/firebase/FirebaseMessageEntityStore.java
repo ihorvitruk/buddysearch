@@ -31,7 +31,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
                 .child(authManager.getCurrentUserId())
                 .child(CHILD_MESSAGES)
                 .child(peerId);
-        return getList(query, MessageEntity.class);
+        return getList(query, MessageEntity.class, false);
     }
 
     @Override

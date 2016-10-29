@@ -31,16 +31,10 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private AuthManager authManager;
 
-    //region Data
+    private Subscriber<String> signOutSubscriber;
 
     @Getter
     private UserModel currentUser;
-
-    private List<UserModel> otherUsers;
-
-    //endregion
-
-    private Subscriber<String> signOutSubscriber;
 
     @Inject
     public UsersPresenter(NetworkManager networkManager, AuthManager authManager,
@@ -55,7 +49,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     @Override
     protected void onViewAttached() {
         super.onViewAttached();
-        refreshData(LoadDataType.FROM_PRESENTER);
+        refreshData();
     }
 
     @Override
@@ -71,25 +65,24 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     @Override
-    public void refreshData(LoadDataType loadDataType) {
-        retrieveCurrentUser(loadDataType);
-        retrieveUsers(loadDataType);
+    public void refreshData() {
+        retrieveCurrentUser();
+        retrieveUsers();
     }
 
-    private void retrieveUsers(LoadDataType loadDataType) {
+    private void retrieveUsers() {
 
-        if (otherUsers != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
+     /*   if (otherUsers != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
             view.renderUsers(otherUsers);
             return;
-        }
+        }*/
 
         view.showProgress();
         getUsers.execute(new DefaultSubscriber<List<UserDto>>(view) {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
-                otherUsers = excludeCurrent(userDtoModelMapper.map2(users));
-                view.renderUsers(otherUsers);
+                view.renderUsers(excludeCurrent(userDtoModelMapper.map2(users)));
                 view.hideProgress();
             }
 
@@ -102,12 +95,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
         });
     }
 
-    private void retrieveCurrentUser(LoadDataType loadDataType) {
-        if (currentUser != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
-            view.renderCurrentUser(currentUser);
-            return;
-        }
-
+    private void retrieveCurrentUser() {
         view.showProgress();
         getUser.execute(authManager.getCurrentUserId(), new DefaultSubscriber<UserDto>(view) {
 

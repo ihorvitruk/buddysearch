@@ -25,12 +25,12 @@ public abstract class FirebaseEntityStore {
         database = FirebaseDatabase.getInstance().getReference();
     }
 
-    protected <T> Observable<T> get(Query query, Class<T> itemClass) {
-        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot, itemClass)));
+    protected <T> Observable<T> get(Query query, Class<T> itemClass, boolean subscribeForSingleEvent) {
+        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extract(dataSnapshot, itemClass)), subscribeForSingleEvent);
     }
 
-    protected <T> Observable<List<T>> getList(Query query, Class<T> itemClass) {
-        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)));
+    protected <T> Observable<List<T>> getList(Query query, Class<T> itemClass, boolean subscribeForSingleEvent) {
+        return getQuery(query, (subscriber, dataSnapshot) -> subscriber.onNext(extractList(dataSnapshot, itemClass)), subscribeForSingleEvent);
     }
 
     protected <T extends Entity, R> Observable<R> create(DatabaseReference databaseReference, T value, R successResponse) {
@@ -70,9 +70,9 @@ public abstract class FirebaseEntityStore {
         return deleteQuery(databaseReference, successResponse);
     }
 
-    private <T> Observable<T> getQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction) {
+    private <T> Observable<T> getQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction, boolean subscribeForSingleEvent) {
         return Observable.create(subscriber -> {
-            ValueEventListener eventListener = query.addValueEventListener(new ValueEventListener() {
+            ValueEventListener eventListener = new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,7 +83,12 @@ public abstract class FirebaseEntityStore {
                 public void onCancelled(DatabaseError databaseError) {
                     subscriber.onError(new FirebaseException(databaseError.getMessage()));
                 }
-            });
+            };
+            if (subscribeForSingleEvent) {
+                query.addListenerForSingleValueEvent(eventListener);
+            } else {
+                query.addValueEventListener(eventListener);
+            }
             subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
         });
     }
