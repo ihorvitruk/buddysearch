@@ -55,7 +55,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     @Override
     protected void onViewAttached() {
         super.onViewAttached();
-        refreshData();
+        refreshData(LoadDataType.FROM_PRESENTER);
     }
 
     @Override
@@ -71,13 +71,14 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     @Override
-    public void refreshData() {
-        retrieveCurrentUser();
-        retrieveUsers();
+    public void refreshData(LoadDataType loadDataType) {
+        retrieveCurrentUser(loadDataType);
+        retrieveUsers(loadDataType);
     }
 
-    private void retrieveUsers() {
-        if (otherUsers != null) {
+    private void retrieveUsers(LoadDataType loadDataType) {
+
+        if (otherUsers != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
             view.renderUsers(otherUsers);
             return;
         }
@@ -101,8 +102,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
         });
     }
 
-    private void retrieveCurrentUser() {
-        if (currentUser != null) {
+    private void retrieveCurrentUser(LoadDataType loadDataType) {
+        if (currentUser != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
             view.renderCurrentUser(currentUser);
             return;
         }

@@ -11,6 +11,8 @@ public interface UserEntityStore extends EntityStore {
 
     Observable<String> createUserIfNotExists(UserEntity userEntity);
 
+    Observable<String> editUser(UserEntity userEntity);
+
     Observable<List<UserEntity>> getUsers();
 
     Observable<UserEntity> getUser(String userId);

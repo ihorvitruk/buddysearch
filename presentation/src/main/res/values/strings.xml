@@ -24,4 +24,5 @@
     <string name="last_name">Last Name</string>
     <string name="age">Age</string>
     <string name="save">Save</string>
+    <string name="user_was_successfully_edited">User was successfully edited.</string>
 </resources>

@@ -102,7 +102,7 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
     public void initSwipeToRefresh(SwipeRefreshLayout swipeRefreshLayout, BasePresenter presenter) {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            presenter.refreshData();
+            presenter.refreshData(BasePresenter.LoadDataType.FROM_REPOSITORY);
         });
     }
 

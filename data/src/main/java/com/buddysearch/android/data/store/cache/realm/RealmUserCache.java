@@ -27,6 +27,12 @@ public class RealmUserCache implements UserCache {
         return null;
     }
 
+    @Override
+    public Observable<String> editUser(UserEntity userEntity) {
+        //cache does not support this method
+        return null;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Observable<List<UserEntity>> getUsers() {

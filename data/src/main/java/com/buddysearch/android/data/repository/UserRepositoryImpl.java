@@ -36,6 +36,15 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
     }
 
     @Override
+    public Observable<String> editUser(UserDto user, Messenger messenger) {
+        if (networkManager.isNetworkAvailable()) {
+            return cloudStore.editUser(entityDtoMapper.map1(user));
+        } else {
+            return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
+        }
+    }
+
+    @Override
     public Observable<List<UserDto>> getUsers(Messenger messenger) {
         Observable<List<UserEntity>> entityObservable;
         if (networkManager.isNetworkAvailable()) {

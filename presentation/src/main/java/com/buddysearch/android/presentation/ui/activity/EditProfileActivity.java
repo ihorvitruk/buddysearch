@@ -82,9 +82,7 @@ public class EditProfileActivity extends BaseDaggerActivity<EditProfileView, Edi
 
     @Override
     protected ActivityEditProfileBinding initBinding() {
-        ActivityEditProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
-
-        return binding;
+        return DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
     }
 
     private void initUi() {
@@ -118,7 +116,10 @@ public class EditProfileActivity extends BaseDaggerActivity<EditProfileView, Edi
             @Override
             public void onValidationSucceeded() {
                 view.hideKeyboard();
-                view.showMessage("saved");
+                user.setFirstName(binding.etFirstName.getText().toString());
+                user.setLastName(binding.etLastName.getText().toString());
+                user.setAge(Integer.valueOf(binding.etAge.getText().toString()));
+                presenter.updateUser(user);
             }
 
             @Override
