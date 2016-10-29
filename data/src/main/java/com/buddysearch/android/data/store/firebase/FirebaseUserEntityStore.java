@@ -33,7 +33,7 @@ public class FirebaseUserEntityStore extends FirebaseEntityStore implements User
     @Override
     public Observable<List<UserEntity>> getUsers() {
         Query query = database.child(CHILD_USERS).orderByKey();
-        return getList(query, UserEntity.class, true);
+        return getList(query, UserEntity.class, false);
     }
 
     @Override
