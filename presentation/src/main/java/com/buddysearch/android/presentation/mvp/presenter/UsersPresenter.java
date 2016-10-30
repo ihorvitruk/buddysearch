@@ -71,12 +71,6 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     }
 
     private void retrieveUsers() {
-
-     /*   if (otherUsers != null && loadDataType != LoadDataType.FROM_REPOSITORY) {
-            view.renderUsers(otherUsers);
-            return;
-        }*/
-
         view.showProgress();
         getUsers.execute(new DefaultSubscriber<List<UserDto>>(view) {
             @Override
@@ -97,7 +91,8 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private void retrieveCurrentUser() {
         view.showProgress();
-        getUser.execute(authManager.getCurrentUserId(), new DefaultSubscriber<UserDto>(view) {
+
+        Subscriber<UserDto> getUserSubscriber = new DefaultSubscriber<UserDto>(view) {
 
             @Override
             public void onNext(UserDto user) {
@@ -112,6 +107,14 @@ public class UsersPresenter extends BasePresenter<UsersView> {
                 super.onError(e);
                 view.showMessage(e.getMessage());
                 view.hideProgress();
+            }
+        };
+
+        getUser.execute(authManager.getCurrentUserId(), getUserSubscriber);
+
+        getUser.setOnUserChanged(userId -> {
+            if (userId.equals(authManager.getCurrentUserId())) {
+                getUser.execute(authManager.getCurrentUserId(), getUserSubscriber);
             }
         });
     }

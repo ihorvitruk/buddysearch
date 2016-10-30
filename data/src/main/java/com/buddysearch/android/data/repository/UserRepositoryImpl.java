@@ -6,17 +6,21 @@ import com.buddysearch.android.data.store.UserEntityStore;
 import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.dto.UserDto;
+import com.buddysearch.android.domain.interactor.UseCase;
+import com.buddysearch.android.domain.listener.OnUserChanged;
 import com.buddysearch.android.domain.repository.UserRepository;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.repository.RepositoryImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 
-public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityDtoMapper> implements UserRepository {
+public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityDtoMapper>
+        implements UserRepository, OnUserChanged {
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
@@ -38,7 +42,7 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
     @Override
     public Observable<String> editUser(UserDto user, Messenger messenger) {
         if (networkManager.isNetworkAvailable()) {
-            return cloudStore.editUser(entityDtoMapper.map1(user));
+            return cloudStore.editUser(entityDtoMapper.map1(user)).doOnNext(this::onUserChanged);
         } else {
             return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
         }
@@ -64,5 +68,15 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
             entityObservable = cache.getUser(userId).doOnNext(userEntities -> messenger.showFromCacheMessage());
         }
         return entityObservable.map(userEntity -> entityDtoMapper.map2(userEntity));
+    }
+
+    @Override
+    public void onUserChanged(String userId) {
+        Collection<UseCase> useCasesList = useCasesMap.values();
+        for (UseCase useCase : useCasesList) {
+            if (useCase instanceof OnUserChanged) {
+                ((OnUserChanged) useCase).onUserChanged(userId);
+            }
+        }
     }
 }

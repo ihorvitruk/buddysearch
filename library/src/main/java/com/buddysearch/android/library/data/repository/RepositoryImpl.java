@@ -1,10 +1,14 @@
 package com.buddysearch.android.library.data.repository;
 
+import com.buddysearch.android.domain.interactor.UseCase;
 import com.buddysearch.android.domain.repository.Repository;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.mapper.BaseMapper;
 import com.buddysearch.android.library.data.store.EntityStore;
 import com.buddysearch.android.library.data.store.cache.Cache;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class RepositoryImpl
         <ENTITY_STORE extends EntityStore,
@@ -19,6 +23,8 @@ public abstract class RepositoryImpl
 
     protected ENTITY_DTO_MAPPER entityDtoMapper;
 
+    protected final Map<String, UseCase> useCasesMap = new HashMap<>();
+
     public RepositoryImpl(NetworkManager networkManager,
                           ENTITY_STORE cloudStore,
                           CACHE cache,
@@ -27,5 +33,19 @@ public abstract class RepositoryImpl
         this.cloudStore = cloudStore;
         this.cache = cache;
         this.entityDtoMapper = entityDtoMapper;
+    }
+
+    @Override
+    public void register(UseCase useCase) {
+        if (useCase != null) {
+            useCasesMap.put(useCase.toString(), useCase);
+        }
+    }
+
+    @Override
+    public void unregister(UseCase useCase) {
+        if (useCase != null) {
+            useCasesMap.remove(useCase.toString());
+        }
     }
 }

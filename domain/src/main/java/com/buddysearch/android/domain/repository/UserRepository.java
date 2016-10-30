@@ -17,5 +17,4 @@ public interface UserRepository extends Repository {
 
     Observable<UserDto> getUser(final String userId, Messenger messenger);
 
-
 }

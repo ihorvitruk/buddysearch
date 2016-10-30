@@ -39,6 +39,7 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
                 .subscribeOn(threadScheduler)
                 .observeOn(postExecutionScheduler)
                 .subscribe(useCaseSubscriber));
+        repository.register(this);
     }
 
     public boolean isUnsubscribed() {
@@ -49,5 +50,6 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
         if (!isUnsubscribed()) {
             subscription.clear();
         }
+        repository.unregister(this);
     }
 }
