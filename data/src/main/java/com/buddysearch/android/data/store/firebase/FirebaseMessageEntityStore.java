@@ -6,9 +6,19 @@ import com.buddysearch.android.data.store.MessageEntityStore;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.net.ssl.HttpsURLConnection;
 
 import rx.Observable;
 
@@ -35,7 +45,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
     }
 
     @Override
-    public Observable<Void> postMessage(MessageEntity message) {
+    public Observable postMessage(MessageEntity message) {
         DatabaseReference ref1 = database
                 .child(CHILD_USERS)
                 .child(message.getSenderId())
@@ -50,7 +60,56 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
                 .child(message.getSenderId());
         Observable o2 = create(ref2, message, null);
 
-        return o1.mergeWith(o2);
+        Observable sendPushObservable = Observable.create((Observable.OnSubscribe<Void>) subscriber -> {
+            sendNotification(message.getReceiverId(), message.getText());
+        });
+
+        return o1.mergeWith(o2).mergeWith(sendPushObservable);
+    }
+
+    /*
+    !!!!!!!!
+    WARNING! Use your own FCM app server to communicate with FCM Connection server
+    instead of sent requests directly from client, because it is dangerous to pass
+    the FCM API key in request from client side.
+    !!!!!!!!
+    */
+    private void sendNotification(String userId, String message) {
+        //send Push Notification
+        HttpsURLConnection connection = null;
+        try {
+
+            URL url = new URL("https://fcm.googleapis.com/fcm/send");
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            //Put below you FCM API Key instead
+            connection.setRequestProperty("Authorization", "key=AIzaSyBwuH39_ks5SGoyeWAMVlYIaYlF73MN_BE");
+
+            JSONObject root = new JSONObject();
+            JSONObject notification = new JSONObject();
+            notification.put("title", message);
+            root.put("notification", notification);
+            root.put("to", "/topics/user_" + userId);
+
+            byte[] outputBytes = root.toString().getBytes("UTF-8");
+            OutputStream os = connection.getOutputStream();
+            os.write(outputBytes);
+            os.flush();
+            os.close();
+            connection.getInputStream(); //do not remove this line. request will not work without it gg
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
     }
 
     @Override

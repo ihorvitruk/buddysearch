@@ -9,6 +9,7 @@ import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ViewScope;
 import com.buddysearch.android.presentation.mvp.view.LoginView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
@@ -47,10 +48,12 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
         signInSubscriber = new DefaultSubscriber<String>(view) {
             @Override
-            public void onNext(String s) {
-                super.onNext(s);
+            public void onNext(String userId) {
+                super.onNext(userId);
                 view.navigateToUsers();
                 view.hideProgress();
+
+                FirebaseMessaging.getInstance().subscribeToTopic("user_" + userId);
             }
 
             @Override

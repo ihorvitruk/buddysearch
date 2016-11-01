@@ -12,6 +12,7 @@ import com.buddysearch.android.presentation.di.scope.ViewScope;
 import com.buddysearch.android.presentation.mapper.UserDtoModelMapper;
 import com.buddysearch.android.presentation.mvp.model.UserModel;
 import com.buddysearch.android.presentation.mvp.view.UsersView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -124,10 +125,11 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
         signOutSubscriber = new DefaultSubscriber<String>(view) {
             @Override
-            public void onNext(String s) {
-                super.onNext(s);
+            public void onNext(String userId) {
+                super.onNext(userId);
                 view.hideProgress();
                 view.navigateToSplash();
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("user_" + userId);
             }
 
             @Override
