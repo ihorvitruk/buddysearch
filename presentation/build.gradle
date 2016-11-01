@@ -54,8 +54,9 @@ dependencies {
     compile globalDependencies.henson
     provided globalDependencies.hensonProcessor
 
+    compile globalDependencies.firebaseMessaging
+
     debugCompile globalDependencies.leakCanary
     releaseCompile globalDependencies.leakCanaryNoOps
-
     testCompile globalDependencies.leakCanaryNoOps
 }

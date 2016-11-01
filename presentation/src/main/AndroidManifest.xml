@@ -3,6 +3,7 @@
     package="com.buddysearch.android.presentation">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.buddysearch.android.presentation.App"
@@ -28,8 +29,24 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.activity.EditProfileActivity"
-            android:label="@string/label_edit_profile" />
+            android:label="@string/label_edit_profile"
             android:windowSoftInputMode="adjustPan" />
+
+        <service
+            android:name=".ui.service.BsFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.service.BsFirebaseInstanceIDService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
