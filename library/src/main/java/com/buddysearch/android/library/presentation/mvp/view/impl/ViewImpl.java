@@ -1,6 +1,7 @@
 package com.buddysearch.android.library.presentation.mvp.view.impl;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.os.IBinder;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     private Fragment fragment;
 
+    private Service service;
+
     private ProgressDialogHelper progressDialogHelper;
 
     public ViewImpl(Activity activity) {
@@ -28,6 +31,11 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     public ViewImpl(Fragment fragment) {
         this.fragment = fragment;
+        init();
+    }
+
+    public ViewImpl(Service service) {
+        this.service = service;
         init();
     }
 
@@ -92,7 +100,7 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     @Override
     public void hideKeyboard() {
-        if (getContext() == null) {
+        if (getContext() == null || getWindowToken() == null) {
             return;
         }
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -111,6 +119,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
             return activity;
         } else if (fragment != null) {
             return fragment.getContext();
+        } else if (service != null) {
+            return service;
         }
         return null;
     }

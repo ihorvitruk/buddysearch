@@ -20,4 +20,5 @@ public interface AppComponent {
     ViewComponent plus(ViewModule viewModule);
 
     void inject(App app);
+
 }

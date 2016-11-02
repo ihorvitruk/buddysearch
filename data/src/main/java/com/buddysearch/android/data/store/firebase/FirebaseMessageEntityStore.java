@@ -25,6 +25,9 @@ import rx.Observable;
 
 public class FirebaseMessageEntityStore extends FirebaseEntityStore implements MessageEntityStore {
 
+    public static final String KEY_FCM_SENDER_ID = "sender_id";
+    public static final String KEY_FCM_TEXT = "text";
+
     public static final String CHILD_MESSAGES = "messages";
     public static final String CHILD_USERS = "users";
 
@@ -95,8 +98,8 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
 
             JSONObject root = new JSONObject();
             JSONObject data = new JSONObject();
-            data.put("text", messageEntity.getText());
-            data.put("sender_id", messageEntity.getSenderId());
+            data.put(KEY_FCM_TEXT, messageEntity.getText());
+            data.put(KEY_FCM_SENDER_ID, messageEntity.getSenderId());
             root.put("data", data);
             root.put("to", "/topics/user_" + messageEntity.getReceiverId());
 

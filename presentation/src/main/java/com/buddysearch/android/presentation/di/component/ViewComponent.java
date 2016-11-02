@@ -7,6 +7,7 @@ import com.buddysearch.android.presentation.ui.activity.EditProfileActivity;
 import com.buddysearch.android.presentation.ui.activity.LoginActivity;
 import com.buddysearch.android.presentation.ui.activity.SplashActivity;
 import com.buddysearch.android.presentation.ui.activity.UsersActivity;
+import com.buddysearch.android.presentation.ui.service.BsFirebaseMessagingService;
 
 import dagger.Subcomponent;
 
@@ -23,4 +24,6 @@ public interface ViewComponent {
     void inject(UsersActivity usersActivity);
 
     void inject(EditProfileActivity editProfileActivity);
+
+    void inject(BsFirebaseMessagingService bsFirebaseMessagingService);
 }
