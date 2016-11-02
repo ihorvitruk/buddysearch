@@ -3,12 +3,11 @@ package com.buddysearch.android.presentation.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.buddysearch.android.data.util.StringUtil;
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 import com.buddysearch.android.library.presentation.ui.activity.BaseActivity;
 import com.buddysearch.android.presentation.R;
@@ -68,7 +67,7 @@ public class UsersActivity extends BaseDaggerActivity<UsersView, UsersPresenter,
 
             @Override
             public void renderCurrentUser(UserModel user) {
-                binding.tvUsername.setText(user.getFirstName() + " " + user.getLastName());
+                binding.tvUsername.setText(StringUtil.concatLinearly(" ", user.getFirstName(), user.getLastName()));
             }
 
             @Override

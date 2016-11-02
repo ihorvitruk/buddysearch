@@ -1,6 +1,7 @@
 package com.buddysearch.android.presentation.mvp.presenter;
 
 import com.buddysearch.android.data.manager.AuthManager;
+import com.buddysearch.android.data.util.StringUtil;
 import com.buddysearch.android.domain.dto.MessageDto;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.message.DeleteMessage;
@@ -170,7 +171,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
             @Override
             public void onNext(UserDto userDto) {
                 super.onNext(userDto);
-                view.setTitle(userDto.getFirstName() + " " + userDto.getLastName());
+                view.setTitle(StringUtil.concatLinearly(" ", userDto.getFirstName(), userDto.getLastName()));
             }
         });
     }
