@@ -22,10 +22,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
 import lombok.Setter;
 
 @ViewScope
 public class DialogPresenter extends BasePresenter<DialogView> {
+
+    @Getter
+    private static String currentPeerId;
 
     private GetMessages getMessages;
 
@@ -37,6 +41,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
 
     private GetUser getUser;
 
+    @Getter
     @Setter
     private String peerId;
 
@@ -135,6 +140,18 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     protected void onViewAttached() {
         super.onViewAttached();
         refreshData();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        currentPeerId = peerId;
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+        currentPeerId = null;
     }
 
     @Override

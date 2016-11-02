@@ -14,4 +14,6 @@ public interface DialogView extends View {
     void clearInput();
 
     void showMessageMenu(MessageModel message, int position);
+
+    void clearMessageNotification();
 }

@@ -1,5 +1,6 @@
 package com.buddysearch.android.presentation.ui.activity;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -76,6 +77,13 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
             public void showMessageMenu(MessageModel message, int position) {
                 showMessagePopup(message, position);
             }
+
+            @Override
+            public void clearMessageNotification() {
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(presenter.getPeerId().hashCode());
+            }
         };
     }
 
@@ -97,6 +105,8 @@ public class DialogActivity extends BaseDaggerActivity<DialogView, DialogPresent
     private void initUi() {
         initSendMessageButton();
         initMessagesRecyclerView();
+
+        view.clearMessageNotification();
     }
 
     private void initMessagesRecyclerView() {

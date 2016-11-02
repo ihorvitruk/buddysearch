@@ -94,10 +94,10 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
                     + context.getString(R.string.fcm_api_key));
 
             JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
-            notification.put("title", messageEntity.getSenderId());
-            notification.put("body", messageEntity.getText());
-            root.put("notification", notification);
+            JSONObject data = new JSONObject();
+            data.put("text", messageEntity.getText());
+            data.put("sender_id", messageEntity.getSenderId());
+            root.put("data", data);
             root.put("to", "/topics/user_" + messageEntity.getReceiverId());
 
             byte[] outputBytes = root.toString().getBytes("UTF-8");
