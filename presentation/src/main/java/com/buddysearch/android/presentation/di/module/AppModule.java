@@ -1,7 +1,5 @@
 package com.buddysearch.android.presentation.di.module;
 
-import android.content.Context;
-
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.manager.impl.AuthManagerImpl;
 import com.buddysearch.android.library.data.manager.NetworkManager;
@@ -32,7 +30,7 @@ public class AppModule {
 
     @Provides
     @AppScope
-    Context provideAppContext() {
+    App provideAppContext() {
         return app;
     }
 

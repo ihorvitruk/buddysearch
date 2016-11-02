@@ -1,7 +1,5 @@
 package com.buddysearch.android.presentation.di.module;
 
-import android.app.Application;
-
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.store.MessageEntityStore;
 import com.buddysearch.android.data.store.UserEntityStore;
