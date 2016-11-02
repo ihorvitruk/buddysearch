@@ -65,7 +65,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
         Observable o2 = create(ref2, message, null);
 
         Observable sendPushObservable = Observable.create((Observable.OnSubscribe<Void>) subscriber -> {
-            sendNotification(message.getReceiverId(), message.getText());
+            sendNotification(message);
         });
 
         return o1.mergeWith(o2).mergeWith(sendPushObservable);
@@ -78,7 +78,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
     the FCM API key in request from client side.
     !!!!!!!!
     */
-    private void sendNotification(String userId, String message) {
+    private void sendNotification(MessageEntity messageEntity) {
         //send Push Notification
         HttpsURLConnection connection = null;
         try {
@@ -95,9 +95,10 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
 
             JSONObject root = new JSONObject();
             JSONObject notification = new JSONObject();
-            notification.put("title", message);
+            notification.put("title", messageEntity.getSenderId());
+            notification.put("body", messageEntity.getText());
             root.put("notification", notification);
-            root.put("to", "/topics/user_" + userId);
+            root.put("to", "/topics/user_" + messageEntity.getReceiverId());
 
             byte[] outputBytes = root.toString().getBytes("UTF-8");
             OutputStream os = connection.getOutputStream();
