@@ -1,5 +1,8 @@
 package com.buddysearch.android.data.store.firebase;
 
+import android.content.Context;
+
+import com.buddysearch.android.data.R;
 import com.buddysearch.android.data.entity.MessageEntity;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.store.MessageEntityStore;
@@ -9,9 +12,7 @@ import com.google.firebase.database.Query;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,9 +30,12 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
 
     private AuthManager authManager;
 
+    private Context context;
+
     @Inject
-    public FirebaseMessageEntityStore(AuthManager authManager) {
+    public FirebaseMessageEntityStore(AuthManager authManager, Context context) {
         this.authManager = authManager;
+        this.context = context;
     }
 
     @Override
@@ -86,7 +90,8 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             //Put below you FCM API Key instead
-            connection.setRequestProperty("Authorization", "key=AIzaSyBwuH39_ks5SGoyeWAMVlYIaYlF73MN_BE");
+            connection.setRequestProperty("Authorization", "key="
+                    + context.getString(R.string.fcm_api_key));
 
             JSONObject root = new JSONObject();
             JSONObject notification = new JSONObject();
