@@ -20,6 +20,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
 
     private Fragment fragment;
 
+    private View view;
+
     private Service service;
 
     private ProgressDialogHelper progressDialogHelper;
@@ -32,6 +34,10 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
     public ViewImpl(Fragment fragment) {
         this.fragment = fragment;
         init();
+    }
+
+    public ViewImpl(View view) {
+        this.view = view;
     }
 
     public ViewImpl(Service service) {
@@ -119,6 +125,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
             return activity;
         } else if (fragment != null) {
             return fragment.getContext();
+        } else if (view != null) {
+            return view.getContext();
         } else if (service != null) {
             return service;
         }
@@ -128,6 +136,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
     private View getSnackBarBackground() {
         if (activity != null) {
             return activity.findViewById(android.R.id.content);
+        } else if (view != null) {
+            return view;
         } else if (fragment != null) {
             return fragment.getView();
         }
@@ -145,6 +155,8 @@ public abstract class ViewImpl implements com.buddysearch.android.library.presen
             }
             View view = activity.getCurrentFocus();
             return view == null ? null : view.getWindowToken();
+        } else if (view != null) {
+            return view.getWindowToken();
         }
         return null;
     }
