@@ -2,6 +2,7 @@ package com.buddysearch.android.data.store.firebase;
 
 import android.content.Context;
 
+import com.buddysearch.android.data.R;
 import com.buddysearch.android.data.entity.MessageEntity;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.store.MessageEntityStore;
@@ -96,7 +97,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
             connection.setRequestProperty("Content-Type", "application/json");
             //Put below you FCM API Key instead
             connection.setRequestProperty("Authorization", "key="
-                    + "AIzaSyBwuH39_ks5SGoyeWAMVlYIaYlF73MN_BE");
+                    + context.getString(R.string.secret));
 
             JSONObject root = new JSONObject();
             JSONObject data = new JSONObject();
