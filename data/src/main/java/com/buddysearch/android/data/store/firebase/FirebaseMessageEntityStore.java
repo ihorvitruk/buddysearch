@@ -97,7 +97,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
             connection.setRequestProperty("Content-Type", "application/json");
             //Put below you FCM API Key instead
             connection.setRequestProperty("Authorization", "key="
-                    + context.getString(R.string.secret));
+                    + context.getString(R.string.fcm_api_key));
 
             JSONObject root = new JSONObject();
             JSONObject data = new JSONObject();
