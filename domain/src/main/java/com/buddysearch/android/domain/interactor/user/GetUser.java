@@ -3,7 +3,7 @@ package com.buddysearch.android.domain.interactor.user;
 import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.UseCase;
-import com.buddysearch.android.domain.listener.OnUserChanged;
+import com.buddysearch.android.domain.listener.OnUserChangedListener;
 import com.buddysearch.android.domain.repository.UserRepository;
 
 import javax.inject.Inject;
@@ -13,10 +13,10 @@ import lombok.Setter;
 import rx.Observable;
 import rx.Scheduler;
 
-public class GetUser extends UseCase<String, UserDto, UserRepository> implements OnUserChanged {
+public class GetUser extends UseCase<String, UserDto, UserRepository> implements OnUserChangedListener {
 
     @Setter
-    private OnUserChanged onUserChanged;
+    private OnUserChangedListener onUserChangedListener;
 
     @Inject
     public GetUser(UserRepository repository,
@@ -32,9 +32,9 @@ public class GetUser extends UseCase<String, UserDto, UserRepository> implements
     }
 
     @Override
-    public void onUserChanged(String userId) {
-        if (onUserChanged != null) {
-            onUserChanged.onUserChanged(userId);
+    public void onDataChanged(String userId) {
+        if (onUserChangedListener != null) {
+            onUserChangedListener.onDataChanged(userId);
         }
     }
 }

@@ -7,7 +7,7 @@ import com.buddysearch.android.data.store.cache.UserCache;
 import com.buddysearch.android.domain.Messenger;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.UseCase;
-import com.buddysearch.android.domain.listener.OnUserChanged;
+import com.buddysearch.android.domain.listener.OnUserChangedListener;
 import com.buddysearch.android.domain.repository.UserRepository;
 import com.buddysearch.android.library.data.manager.NetworkManager;
 import com.buddysearch.android.library.data.repository.RepositoryImpl;
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import rx.Observable;
 
 public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityDtoMapper>
-        implements UserRepository, OnUserChanged {
+        implements UserRepository, OnUserChangedListener {
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
@@ -42,7 +42,7 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
     @Override
     public Observable<String> editUser(UserDto user, Messenger messenger) {
         if (networkManager.isNetworkAvailable()) {
-            return cloudStore.editUser(entityDtoMapper.map1(user)).doOnNext(this::onUserChanged);
+            return cloudStore.editUser(entityDtoMapper.map1(user)).doOnNext(this::onDataChanged);
         } else {
             return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
         }
@@ -71,11 +71,11 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
     }
 
     @Override
-    public void onUserChanged(String userId) {
+    public void onDataChanged(String userId) {
         Collection<UseCase> useCasesList = useCasesMap.values();
         for (UseCase useCase : useCasesList) {
-            if (useCase instanceof OnUserChanged) {
-                ((OnUserChanged) useCase).onUserChanged(userId);
+            if (useCase instanceof OnUserChangedListener) {
+                ((OnUserChangedListener) useCase).onDataChanged(userId);
             }
         }
     }

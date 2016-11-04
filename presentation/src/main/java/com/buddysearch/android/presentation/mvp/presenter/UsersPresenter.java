@@ -113,7 +113,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
         getUser.execute(authManager.getCurrentUserId(), getUserSubscriber);
 
-        getUser.setOnUserChanged(userId -> {
+        getUser.setOnUserChangedListener(userId -> {
             if (userId.equals(authManager.getCurrentUserId())) {
                 getUser.execute(authManager.getCurrentUserId(), getUserSubscriber);
             }
