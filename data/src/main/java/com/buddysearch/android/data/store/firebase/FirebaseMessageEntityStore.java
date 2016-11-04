@@ -2,7 +2,6 @@ package com.buddysearch.android.data.store.firebase;
 
 import android.content.Context;
 
-import com.buddysearch.android.data.R;
 import com.buddysearch.android.data.entity.MessageEntity;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.data.store.MessageEntityStore;
@@ -74,13 +73,16 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
         return o1.mergeWith(o2).mergeWith(sendPushObservable);
     }
 
-    /*
-    !!!!!!!!
-    WARNING! Use your own FCM app server to communicate with FCM Connection server
-    instead of sent requests directly from client, because it is dangerous to pass
-    the FCM API key in request from client side.
-    !!!!!!!!
-    */
+    /**
+     * !!!!!!!!
+     * WARNING! Use your own FCM app server to communicate with FCM Connection server
+     * instead of sent requests directly from client, because it is dangerous to pass
+     * the FCM API key in request from client side.
+     *
+     * @see <a href="https://firebase.googleblog.com/2016/08/sending-notifications-between-android.html"}
+     * for details of how to send User to User messages with own FCM NodeJS Server
+     * !!!!!!!!
+     */
     private void sendNotification(MessageEntity messageEntity) {
         //send Push Notification
         HttpsURLConnection connection = null;
@@ -94,7 +96,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
             connection.setRequestProperty("Content-Type", "application/json");
             //Put below you FCM API Key instead
             connection.setRequestProperty("Authorization", "key="
-                    + context.getString(R.string.fcm_api_key));
+                    + "AIzaSyBwuH39_ks5SGoyeWAMVlYIaYlF73MN_BE");
 
             JSONObject root = new JSONObject();
             JSONObject data = new JSONObject();
