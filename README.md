@@ -6,7 +6,7 @@ But for me, there were a lot of things that I wanted somehow to modify or improv
 ## Change Log
 See [CHANGLELOG.md](https://github.com/ihorvitruk/buddysearch/blob/develop/CHANGELOG.md)
 
-## Demo
+## Demo 1.0.0 (will be updated to 1.1.0 soon) 
 The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. App provides __offline data cache__ with __Realm__.
 
 ![Demo movie]
@@ -17,11 +17,15 @@ The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and t
 * __RxJava/RxAndroid__ - used for multithreading.
 * __FirebaseAuth__ - used for user authentication.
 * __FirebaseDatabase__ - used as a remote data repository.
+* __FirebaseMessaging__ - used for Push Notifications implementation.
 * __Realm__ - used for local data caching.
 * __Play Services Auth__ - used for signing in with Google.
 * __Android Data Binding Library__.
 * __LeakCanary__ - used to avoid possible memory leaks.
 * __Lombok__ - useful annotations.
+* __Parceler__ - used to make work with `Parcelables` more easier.
+* __Saripaar__ - used for user input validation.
+* __Dart / Henson__ - annotation processor that make navigation between screens easier (with extras injection).
 * __AppCompat__, __Design Library__.
 
 Libraries for testing
@@ -50,6 +54,20 @@ Libraries for testing
  * __View__ - MVP View
  * __Presenter__ - MVP Presenter
 * __Library__ module - base classes for __data__ and __presentation__ layers can be found here.
+
+## __Dagger 2__ - dependency injection (implemented on `Presentation` Layer) 
+* __Scope__
+ * `@AppScope` - global scope (one instance of specific object per application)
+ * `@ViewScope` - one instance of specific object per MVP-View. As an MVP-View next android classes can be used: `Activity`, `Fragment`, `View`, `Service`. 
+* __Component__
+ * `AppComponent` - global component (use `@AppScope`)
+ * `ViewComponent` - uses `@ViewScope`
+* __Module__
+ * `AppModule` - provides global application objects like `Schedulers`, `Managers` etc (included in `AppComponent`).
+ * `RepositoryModule` - provides `Repository` objects (included in `AppComponent`).
+ * `CacheModule` - provides `Cache` objects (included in `AppComponent`).
+ * `EntityStoreModule` - provides `EntityStore` objects (included in `AppComponent`).
+ * `ViewModule` - provides `MVP-View`-related objects (included in `ViewComponent`).
 
 ## TODO
 * Add __presentation_mvvm module__ - Write alternative presentation layer to demonstrate MVVM architectural pattern.
