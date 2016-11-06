@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 1.0.1 *(2016-06-11)*
+Version 1.1.0 *(2016-06-11)*
 ----------------------------
 
 * **`Presenters` were moved from `Activities` to `Loaders`**. Now, `Presenters` are not destroyed on configuration changes. That's why it is possible to save some data cache or current state information in them.
