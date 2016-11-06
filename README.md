@@ -3,6 +3,9 @@ This app demonstrates how to use [Uncle Bob's Clean Architecture](https://8thlig
 App is based on [this famous repository](https://github.com/android10/Android-CleanArchitecture) (thanks author for it).
 But for me, there were a lot of things that I wanted somehow to modify or improve, somewhere to simplify or to generify the code with creating __Base__-classes, somewhere to separate or move the code to other places etc. That's why I created this app and I will continue developing it and show, thus, how to apply this architecture approach on real projects. 
 
+## Change Log
+See [CHANGLELOG.md](https://github.com/ihorvitruk/buddysearch/blob/develop/CHANGELOG.md)
+
 ## Demo
 The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. App provides __offline data cache__ with __Realm__.
 
