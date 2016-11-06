@@ -19,7 +19,7 @@ allprojects {
     ext {
         androidApplicationId = 'com.buddysearch.android.presentation'
         androidVersionCode = 1
-        androidVersionName = "1.0"
+        androidVersionName = "1.1.0"
         testApplicationId = 'com.buddysearch.android.presentation.test'
     }
 }
