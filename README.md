@@ -6,11 +6,16 @@ But for me, there were a lot of things that I wanted somehow to modify or improv
 ## Change Log
 See [CHANGLELOG.md](https://github.com/ihorvitruk/buddysearch/blob/develop/CHANGELOG.md)
 
-## Demo 1.0.0 (will be updated to 1.1.0 soon) 
-The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. App provides __offline data cache__ with __Realm__.
+## Demo 1.1.0
+The app, for now, allows to __Sign in with Google__ using __FirebaseAuth__ and to chat with other users across the __FirebaseDatabase__ service. It is also possible to edit and delete your message. App provides __offline data cache__ with __Realm__. Also user can edit his profile on appropriate screen. If user is not on a Dialog Screen or application is in background, the user will receive Push Notification message, which appear in Android Status Bar. By clicking on message notification, Dialog Screen will be opened for messaging.  
 
-![Demo movie]
-(https://github.com/ihorvitruk/buddysearch/blob/master/README/demo.gif)
+Sign In | Push Notification | Edit Profile
+--- | --- | ---
+![Sign in demo movie] (https://github.com/ihorvitruk/buddysearch/blob/develop/README/sign_in.gif) |  ![Push Notification demo movie] (https://github.com/ihorvitruk/buddysearch/blob/develop/README/push_notification.gif) |  ![Edit profile demo movie] (https://github.com/ihorvitruk/buddysearch/blob/develop/README/edit_profile.gif)
+
+Send/Edit/Delete Message | Sign Out
+--- | ---
+![Send/edit/delete message demo movie] (https://github.com/ihorvitruk/buddysearch/blob/develop/README/send_edit_delete_message.gif) |  ![Sign out demo movie] (https://github.com/ihorvitruk/buddysearch/blob/develop/README/sign_out.gif)
 
 ## Used libraries
 * __Dagger2__ - used to make the app more structural and its modules - more independent (weak connected). 
@@ -91,4 +96,3 @@ Libraries for testing
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
