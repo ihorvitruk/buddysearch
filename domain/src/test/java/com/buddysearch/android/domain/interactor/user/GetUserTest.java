@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import rx.functions.Action0;
+import io.reactivex.functions.Action;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -27,12 +27,13 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
         return mock(UserRepository.class);
     }
 
+
     @Test
     @Override
-    public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_USER_ID, new Action0() {
+    public void testBuildUseCaseObservable() throws Exception {
+        testBuildUseCaseObservable(FAKE_USER_ID, new Action() {
             @Override
-            public void call() {
+            public void run() {
                 verify(mockRepository).getUser(FAKE_USER_ID, mockMessenger);
             }
         });

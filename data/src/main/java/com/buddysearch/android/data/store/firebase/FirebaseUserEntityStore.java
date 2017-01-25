@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class FirebaseUserEntityStore extends FirebaseEntityStore implements UserEntityStore {
 

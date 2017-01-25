@@ -3,7 +3,7 @@ package com.buddysearch.android.presentation.mvp.presenter;
 import com.buddysearch.android.data.manager.AuthManager;
 import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
-import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultObserver;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ViewScope;
@@ -13,14 +13,14 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
+import io.reactivex.observers.DisposableObserver;
 
 @ViewScope
 public class LoginPresenter extends BasePresenter<LoginView> {
 
     private AuthManager authManager;
 
-    private Subscriber<String> signInSubscriber;
+    private DisposableObserver<String> signInObserver;
 
     private CreateUser createUser;
 
@@ -38,15 +38,15 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     @Override
     protected void onViewDetached() {
         super.onViewDetached();
-        if (signInSubscriber != null) {
-            signInSubscriber.unsubscribe();
-            signInSubscriber = null;
+        if (signInObserver != null) {
+            signInObserver.dispose();
+            signInObserver = null;
         }
-        createUser.unsubscribe();
+        createUser.dispose();
     }
 
     public void signInWithGoogle(GoogleSignInAccount googleSignInAccount) {
-        signInSubscriber = new DefaultSubscriber<String>(view) {
+        signInObserver = new DefaultObserver<String>(view) {
             @Override
             public void onNext(String userId) {
                 super.onNext(userId);
@@ -63,6 +63,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 view.hideProgress();
             }
         };
-        authManager.signInGoogle(googleSignInAccount, signInSubscriber, createUser);
+        authManager.signInGoogle(googleSignInAccount, signInObserver, createUser);
     }
 }

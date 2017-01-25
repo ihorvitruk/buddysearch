@@ -17,8 +17,8 @@ ext {
 
     //Libraries
     daggerVersion = '2.8'
-    rxJavaVersion = '1.1.8'
-    rxAndroidVersion = '1.2.1'
+    rxJavaVersion = '2.0.4'
+    rxAndroidVersion = '2.0.1'
     lombokVersion = '1.16.10'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
@@ -38,8 +38,8 @@ ext {
             daggerCompiler   : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger           : "com.google.dagger:dagger:${daggerVersion}",
             guava            : "com.google.guava:guava:${guavaVersion}",
-            rxJava           : "io.reactivex:rxjava:${rxJavaVersion}",
-            rxAndroid        : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            rxJava           : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid        : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             lombok           : "org.projectlombok:lombok:${lombokVersion}",
             javaxAnnotation  : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject      : "javax.inject:javax.inject:${javaxInjectVersion}",

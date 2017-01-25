@@ -10,7 +10,7 @@ import com.buddysearch.android.domain.interactor.message.GetMessages;
 import com.buddysearch.android.domain.interactor.message.PostMessage;
 import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
-import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultObserver;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ViewScope;
@@ -75,7 +75,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
         messageModel.setReceiverId(peerId);
         messageModel.setText(message);
         messageModel.setTimestamp(System.currentTimeMillis());
-        postMessage.execute(messageDtoModelMapper.map1(messageModel), new DefaultSubscriber<Void>(view) {
+        postMessage.execute(messageDtoModelMapper.map1(messageModel), new DefaultObserver<Void>(view) {
             @Override
             public void onNext(Void aVoid) {
                 super.onNext(aVoid);
@@ -95,7 +95,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     public void deleteMessage(MessageModel messageModel) {
         view.showProgress(R.string.deleting);
         deleteMessage.execute(messageDtoModelMapper.map1(messageModel),
-                new DefaultSubscriber<Void>(null) {
+                new DefaultObserver<Void>(null) {
                     @Override
                     public void onNext(Void aVoid) {
                         super.onNext(aVoid);
@@ -114,7 +114,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     public void editMessage(MessageModel messageModel) {
         view.showProgress(R.string.editing);
         editMessage.execute(messageDtoModelMapper.map1(messageModel),
-                new DefaultSubscriber<Void>(view) {
+                new DefaultObserver<Void>(view) {
                     @Override
                     public void onNext(Void aVoid) {
                         super.onNext(aVoid);
@@ -157,16 +157,16 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     @Override
     protected void onViewDetached() {
         super.onViewDetached();
-        getMessages.unsubscribe();
-        postMessage.unsubscribe();
-        deleteMessage.unsubscribe();
-        editMessage.unsubscribe();
-        getUser.unsubscribe();
+        getMessages.dispose();
+        postMessage.dispose();
+        deleteMessage.dispose();
+        editMessage.dispose();
+        getUser.dispose();
     }
 
     private void getMessages() {
         view.showProgress();
-        getMessages.execute(peerId, new DefaultSubscriber<List<MessageDto>>(view) {
+        getMessages.execute(peerId, new DefaultObserver<List<MessageDto>>(view) {
             @Override
             public void onNext(List<MessageDto> messages) {
                 super.onNext(messages);
@@ -184,7 +184,7 @@ public class DialogPresenter extends BasePresenter<DialogView> {
     }
 
     private void getPeerUser() {
-        getUser.execute(peerId, new DefaultSubscriber<UserDto>(view) {
+        getUser.execute(peerId, new DefaultObserver<UserDto>(view) {
             @Override
             public void onNext(UserDto userDto) {
                 super.onNext(userDto);

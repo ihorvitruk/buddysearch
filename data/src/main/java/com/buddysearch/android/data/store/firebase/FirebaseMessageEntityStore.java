@@ -21,7 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class FirebaseMessageEntityStore extends FirebaseEntityStore implements MessageEntityStore {
 
@@ -67,9 +67,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
                 .child(message.getSenderId());
         Observable o2 = create(ref2, message, null);
 
-        Observable sendPushObservable = Observable.create((Observable.OnSubscribe<Void>) subscriber -> {
-            sendNotification(message);
-        });
+        Observable sendPushObservable = Observable.create(emitter -> sendNotification(message));
 
         return o1.mergeWith(o2).mergeWith(sendPushObservable);
     }

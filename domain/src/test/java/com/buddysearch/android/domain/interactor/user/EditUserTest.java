@@ -6,7 +6,7 @@ import com.buddysearch.android.domain.repository.UserRepository;
 
 import org.junit.Test;
 
-import rx.functions.Action0;
+import io.reactivex.functions.Action;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -27,10 +27,10 @@ public class EditUserTest extends BaseUseCaseTest<EditUser, UserRepository> {
 
     @Test
     @Override
-    public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(testUser, new Action0() {
+    public void testBuildUseCaseObservable() throws Exception {
+        testBuildUseCaseObservable(testUser, new Action() {
             @Override
-            public void call() {
+            public void run() {
                 verify(mockRepository).editUser(testUser, mockMessenger);
             }
         });

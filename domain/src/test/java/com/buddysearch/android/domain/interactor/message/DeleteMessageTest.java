@@ -6,7 +6,7 @@ import com.buddysearch.android.domain.repository.MessageRepository;
 
 import org.junit.Test;
 
-import rx.functions.Action0;
+import io.reactivex.functions.Action;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -27,10 +27,10 @@ public class DeleteMessageTest extends BaseUseCaseTest<DeleteMessage, MessageRep
 
     @Test
     @Override
-    public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(testMessage, new Action0() {
+    public void testBuildUseCaseObservable() throws Exception {
+        testBuildUseCaseObservable(testMessage, new Action() {
             @Override
-            public void call() {
+            public void run() throws Exception {
                 verify(mockRepository).deleteMessage(testMessage, mockMessenger);
             }
         });

@@ -12,10 +12,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action2;
-import rx.subscriptions.Subscriptions;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
 
 public abstract class FirebaseEntityStore {
 
@@ -38,23 +40,41 @@ public abstract class FirebaseEntityStore {
     }
 
     protected <T extends Entity, R> Observable<R> createIfNotExists(DatabaseReference databaseReference, T value, R successResponse) {
-        return Observable.create(new Observable.OnSubscribe<R>() {
+        return Observable.create(new ObservableOnSubscribe<R>() {
             @Override
-            public void call(Subscriber<? super R> subscriber) {
+            public void subscribe(ObservableEmitter<R> emitter) throws Exception {
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() == null) {
-                            postQuery(databaseReference, value, false, successResponse)
-                                    .subscribe(subscriber);
+                            postQuery(databaseReference, value, false, successResponse).subscribeWith(new Observer<R>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                }
+
+                                @Override
+                                public void onNext(R r) {
+                                    emitter.onNext(r);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    emitter.onError(e);
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    emitter.onComplete();
+                                }
+                            });
                         } else {
-                            subscriber.onNext(successResponse);
+                            emitter.onNext(successResponse);
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                        emitter.onError(new FirebaseException(databaseError.getMessage()));
                     }
                 });
             }
@@ -70,18 +90,21 @@ public abstract class FirebaseEntityStore {
         return deleteQuery(databaseReference, successResponse);
     }
 
-    private <T> Observable<T> getQuery(Query query, Action2<Subscriber<? super T>, DataSnapshot> onNextAction, boolean subscribeForSingleEvent) {
-        return Observable.create(subscriber -> {
+    private <T> Observable<T> getQuery(Query query, BiConsumer<ObservableEmitter<? super T>, DataSnapshot> consumer, boolean subscribeForSingleEvent) {
+        return Observable.create(emitter -> {
             ValueEventListener eventListener = new ValueEventListener() {
-
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    onNextAction.call(subscriber, dataSnapshot);
+                    try {
+                        consumer.accept(emitter, dataSnapshot);
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                    emitter.onError(new FirebaseException(databaseError.getMessage()));
                 }
             };
             if (subscribeForSingleEvent) {
@@ -89,15 +112,15 @@ public abstract class FirebaseEntityStore {
             } else {
                 query.addValueEventListener(eventListener);
             }
-            subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
+            // subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
         });
     }
 
     private <T extends Entity, R> Observable<R> postQuery(DatabaseReference databaseReference, T value, boolean newChild, R successResponse) {
 
-        return Observable.create(new Observable.OnSubscribe<R>() {
+        return Observable.create(new ObservableOnSubscribe<R>() {
             @Override
-            public void call(Subscriber<? super R> subscriber) {
+            public void subscribe(ObservableEmitter<R> e) throws Exception {
                 DatabaseReference reference = databaseReference;
                 if (newChild) {
                     if (value.getId() == null) {
@@ -109,9 +132,9 @@ public abstract class FirebaseEntityStore {
                 }
                 reference.setValue(value, (databaseError, databaseReference1) -> {
                     if (databaseError == null) {
-                        subscriber.onNext(successResponse);
+                        e.onNext(successResponse);
                     } else {
-                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
+                        e.onError(new FirebaseException(databaseError.getMessage()));
                     }
                 });
             }
@@ -119,18 +142,13 @@ public abstract class FirebaseEntityStore {
     }
 
     private <R> Observable<R> deleteQuery(DatabaseReference databaseReference, R successResponse) {
-        return Observable.create(new Observable.OnSubscribe<R>() {
-            @Override
-            public void call(Subscriber<? super R> subscriber) {
-                databaseReference.removeValue((databaseError, databaseReference1) -> {
-                    if (databaseError == null) {
-                        subscriber.onNext(successResponse);
-                    } else {
-                        subscriber.onError(new FirebaseException(databaseError.getMessage()));
-                    }
-                });
+        return Observable.create(e -> databaseReference.removeValue((databaseError, databaseReference1) -> {
+            if (databaseError == null) {
+                e.onNext(successResponse);
+            } else {
+                e.onError(new FirebaseException(databaseError.getMessage()));
             }
-        });
+        }));
     }
 
     private <T> List<T> extractList(DataSnapshot dataSnapshot, Class<T> itemClass) {

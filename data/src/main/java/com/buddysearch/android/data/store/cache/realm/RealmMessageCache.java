@@ -7,8 +7,8 @@ import com.buddysearch.android.data.store.cache.MessageCache;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.realm.Realm;
-import rx.Observable;
 
 public class RealmMessageCache implements MessageCache {
 

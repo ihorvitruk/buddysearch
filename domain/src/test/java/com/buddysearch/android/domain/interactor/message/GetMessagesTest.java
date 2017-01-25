@@ -5,7 +5,7 @@ import com.buddysearch.android.domain.repository.MessageRepository;
 
 import org.junit.Test;
 
-import rx.functions.Action0;
+import io.reactivex.functions.Action;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -26,10 +26,10 @@ public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageReposit
 
     @Test
     @Override
-    public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_PEER_ID, new Action0() {
+    public void testBuildUseCaseObservable() throws Exception {
+        testBuildUseCaseObservable(FAKE_PEER_ID, new Action() {
             @Override
-            public void call() {
+            public void run() {
                 verify(mockRepository).getMessages(FAKE_PEER_ID, mockMessenger);
             }
         });
