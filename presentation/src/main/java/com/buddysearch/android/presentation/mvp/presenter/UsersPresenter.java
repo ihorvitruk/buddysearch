@@ -5,7 +5,7 @@ import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.user.GetUser;
 import com.buddysearch.android.domain.interactor.user.GetUsers;
 import com.buddysearch.android.library.data.manager.NetworkManager;
-import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultObserver;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ViewScope;
@@ -14,12 +14,14 @@ import com.buddysearch.android.presentation.mvp.model.UserModel;
 import com.buddysearch.android.presentation.mvp.view.UsersView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.observers.DisposableObserver;
 import lombok.Getter;
-import rx.Subscriber;
 
 @ViewScope
 public class UsersPresenter extends BasePresenter<UsersView> {
@@ -32,7 +34,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private AuthManager authManager;
 
-    private Subscriber<String> signOutSubscriber;
+    private DisposableObserver<String> signOutObserver;
 
     @Getter
     private UserModel currentUser;
@@ -56,12 +58,12 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     @Override
     protected void onViewDetached() {
         super.onViewDetached();
-        getUsers.unsubscribe();
-        getUser.unsubscribe();
+        getUsers.dispose();
+        getUser.dispose();
 
-        if (signOutSubscriber != null) {
-            signOutSubscriber.unsubscribe();
-            signOutSubscriber = null;
+        if (signOutObserver != null) {
+            signOutObserver.dispose();
+            signOutObserver = null;
         }
     }
 
@@ -73,7 +75,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
 
     private void retrieveUsers() {
         view.showProgress();
-        getUsers.execute(new DefaultSubscriber<List<UserDto>>(view) {
+        getUsers.execute(new DefaultObserver<List<UserDto>>(view) {
             @Override
             public void onNext(List<UserDto> users) {
                 super.onNext(users);
@@ -93,7 +95,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     private void retrieveCurrentUser() {
         view.showProgress();
 
-        Subscriber<UserDto> getUserSubscriber = new DefaultSubscriber<UserDto>(view) {
+        DisposableObserver<UserDto> getUserSubscriber = new DefaultObserver<UserDto>(view) {
 
             @Override
             public void onNext(UserDto user) {
@@ -123,7 +125,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
     public void signOut() {
         view.showProgress(R.string.signing_out);
 
-        signOutSubscriber = new DefaultSubscriber<String>(view) {
+        signOutObserver = new DefaultObserver<String>(view) {
             @Override
             public void onNext(String userId) {
                 super.onNext(userId);
@@ -139,7 +141,7 @@ public class UsersPresenter extends BasePresenter<UsersView> {
                 view.hideProgress();
             }
         };
-        authManager.signOut(signOutSubscriber);
+        authManager.signOut(signOutObserver);
     }
 
     private List<UserModel> excludeCurrent(List<UserModel> users) {

@@ -10,8 +10,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import rx.Observable;
-import rx.Scheduler;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 
 public class GetMessages extends UseCase<String, List<MessageDto>, MessageRepository> {
 

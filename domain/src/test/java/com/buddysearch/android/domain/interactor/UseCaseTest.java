@@ -10,11 +10,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.inject.Named;
 
-import rx.Observable;
-import rx.Scheduler;
-import rx.functions.Action0;
-import rx.observers.TestSubscriber;
-import rx.schedulers.TestScheduler;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.functions.Action;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.TestScheduler;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,17 +25,17 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCaseTest.TestRepository> {
 
-    private TestSubscriber<Integer> testSubscriber;
+    private TestDisposableObserver<Integer> testObserver;
 
     @Override
     public void setUp() {
+        testObserver = new TestDisposableObserver<>();
         super.setUp();
-        testSubscriber = new TestSubscriber<>();
     }
 
     @Override
     protected TestUseCase createUseCase() {
-        return new TestUseCase(mockRepository, mockMessenger, mockThreadScheduler, new TestScheduler());
+        return new TestUseCase(mockRepository, mockMessenger, new TestScheduler(), new TestScheduler());
     }
 
     @Override
@@ -47,10 +47,10 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     @Test
     @Override
-    public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(null, new Action0() {
+    public void testBuildUseCaseObservable() throws Exception {
+        testBuildUseCaseObservable(null, new Action() {
             @Override
-            public void call() {
+            public void run() throws Exception {
                 verify(mockRepository).getData();
             }
         });
@@ -59,19 +59,19 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
     @Test
     @SuppressWarnings("unchecked")
     public void buildUseCaseObservable_AsCorrectResult() {
-        useCase.execute(testSubscriber);
-        assertThat(testSubscriber.getOnNextEvents().size(), is(0));
+        useCase.execute(testObserver);
+        assertThat(testObserver.valuesCount, is(0));
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void unsubscribe_AfterExecute_AsUnsubscribed() {
-        assertThat(useCase.isUnsubscribed(), Is.is(true));
-        useCase.execute(testSubscriber);
+    public void dispose_AfterExecute_AsDisposed() {
+        assertThat(useCase.isDisposed(), Is.is(true));
+        useCase.execute(testObserver);
         // TODO change useCase for longer action to uncomment this line
-        //assertThat(useCase.isUnsubscribed(), Is.is(false));
-        useCase.unsubscribe();
-        assertThat(useCase.isUnsubscribed(), Is.is(true));
+        //assertThat(useCase.isDisposed(), Is.is(false));
+        useCase.dispose();
+        assertThat(useCase.isDisposed(), Is.is(true));
     }
 
     class TestUseCase extends UseCase1<Integer, TestRepository> {
@@ -92,5 +92,22 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
 
     interface TestRepository extends Repository {
         Observable<Integer> getData();
+    }
+
+    private static class TestDisposableObserver<T> extends DisposableObserver<T> {
+        private int valuesCount = 0;
+
+        @Override
+        public void onNext(T value) {
+            valuesCount++;
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onComplete() {
+        }
     }
 }

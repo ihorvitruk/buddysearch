@@ -5,7 +5,7 @@ import com.buddysearch.android.library.data.store.EntityStore;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface MessageEntityStore extends EntityStore {
 

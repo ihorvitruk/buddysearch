@@ -5,12 +5,13 @@ import com.buddysearch.android.domain.repository.Repository;
 
 import javax.inject.Named;
 
-import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
-public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
+public abstract class UseCase<PARAMS, RESULT, REPOSITORY extends Repository> {
 
     protected final REPOSITORY repository;
 
@@ -20,7 +21,7 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
 
     private final Scheduler postExecutionScheduler;
 
-    private CompositeSubscription subscription = new CompositeSubscription();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public UseCase(REPOSITORY repository,
                    Messenger messenger,
@@ -32,24 +33,28 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
         this.postExecutionScheduler = postExecutionScheduler;
     }
 
-    protected abstract Observable<RESPONSE_DATA> buildObservable(REQUEST_DATA requestData);
+    protected abstract Observable<RESULT> buildObservable(PARAMS params);
 
-    public void execute(REQUEST_DATA requestData, Subscriber<RESPONSE_DATA> useCaseSubscriber) {
-        this.subscription.add(this.buildObservable(requestData)
+    public void execute(PARAMS params, DisposableObserver<RESULT> observer) {
+        final Observable<RESULT> observable = this.buildObservable(params)
                 .subscribeOn(threadScheduler)
-                .observeOn(postExecutionScheduler)
-                .subscribe(useCaseSubscriber));
+                .observeOn(postExecutionScheduler);
+        addDisposable(observable.subscribeWith(observer));
         repository.register(this);
     }
 
-    public boolean isUnsubscribed() {
-        return !subscription.hasSubscriptions();
+    boolean isDisposed() {
+        return !compositeDisposable.isDisposed();
     }
 
-    public void unsubscribe() {
-        if (!isUnsubscribed()) {
-            subscription.clear();
+    public void dispose() {
+        if (!isDisposed()) {
+            compositeDisposable.dispose();
         }
         repository.unregister(this);
+    }
+
+    private void addDisposable(Disposable disposable) {
+        compositeDisposable.add(disposable);
     }
 }

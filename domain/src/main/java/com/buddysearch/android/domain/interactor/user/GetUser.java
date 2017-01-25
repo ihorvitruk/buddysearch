@@ -9,9 +9,9 @@ import com.buddysearch.android.domain.repository.UserRepository;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import lombok.Setter;
-import rx.Observable;
-import rx.Scheduler;
 
 public class GetUser extends UseCase<String, UserDto, UserRepository> implements OnUserChangedListener {
 

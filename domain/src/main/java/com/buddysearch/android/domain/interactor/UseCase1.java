@@ -5,12 +5,12 @@ import com.buddysearch.android.domain.repository.Repository;
 
 import javax.inject.Named;
 
-import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.observers.DisposableObserver;
 
-public abstract class UseCase1<RESPONSE_DATA, REPOSITORY extends Repository> extends
-        UseCase<Void, RESPONSE_DATA, REPOSITORY> {
+public abstract class UseCase1<RESULT, REPOSITORY extends Repository> extends
+        UseCase<Void, RESULT, REPOSITORY> {
 
     public UseCase1(REPOSITORY repository,
                     Messenger messenger,
@@ -20,13 +20,13 @@ public abstract class UseCase1<RESPONSE_DATA, REPOSITORY extends Repository> ext
     }
 
     @Override
-    protected Observable<RESPONSE_DATA> buildObservable(Void aVoid) {
+    protected Observable<RESULT> buildObservable(Void aVoid) {
         return buildObservable();
     }
 
-    protected abstract Observable<RESPONSE_DATA> buildObservable();
+    protected abstract Observable<RESULT> buildObservable();
 
-    public void execute(Subscriber<RESPONSE_DATA> useCaseSubscriber) {
-        super.execute(null, useCaseSubscriber);
+    public void execute(DisposableObserver<RESULT> observer) {
+        super.execute(null, observer);
     }
 }

@@ -13,7 +13,7 @@ import com.buddysearch.android.data.store.firebase.FirebaseMessageEntityStore;
 import com.buddysearch.android.data.util.StringUtil;
 import com.buddysearch.android.domain.dto.UserDto;
 import com.buddysearch.android.domain.interactor.user.GetUser;
-import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultObserver;
 import com.buddysearch.android.library.presentation.mvp.view.impl.ViewImpl;
 import com.buddysearch.android.presentation.App;
 import com.buddysearch.android.presentation.di.component.ViewComponent;
@@ -47,7 +47,7 @@ public class BsFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //getUser.unsubscribe(); do not unsubscribe to receive result event when server was destroyed
+        //getUser.dispose(); do not dispose to receive result event when server was destroyed
         viewComponent = null;
     }
 
@@ -63,7 +63,7 @@ public class BsFirebaseMessagingService extends FirebaseMessagingService {
         }
         String text = data.get(FirebaseMessageEntityStore.KEY_FCM_TEXT);
         sendNotification(senderId, text);
-        getUser.execute(senderId, new DefaultSubscriber<UserDto>(null) {
+        getUser.execute(senderId, new DefaultObserver<UserDto>(null) {
             @Override
             public void onNext(UserDto userDto) {
                 super.onNext(userDto);

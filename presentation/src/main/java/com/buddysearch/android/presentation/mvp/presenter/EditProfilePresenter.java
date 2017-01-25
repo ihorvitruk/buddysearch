@@ -2,7 +2,7 @@ package com.buddysearch.android.presentation.mvp.presenter;
 
 import com.buddysearch.android.domain.interactor.user.EditUser;
 import com.buddysearch.android.library.data.manager.NetworkManager;
-import com.buddysearch.android.library.presentation.DefaultSubscriber;
+import com.buddysearch.android.library.presentation.DefaultObserver;
 import com.buddysearch.android.library.presentation.mvp.presenter.BasePresenter;
 import com.buddysearch.android.presentation.R;
 import com.buddysearch.android.presentation.di.scope.ViewScope;
@@ -35,11 +35,11 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
     @Override
     protected void onViewDetached() {
         super.onViewDetached();
-        editUser.unsubscribe();
+        editUser.dispose();
     }
 
     public void updateUser(UserModel userModel) {
-        editUser.execute(userDtoModelMapper.map1(userModel), new DefaultSubscriber<String>(view) {
+        editUser.execute(userDtoModelMapper.map1(userModel), new DefaultObserver<String>(view) {
             @Override
             public void onNext(String s) {
                 super.onNext(s);

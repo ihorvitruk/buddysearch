@@ -17,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import io.reactivex.observers.DisposableObserver;
 import io.realm.Realm;
-import rx.Subscriber;
 
 public class AuthManagerImpl implements AuthManager {
 
@@ -32,15 +32,15 @@ public class AuthManagerImpl implements AuthManager {
     }
 
     @Override
-    public void signInGoogle(GoogleSignInAccount acct, Subscriber<String> subscriber, CreateUser createUser) {
+    public void signInGoogle(GoogleSignInAccount acct, DisposableObserver<String> observer, CreateUser createUser) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
-                    if (!subscriber.isUnsubscribed()) {
+                    if (!observer.isDisposed()) {
                         if (task.isSuccessful()) {
-                            saveUser(task.getResult().getUser(), subscriber, createUser);
+                            saveUser(task.getResult().getUser(), observer, createUser);
                         } else {
-                            subscriber.onError(new FirebaseException(task.getException().getMessage()));
+                            observer.onError(new FirebaseException(task.getException().getMessage()));
                         }
                     }
                 });
@@ -48,7 +48,7 @@ public class AuthManagerImpl implements AuthManager {
 
 
     @Override
-    public void signOut(Subscriber<String> subscriber) {
+    public void signOut(DisposableObserver<String> observer) {
         String id = getCurrentUserId();
         auth.signOut();
         googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -58,12 +58,12 @@ public class AuthManagerImpl implements AuthManager {
                         status -> {
                             googleApiClient.disconnect();
                             googleApiClient.unregisterConnectionCallbacks(this);
-                            if (!subscriber.isUnsubscribed()) {
+                            if (!observer.isDisposed()) {
                                 if (status.isSuccess()) {
                                     deleteCache();
-                                    subscriber.onNext(id);
+                                    observer.onNext(id);
                                 } else {
-                                    subscriber.onError(new AuthException());
+                                    observer.onError(new AuthException());
                                 }
                             }
                         });
@@ -90,7 +90,7 @@ public class AuthManagerImpl implements AuthManager {
         return id;
     }
 
-    private void saveUser(FirebaseUser user, Subscriber<String> subscriber, CreateUser createUser) {
+    private void saveUser(FirebaseUser user, DisposableObserver<String> observer, CreateUser createUser) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getUid());
         if (!TextUtils.isEmpty(user.getDisplayName())) {
@@ -99,7 +99,7 @@ public class AuthManagerImpl implements AuthManager {
             userDto.setLastName(name[1]);
         }
 
-        createUser.execute(userDto, subscriber);
+        createUser.execute(userDto, observer);
     }
 
     private void deleteCache() {

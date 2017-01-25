@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import rx.Scheduler;
-import rx.functions.Action0;
+import io.reactivex.Scheduler;
+import io.reactivex.functions.Action;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -40,11 +40,11 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
 
     protected abstract REPOSITORY createRepository();
 
-    public abstract void testBuildUseCaseObservable();
+    public abstract void testBuildUseCaseObservable() throws Exception;
 
-    protected void testBuildUseCaseObservable(Object requestData, Action0 action) {
-        useCase.buildObservable(requestData);
-        action.call();
+    protected void testBuildUseCaseObservable(Object params, Action action) throws Exception {
+        useCase.buildObservable(params);
+        action.run();
         verifyNoMoreInteractions(mockRepository);
         verifyZeroInteractions(mockThreadScheduler);
         verifyZeroInteractions(mockPostExecutionScheduler);

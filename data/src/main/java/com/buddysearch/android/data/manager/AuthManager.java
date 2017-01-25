@@ -3,13 +3,13 @@ package com.buddysearch.android.data.manager;
 import com.buddysearch.android.domain.interactor.user.CreateUser;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-import rx.Subscriber;
+import io.reactivex.observers.DisposableObserver;
 
 public interface AuthManager {
 
-    void signInGoogle(GoogleSignInAccount acct, Subscriber<String> signInSubscriber, CreateUser createUser);
+    void signInGoogle(GoogleSignInAccount acct, DisposableObserver<String> signInObserver, CreateUser createUser);
 
-    void signOut(Subscriber<String> signOutSubscriber);
+    void signOut(DisposableObserver<String> signOutObserver);
 
     boolean isSignedIn();
 

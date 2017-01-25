@@ -14,7 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, MessageCache, MessageEntityDtoMapper> implements MessageRepository {
 
@@ -42,7 +42,7 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.postMessage(entityDtoMapper.map1(message));
         } else {
-            return Observable.<Void>empty().doOnCompleted(messenger::showNoNetworkMessage);
+            return Observable.<Void>empty().doOnComplete(messenger::showNoNetworkMessage);
         }
     }
 
@@ -51,7 +51,7 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.editMessage(entityDtoMapper.map1(editedMessage));
         } else {
-            return Observable.<Void>empty().doOnCompleted(messenger::showNoNetworkMessage);
+            return Observable.<Void>empty().doOnComplete(messenger::showNoNetworkMessage);
         }
     }
 
@@ -60,7 +60,7 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.deleteMessage(entityDtoMapper.map1(message));
         } else {
-            return Observable.<Void>empty().doOnCompleted(messenger::showNoNetworkMessage);
+            return Observable.<Void>empty().doOnComplete(messenger::showNoNetworkMessage);
         }
     }
 }

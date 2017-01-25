@@ -5,7 +5,7 @@ import com.buddysearch.android.domain.dto.UserDto;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface UserRepository extends Repository {
 

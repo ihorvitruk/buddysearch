@@ -5,7 +5,7 @@ import com.buddysearch.android.domain.dto.MessageDto;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface MessageRepository extends Repository {
 

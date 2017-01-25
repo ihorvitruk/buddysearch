@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityDtoMapper>
         implements UserRepository, OnUserChangedListener {
@@ -35,7 +35,7 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.createUserIfNotExists(entityDtoMapper.map1(user));
         } else {
-            return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
+            return Observable.<String>empty().doOnComplete(messenger::showNoNetworkMessage);
         }
     }
 
@@ -44,7 +44,7 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCach
         if (networkManager.isNetworkAvailable()) {
             return cloudStore.editUser(entityDtoMapper.map1(user)).doOnNext(this::onDataChanged);
         } else {
-            return Observable.<String>empty().doOnCompleted(messenger::showNoNetworkMessage);
+            return Observable.<String>empty().doOnComplete(messenger::showNoNetworkMessage);
         }
     }
 
