@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -39,14 +38,14 @@ dependencies {
     compile project(':library')
 
     compile globalDependencies.rxAndroid
-    apt globalDependencies.guava
-    apt globalDependencies.daggerCompiler
+    annotationProcessor globalDependencies.guava
+    annotationProcessor globalDependencies.daggerCompiler
     compile globalDependencies.dagger
     provided globalDependencies.javaxAnnotation
     compile globalDependencies.saripaar
 
     compile globalDependencies.parcelerApi
-    apt globalDependencies.parceler
+    annotationProcessor globalDependencies.parceler
 
     compile globalDependencies.dart
     provided globalDependencies.dartProcessor
